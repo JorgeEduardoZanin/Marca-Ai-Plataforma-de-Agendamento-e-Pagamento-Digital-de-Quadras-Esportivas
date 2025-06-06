@@ -10,7 +10,7 @@ import com.marcaai.core.usecase.UserCrudService;
 @Configuration
 public class UserCrudConfig {
 	
-	  @Bean
+		@Bean
 	    public UserCrudUseCase userCrudUseCase(UserCrudRepository userCrudRepository) {
 	        return new UserCrudService(userCrudRepository);
 	    }

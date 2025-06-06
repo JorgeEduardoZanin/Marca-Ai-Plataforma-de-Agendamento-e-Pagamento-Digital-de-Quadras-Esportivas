@@ -3,7 +3,7 @@ services:
     container_name: postgresql
     image: postgres:latest
     environment:
-      - POSTGRES_DB=db_spring_testes
+      - POSTGRES_DB=db_marca_ai
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin
     ports:

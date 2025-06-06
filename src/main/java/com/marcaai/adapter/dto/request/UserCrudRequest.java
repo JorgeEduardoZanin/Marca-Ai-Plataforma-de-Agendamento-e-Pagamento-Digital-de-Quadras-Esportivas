@@ -1,4 +1,4 @@
-package com.marcaai.adapter.in.http.dto.request;
+package com.marcaai.adapter.dto.request;
 
 import java.time.LocalDate;
 

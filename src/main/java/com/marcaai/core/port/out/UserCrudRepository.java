@@ -14,4 +14,6 @@ public interface UserCrudRepository {
 	
 	User getUserById(Long id);
 	
+	
+	
 }
