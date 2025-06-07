@@ -3,11 +3,13 @@ package com.marcaai.core.usecase;
 import java.time.Instant;
 import java.util.stream.Collectors;
 
+import org.apache.kafka.common.Uuid;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 
 import com.marcaai.core.domain.Login;
 import com.marcaai.core.domain.Role;
@@ -16,6 +18,8 @@ import com.marcaai.core.port.out.LoginRepository;
 
 public class LoginService implements LoginUseCase {
 
+
+	
 	private final LoginRepository loginRepository;
 	private final JwtEncoder jwtEncoder;
 	private BCryptPasswordEncoder passwordEncoder;
@@ -32,7 +36,7 @@ public class LoginService implements LoginUseCase {
 		
 		var usuarioLogin = loginRepository.findByEmail(login.getEmail());
 		
-		 if (!usuarioLogin.isLoginCorrect(passwordEncoder)) {
+		 if (!usuarioLogin.isLoginCorrect(passwordEncoder, login)) {
 	            throw new BadCredentialsException("user or password is invalid!");
 	        }
 
@@ -57,7 +61,7 @@ public class LoginService implements LoginUseCase {
 	        Login loginResponse = new Login();
 	        loginResponse.setToken(jwtValue);
 	        loginResponse.setExpireIn(expiresIn);
-	        
+	        	      
 	        return loginResponse;
 	}
 

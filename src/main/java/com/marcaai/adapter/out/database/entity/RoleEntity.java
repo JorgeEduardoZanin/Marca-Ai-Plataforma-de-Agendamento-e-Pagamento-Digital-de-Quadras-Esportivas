@@ -11,8 +11,13 @@ public class RoleEntity {
     @Column(name = "role_id")
     private Long roleId;
     private String name;
+    
+    public RoleEntity(Long roleId, String name) {
+		this.roleId = roleId;
+		this.name = name;
+	}
 
-    public RoleEntity() {
+	public RoleEntity() {
 	}
 
 	public Long getRoleId() {

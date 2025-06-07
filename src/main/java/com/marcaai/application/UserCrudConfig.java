@@ -2,8 +2,10 @@ package com.marcaai.application;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.marcaai.core.port.in.UserCrudUseCase;
+import com.marcaai.core.port.out.RoleRepository;
 import com.marcaai.core.port.out.UserCrudRepository;
 import com.marcaai.core.usecase.UserCrudService;
 
@@ -11,8 +13,9 @@ import com.marcaai.core.usecase.UserCrudService;
 public class UserCrudConfig {
 	
 		@Bean
-	    public UserCrudUseCase userCrudUseCase(UserCrudRepository userCrudRepository) {
-	        return new UserCrudService(userCrudRepository);
+	    public UserCrudUseCase userCrudUseCase(UserCrudRepository userCrudRepository, BCryptPasswordEncoder passwordEncoder,
+	    		RoleRepository roleRepository) {
+	        return new UserCrudService(userCrudRepository, passwordEncoder, roleRepository);
 	    }
 
 }

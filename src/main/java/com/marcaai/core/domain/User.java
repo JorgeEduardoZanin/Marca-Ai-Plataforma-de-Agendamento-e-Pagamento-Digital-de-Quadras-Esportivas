@@ -3,6 +3,7 @@ package com.marcaai.core.domain;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Set;
 
 public class User {
 
@@ -33,11 +34,15 @@ public class User {
 	private String password;
 	
 	private LocalDateTime creation_date;
+	
+	private Set<Role> roles;
+
+	public User() {
+	}
 
 	public User(String name, String phone_number, String cpf, String email, String state, String adress,
-			String adress_number, String city, String CEP, String neighborhood, String complement,
+			String adress_number, String city, String cEP, String neighborhood, String complement,
 			LocalDate date_of_birth, String password) {
-
 		this.name = name;
 		this.phone_number = phone_number;
 		this.cpf = cpf;
@@ -46,7 +51,7 @@ public class User {
 		this.adress = adress;
 		this.adress_number = adress_number;
 		this.city = city;
-		this.CEP = CEP;
+		CEP = cEP;
 		this.neighborhood = neighborhood;
 		this.complement = complement;
 		this.date_of_birth = date_of_birth;
@@ -163,6 +168,14 @@ public class User {
 
 	public void setCreation_date(LocalDateTime creation_date) {
 		this.creation_date = creation_date;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 	@Override

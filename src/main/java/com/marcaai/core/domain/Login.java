@@ -70,7 +70,7 @@ public class Login {
 		this.expireIn = expireIn;
 	}
 
-	public boolean isLoginCorrect(PasswordEncoder passwordEncoder) {
-        return passwordEncoder.matches(this.password, this.password);
+	public boolean isLoginCorrect(PasswordEncoder passwordEncoder, Login login) {
+        return passwordEncoder.matches(login.getPassword(), this.password);
     }
 }

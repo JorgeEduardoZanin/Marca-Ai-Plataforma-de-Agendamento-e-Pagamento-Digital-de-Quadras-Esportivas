@@ -62,7 +62,7 @@ public class UserMapper {
 	}
 	
 	public static UserEntity toUserEntity(User userDomain) {
-		return new UserEntity(
+		UserEntity userEntity = new UserEntity(
 				userDomain.getName(),
 					userDomain.getPhone_number(), 
 					userDomain.getCpf(),
@@ -77,6 +77,10 @@ public class UserMapper {
 					userDomain.getDate_of_birth(),
 					userDomain.getPassword()
 					);
+		
+		userEntity.setRoles(RoleMapper.RoleDomainToSetRoleEntity(userDomain));
+		
+		return userEntity;
 	}
 	
 }
