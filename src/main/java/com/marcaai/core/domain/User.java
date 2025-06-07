@@ -4,9 +4,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 public class User {
 
+	private UUID id;
+	
 	private String name;
 	
 	private String phone_number;
@@ -176,6 +179,14 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
 	@Override

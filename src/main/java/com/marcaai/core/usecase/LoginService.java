@@ -3,13 +3,12 @@ package com.marcaai.core.usecase;
 import java.time.Instant;
 import java.util.stream.Collectors;
 
-import org.apache.kafka.common.Uuid;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+
 
 import com.marcaai.core.domain.Login;
 import com.marcaai.core.domain.Role;

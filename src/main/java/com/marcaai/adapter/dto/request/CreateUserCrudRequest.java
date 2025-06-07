@@ -2,7 +2,7 @@ package com.marcaai.adapter.dto.request;
 
 import java.time.LocalDate;
 
-public record UserCrudRequest(
+public record CreateUserCrudRequest(
 		String name, 
 		String phone_number, 
 		String cpf, 

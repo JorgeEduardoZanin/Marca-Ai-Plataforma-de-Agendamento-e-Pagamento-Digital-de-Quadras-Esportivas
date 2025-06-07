@@ -2,6 +2,7 @@ package com.marcaai.core.usecase;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -25,31 +26,39 @@ public class UserCrudService implements UserCrudUseCase{
 	}
 
 	@Override
-	public User createUser(User user) {
+	public void createUser(User user) {
 		
 		Role role = roleRepository.findByName(Role.Values.BASIC.name());
 		
 		user.setRoles(Set.of(role));
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		User saveUser = userCrudRepository.createUser(user);
-		return saveUser;
+		userCrudRepository.createUser(user);
+		
 	}
 
 	@Override
-	public User updateUser(Long id, User user) {
+	public User updateUser(UUID id, User user) {
+		
+		user.setId(id);
+		User updateUser = userCrudRepository.updateUser(user);
+		
+		return updateUser;
+	}
+
+	@Override
+	public Map<String, String> deleteUser(UUID id) {
 		
 		return null;
 	}
 
 	@Override
-	public Map<String, String> deleteUser(Long id) {
+	public User getUserById(UUID id) {
 		
 		return null;
 	}
-
+	
 	@Override
-	public User getUserById(Long id) {
-		
+	public Map<String, String> updatePassword(UUID id, String password){
 		return null;
 	}
 
