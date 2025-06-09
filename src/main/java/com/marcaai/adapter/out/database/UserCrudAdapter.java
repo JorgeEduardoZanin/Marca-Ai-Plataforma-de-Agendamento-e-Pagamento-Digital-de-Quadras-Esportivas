@@ -1,6 +1,5 @@
 package com.marcaai.adapter.out.database;
 
-import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,6 +10,8 @@ import com.marcaai.adapter.out.database.entity.UserEntity;
 import com.marcaai.adapter.out.database.repository.UserCrudDatabaseRepository;
 import com.marcaai.core.domain.User;
 import com.marcaai.core.port.out.UserCrudRepository;
+
+import jakarta.transaction.Transactional;
 
 @Component
 public class UserCrudAdapter implements UserCrudRepository {
@@ -23,7 +24,7 @@ public class UserCrudAdapter implements UserCrudRepository {
 
 	@Override
 	public void createUser(User user) {
-		UserMapper.UserEntitytoUserDomain(userCrudDatabaseRepository.save(UserMapper.toUserEntity(user)));
+		UserMapper.UserEntityToUserDomain(userCrudDatabaseRepository.save(UserMapper.toUserEntity(user)));
 	}
 
 	@Override
@@ -36,25 +37,32 @@ public class UserCrudAdapter implements UserCrudRepository {
 		
 		var userDomain = userCrudDatabaseRepository.saveAndFlush(UserMapper.UpdateUserEntityToUserEntity(user, findUserById));
 		
-		return UserMapper.UserEntitytoUserDomain(userDomain);
+		return UserMapper.UserEntityToUserDomain(userDomain);
 	}
 
 	@Override
-	public Map<String, String> deleteUser(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+	public void deleteUser(UUID id) {
+		userCrudDatabaseRepository.deleteById(id);
 	}
 
 	@Override
 	public User getUserById(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return UserMapper.UserEntityToUserDomain(userCrudDatabaseRepository.findById(id).get());
 	}	
 
+	@Transactional
 	@Override
-	public Map<String, String> updatePassword(UUID id, String password) {
-		// TODO Auto-generated method stub
-		return null;
+	public void updatePassword(UUID id, String password) {
+		
+		userCrudDatabaseRepository.updatePassword(id, password);;
+		
+	}
+
+	
+	@Override
+	public String findPasswordById(UUID id) {
+		return userCrudDatabaseRepository.findPasswordById(id);
 	}
 
 }

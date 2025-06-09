@@ -31,10 +31,10 @@ public class UserEntity {
 	@Column(nullable = false, length = 16)
 	private String phone_number;
 	
-	@Column(name = "cpf", nullable = false, columnDefinition = "CHAR(11)") 
+	@Column(name = "cpf", nullable = false, columnDefinition = "CHAR(11)", unique = true) 
 	private String cpf;
 	
-	@Column(nullable = false, length = 180)
+	@Column(nullable = false, length = 180, unique = true)
 	private String email;
 	
 	@Column(name = "state", nullable = false, columnDefinition = "CHAR(2)") 

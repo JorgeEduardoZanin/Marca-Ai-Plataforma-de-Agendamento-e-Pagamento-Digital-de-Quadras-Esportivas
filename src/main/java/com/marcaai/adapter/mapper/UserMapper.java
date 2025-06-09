@@ -2,7 +2,7 @@ package com.marcaai.adapter.mapper;
 
 import com.marcaai.adapter.dto.request.CreateUserCrudRequest;
 import com.marcaai.adapter.dto.request.UpdateUserCrudRequest;
-import com.marcaai.adapter.dto.response.UpdateUserCrudResponse;
+import com.marcaai.adapter.dto.response.UserCrudResponse;
 import com.marcaai.adapter.out.database.entity.UserEntity;
 import com.marcaai.core.domain.User;
 
@@ -26,7 +26,7 @@ public class UserMapper {
 				);
 	}
 	
-	public static User UserEntitytoUserDomain(UserEntity userEntity) {
+	public static User UserEntityToUserDomain(UserEntity userEntity) {
 		User user = new User(
 				userEntity.getName(),
 				userEntity.getPhone_number(),
@@ -88,8 +88,8 @@ public class UserMapper {
 				);
 	}
 	
-	public static UpdateUserCrudResponse UserToUpdateUserCrudResponse(User userDomain) {
-		return new UpdateUserCrudResponse(
+	public static UserCrudResponse UserToUpdateUserCrudResponse(User userDomain) {
+		return new UserCrudResponse(
 				userDomain.getName(),
 				userDomain.getPhone_number(),
 				userDomain.getEmail(),

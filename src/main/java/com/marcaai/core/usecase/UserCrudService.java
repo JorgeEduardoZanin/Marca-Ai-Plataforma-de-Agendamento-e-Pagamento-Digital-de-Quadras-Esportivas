@@ -1,9 +1,9 @@
 package com.marcaai.core.usecase;
 
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.marcaai.core.domain.Role;
@@ -46,20 +46,28 @@ public class UserCrudService implements UserCrudUseCase{
 	}
 
 	@Override
-	public Map<String, String> deleteUser(UUID id) {
-		
-		return null;
+	public void deleteUser(UUID id) {
+		userCrudRepository.deleteUser(id);
 	}
 
 	@Override
-	public User getUserById(UUID id) {
-		
-		return null;
+	public User getUserById(UUID id) {		
+		return userCrudRepository.getUserById(id);
 	}
 	
 	@Override
-	public Map<String, String> updatePassword(UUID id, String password){
-		return null;
+	public void updatePassword(UUID id, String newPassword){
+		
+		String oldPassword = userCrudRepository.findPasswordById(id);
+		
+		String newHashedPassword = passwordEncoder.encode(newPassword);
+		
+		if(passwordEncoder.matches(newPassword, oldPassword)) {
+			throw new BadCredentialsException("A senha nova tem de ser diferente da antiga.");
+		}
+		
+		userCrudRepository.updatePassword(id, newHashedPassword);
+		
 	}
 
 }

@@ -1,7 +1,7 @@
 package com.marcaai.adapter.dto.response;
 
 
-public record UpdateUserCrudResponse(
+public record UserCrudResponse(
 		String name, 
 		String phone_number, 
 		String email,
