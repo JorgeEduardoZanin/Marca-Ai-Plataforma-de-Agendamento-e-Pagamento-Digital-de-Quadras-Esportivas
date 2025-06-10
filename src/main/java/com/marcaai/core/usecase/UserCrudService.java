@@ -3,11 +3,12 @@ package com.marcaai.core.usecase;
 import java.util.Set;
 import java.util.UUID;
 
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.marcaai.core.domain.Role;
 import com.marcaai.core.domain.User;
+import com.marcaai.core.exception.UserCrudException;
+import com.marcaai.core.exception.enums.ExceptionUserCrudType;
 import com.marcaai.core.port.in.UserCrudUseCase;
 import com.marcaai.core.port.out.RoleRepository;
 import com.marcaai.core.port.out.UserCrudRepository;
@@ -63,7 +64,7 @@ public class UserCrudService implements UserCrudUseCase{
 		String newHashedPassword = passwordEncoder.encode(newPassword);
 		
 		if(passwordEncoder.matches(newPassword, oldPassword)) {
-			throw new BadCredentialsException("A senha nova tem de ser diferente da antiga.");
+			throw new UserCrudException(ExceptionUserCrudType.NEW_PASSWORD_SAME_AS_PREVIOUS_ONE);
 		}
 		
 		userCrudRepository.updatePassword(id, newHashedPassword);

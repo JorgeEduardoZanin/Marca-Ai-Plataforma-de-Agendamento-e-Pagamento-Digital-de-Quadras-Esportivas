@@ -1,8 +1,8 @@
 package com.marcaai.adapter.mapper;
 
-import com.marcaai.adapter.dto.request.CreateUserCrudRequest;
-import com.marcaai.adapter.dto.request.UpdateUserCrudRequest;
-import com.marcaai.adapter.dto.response.UserCrudResponse;
+import com.marcaai.adapter.dto.request.usercrud.CreateUserCrudRequest;
+import com.marcaai.adapter.dto.request.usercrud.UpdateUserCrudRequest;
+import com.marcaai.adapter.dto.response.usercrud.UserCrudResponse;
 import com.marcaai.adapter.out.database.entity.UserEntity;
 import com.marcaai.core.domain.User;
 

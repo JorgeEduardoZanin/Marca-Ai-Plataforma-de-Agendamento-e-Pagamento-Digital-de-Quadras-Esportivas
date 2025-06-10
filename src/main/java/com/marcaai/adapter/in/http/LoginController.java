@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.marcaai.adapter.dto.request.LoginRequest;
-import com.marcaai.adapter.dto.response.LoginResponse;
+import com.marcaai.adapter.dto.request.login.LoginRequest;
+import com.marcaai.adapter.dto.response.login.LoginResponse;
 import com.marcaai.adapter.mapper.LoginMapper;
 import com.marcaai.core.port.in.LoginUseCase;
 

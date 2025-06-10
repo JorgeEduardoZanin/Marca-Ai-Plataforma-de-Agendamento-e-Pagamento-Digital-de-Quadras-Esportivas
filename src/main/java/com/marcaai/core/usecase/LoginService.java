@@ -3,7 +3,6 @@ package com.marcaai.core.usecase;
 import java.time.Instant;
 import java.util.stream.Collectors;
 
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
@@ -12,6 +11,8 @@ import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 
 import com.marcaai.core.domain.Login;
 import com.marcaai.core.domain.Role;
+import com.marcaai.core.exception.LoginException;
+import com.marcaai.core.exception.enums.ExceptionLoginType;
 import com.marcaai.core.port.in.LoginUseCase;
 import com.marcaai.core.port.out.LoginRepository;
 
@@ -36,7 +37,7 @@ public class LoginService implements LoginUseCase {
 		var usuarioLogin = loginRepository.findByEmail(login.getEmail());
 		
 		 if (!usuarioLogin.isLoginCorrect(passwordEncoder, login)) {
-	            throw new BadCredentialsException("user or password is invalid!");
+	            throw new LoginException(ExceptionLoginType.INVALID_PASSWORD_OR_EMAIL);
 	        }
 
 	        var now = Instant.now();

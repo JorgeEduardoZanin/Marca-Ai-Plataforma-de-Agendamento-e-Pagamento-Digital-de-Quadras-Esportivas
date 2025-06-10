@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.marcaai.adapter.dto.request.CreateUserCrudRequest;
-import com.marcaai.adapter.dto.request.UpdatePasswordCrudRequest;
-import com.marcaai.adapter.dto.request.UpdateUserCrudRequest;
-import com.marcaai.adapter.dto.response.UserCrudResponse;
+import com.marcaai.adapter.dto.request.usercrud.CreateUserCrudRequest;
+import com.marcaai.adapter.dto.request.usercrud.UpdatePasswordCrudRequest;
+import com.marcaai.adapter.dto.request.usercrud.UpdateUserCrudRequest;
+import com.marcaai.adapter.dto.response.usercrud.UserCrudResponse;
 import com.marcaai.adapter.mapper.UserMapper;
 import com.marcaai.core.port.in.UserCrudUseCase;
 

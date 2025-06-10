@@ -1,6 +1,8 @@
-package com.marcaai.adapter.dto.request;
+package com.marcaai.adapter.dto.response.usercrud;
 
-public record UpdateUserCrudRequest(String name, 
+
+public record UserCrudResponse(
+		String name, 
 		String phone_number, 
 		String email,
 		String state, 
@@ -9,5 +11,5 @@ public record UpdateUserCrudRequest(String name,
 		String city,
 		String CEP, 
 		String neighborhood, 
-		String complement) {
-}
+		String complement
+		){}

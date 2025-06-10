@@ -2,8 +2,8 @@ package com.marcaai.adapter.mapper;
 
 import java.util.stream.Collectors;
 
-import com.marcaai.adapter.dto.request.LoginRequest;
-import com.marcaai.adapter.dto.response.LoginResponse;
+import com.marcaai.adapter.dto.request.login.LoginRequest;
+import com.marcaai.adapter.dto.response.login.LoginResponse;
 import com.marcaai.adapter.out.database.entity.RoleEntity;
 import com.marcaai.adapter.out.database.entity.UserEntity;
 import com.marcaai.core.domain.Login;

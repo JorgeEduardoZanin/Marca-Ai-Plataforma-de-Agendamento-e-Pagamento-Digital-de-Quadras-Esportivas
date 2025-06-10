@@ -2,13 +2,14 @@ package com.marcaai.adapter.out.database;
 
 import java.util.UUID;
 
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import com.marcaai.adapter.mapper.UserMapper;
 import com.marcaai.adapter.out.database.entity.UserEntity;
 import com.marcaai.adapter.out.database.repository.UserCrudDatabaseRepository;
 import com.marcaai.core.domain.User;
+import com.marcaai.core.exception.UserCrudException;
+import com.marcaai.core.exception.enums.ExceptionUserCrudType;
 import com.marcaai.core.port.out.UserCrudRepository;
 
 import jakarta.transaction.Transactional;
@@ -31,7 +32,7 @@ public class UserCrudAdapter implements UserCrudRepository {
 	public User updateUser(User user) {
 		
 		UserEntity findUserById = userCrudDatabaseRepository.findById(user.getId())
-				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
+				.orElseThrow(() -> new UserCrudException(ExceptionUserCrudType.USER_NOT_FOUND));
 		
 		user.setId(findUserById.getId());
 		
