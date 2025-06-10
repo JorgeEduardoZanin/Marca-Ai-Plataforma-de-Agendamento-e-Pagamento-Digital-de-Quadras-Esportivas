@@ -22,6 +22,8 @@ import com.marcaai.adapter.dto.response.usercrud.UserCrudResponse;
 import com.marcaai.adapter.mapper.UserMapper;
 import com.marcaai.core.port.in.UserCrudUseCase;
 
+import jakarta.validation.Valid;
+
 
 @RestController
 @RequestMapping("/user")
@@ -41,7 +43,7 @@ public class UserController {
 	-
 	*/
 	@PostMapping
-	public ResponseEntity<Map<String, String>> createUser(@RequestBody CreateUserCrudRequest createUserCrudRequest){
+	public ResponseEntity<Map<String, String>> createUser( @Valid @RequestBody CreateUserCrudRequest createUserCrudRequest){
 		userCrudUseCase.createUser(UserMapper.toUserDomain(createUserCrudRequest));
 		return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message:", " Usuário criado com sucesso."));
 		
@@ -75,7 +77,7 @@ public class UserController {
 	}
 	
 	@PutMapping("/password")
-	public ResponseEntity<Map<String, String>> updatePassword(@RequestBody UpdatePasswordCrudRequest userPassword, JwtAuthenticationToken token){
+	public ResponseEntity<Map<String, String>> updatePassword( @Valid @RequestBody UpdatePasswordCrudRequest userPassword, JwtAuthenticationToken token){
 		userCrudUseCase.updatePassword(UUID.fromString(token.getName()), userPassword.password());
 		return ResponseEntity.ok(Map.of("message:", " Senha atualizada com sucesso."));
 	}

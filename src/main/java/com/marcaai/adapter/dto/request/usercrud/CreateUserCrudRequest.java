@@ -2,17 +2,20 @@ package com.marcaai.adapter.dto.request.usercrud;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public record CreateUserCrudRequest(
-		String name, 
-		String phone_number, 
-		String cpf, 
-		String email,
-		String state, 
-		String adress,
-		String adress_number,
-		String city,
-		String CEP, 
-		String neighborhood, 
-		String complement,
-		LocalDate date_of_birth, 
-		String password){}
+		@NotBlank String name, 
+		@NotBlank String phone_number, 
+		@NotBlank String cpf, 
+		@NotBlank String email,
+		@NotBlank String state, 
+		@NotBlank String adress,
+		@NotBlank String adress_number,
+		@NotBlank String city,
+		@NotBlank String CEP, 
+		@NotBlank String neighborhood, 
+		@NotBlank String complement,
+		@NotNull LocalDate date_of_birth, 
+		@NotBlank String password){}

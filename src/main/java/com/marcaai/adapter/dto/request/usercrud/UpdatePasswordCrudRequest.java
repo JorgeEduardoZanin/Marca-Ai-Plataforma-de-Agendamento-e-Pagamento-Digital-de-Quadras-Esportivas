@@ -1,5 +1,7 @@
 package com.marcaai.adapter.dto.request.usercrud;
 
-public record UpdatePasswordCrudRequest(String password) {
+import jakarta.validation.constraints.NotBlank;
+
+public record UpdatePasswordCrudRequest(@NotBlank String password) {
 
 }

@@ -1,5 +1,10 @@
 package com.marcaai.adapter.dto.request.login;
 
-public record LoginRequest(String email, String password) {
+import org.springframework.validation.annotation.Validated;
+
+import jakarta.validation.constraints.NotBlank;
+
+@Validated
+public record LoginRequest(@NotBlank String email, @NotBlank String password) {
 
 }
