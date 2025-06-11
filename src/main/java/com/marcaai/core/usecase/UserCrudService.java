@@ -40,6 +40,8 @@ public class UserCrudService implements UserCrudUseCase{
 	@Override
 	public User updateUser(UUID id, User user) {
 		
+		validateId(id);
+
 		user.setId(id);
 		User updateUser = userCrudRepository.updateUser(user);
 		
@@ -48,17 +50,22 @@ public class UserCrudService implements UserCrudUseCase{
 
 	@Override
 	public void deleteUser(UUID id) {
+		
+		validateId(id);
 		userCrudRepository.deleteUser(id);
 	}
 
 	@Override
 	public User getUserById(UUID id) {		
+		
+		validateId(id);
 		return userCrudRepository.getUserById(id);
 	}
 	
 	@Override
 	public void updatePassword(UUID id, String newPassword){
 		
+		validateId(id);
 		String oldPassword = userCrudRepository.findPasswordById(id);
 		
 		String newHashedPassword = passwordEncoder.encode(newPassword);
@@ -70,5 +77,10 @@ public class UserCrudService implements UserCrudUseCase{
 		userCrudRepository.updatePassword(id, newHashedPassword);
 		
 	}
-
+	
+	public void validateId(UUID id) {
+		if(id == null) {
+			throw new IllegalArgumentException("Id não pode ser nulo");      
+		}
+	}
 }

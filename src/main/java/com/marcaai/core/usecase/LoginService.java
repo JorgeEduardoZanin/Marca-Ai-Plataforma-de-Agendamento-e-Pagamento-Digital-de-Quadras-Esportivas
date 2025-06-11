@@ -22,7 +22,7 @@ public class LoginService implements LoginUseCase {
 	
 	private final LoginRepository loginRepository;
 	private final JwtEncoder jwtEncoder;
-	private BCryptPasswordEncoder passwordEncoder;
+	private final BCryptPasswordEncoder passwordEncoder;
 	
 	public LoginService(LoginRepository loginRepository, JwtEncoder jwtEncoder,
 			BCryptPasswordEncoder bCryptPasswordEncoder) {

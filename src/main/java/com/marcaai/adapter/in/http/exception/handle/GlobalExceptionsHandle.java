@@ -17,7 +17,7 @@ import com.marcaai.adapter.in.http.exception.ResponseError;
 public class GlobalExceptionsHandle extends ResponseEntityExceptionHandler{
 
 	@Override
-	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex , HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 		var errors = ex.getFieldErrors().stream()
 				.map(item -> item.getField() + " " + item.getDefaultMessage())
 				.toList();
