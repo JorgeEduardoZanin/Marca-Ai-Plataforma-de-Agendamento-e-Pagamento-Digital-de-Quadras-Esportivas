@@ -2,34 +2,30 @@ package com.marcaai.core.usecase;
 
 import java.util.Set;
 import java.util.UUID;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import com.marcaai.core.domain.Role;
 import com.marcaai.core.domain.User;
 import com.marcaai.core.exception.UserCrudException;
 import com.marcaai.core.exception.enums.ExceptionUserCrudType;
 import com.marcaai.core.port.in.UserCrudUseCase;
-import com.marcaai.core.port.out.RoleRepository;
 import com.marcaai.core.port.out.UserCrudRepository;
 
 public class UserCrudService implements UserCrudUseCase{
 
+	private final RoleService roleService;
 	private final UserCrudRepository userCrudRepository;
 	private final BCryptPasswordEncoder passwordEncoder;
-	private final RoleRepository roleRepository;
 
-	public UserCrudService(UserCrudRepository userCrudRepository, BCryptPasswordEncoder passwordEncoder,
-			RoleRepository roleRepository) {
+	public UserCrudService(RoleService roleService, UserCrudRepository userCrudRepository, BCryptPasswordEncoder passwordEncoder) {
+		this.roleService = roleService;
 		this.userCrudRepository = userCrudRepository;
 		this.passwordEncoder = passwordEncoder;
-		this.roleRepository = roleRepository;
 	}
 
 	@Override
 	public void createUser(User user) {
 		
-		Role role = roleRepository.findByName(Role.Values.BASIC.name());
+		Role role = roleService.findBasicRole();
 		
 		user.setRoles(Set.of(role));
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
