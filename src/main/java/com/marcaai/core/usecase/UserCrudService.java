@@ -3,8 +3,11 @@ package com.marcaai.core.usecase;
 import java.util.Set;
 import java.util.UUID;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.marcaai.core.domain.Address;
 import com.marcaai.core.domain.Role;
 import com.marcaai.core.domain.User;
+import com.marcaai.core.domain.group.UserAndAddressGrouping;
 import com.marcaai.core.exception.UserCrudException;
 import com.marcaai.core.exception.enums.ExceptionUserCrudType;
 import com.marcaai.core.port.in.UserCrudUseCase;
@@ -12,36 +15,42 @@ import com.marcaai.core.port.out.UserCrudRepository;
 
 public class UserCrudService implements UserCrudUseCase{
 
+	private final AddressService addressService;
 	private final RoleService roleService;
 	private final UserCrudRepository userCrudRepository;
 	private final BCryptPasswordEncoder passwordEncoder;
 
-	public UserCrudService(RoleService roleService, UserCrudRepository userCrudRepository, BCryptPasswordEncoder passwordEncoder) {
+	public UserCrudService(RoleService roleService, UserCrudRepository userCrudRepository, BCryptPasswordEncoder passwordEncoder, AddressService addressService) {
 		this.roleService = roleService;
 		this.userCrudRepository = userCrudRepository;
 		this.passwordEncoder = passwordEncoder;
+		this.addressService = addressService;
 	}
 
 	@Override
-	public void createUser(User user) {
+	public void createUser(User user, Address address) {
 		
 		Role role = roleService.findBasicRole();
 		
 		user.setRoles(Set.of(role));
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		userCrudRepository.createUser(user);
+		
+		UUID idNewUser = userCrudRepository.createUser(user);
+		
+		addressService.createAddress(address, idNewUser);
 		
 	}
 
 	@Override
-	public User updateUser(UUID id, User user) {
+	public UserAndAddressGrouping updateUser(UUID id, User user, Address addres) {
 		
 		validateId(id);
 
 		user.setId(id);
+		Address address = addressService.updateAddress(addres, user);
 		User updateUser = userCrudRepository.updateUser(user);
 		
-		return updateUser;
+		return new UserAndAddressGrouping(updateUser, address);
 	}
 
 	@Override

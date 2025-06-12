@@ -60,14 +60,7 @@ class UserCrudServiceTest {
 	            "João Silva",              
 	            "11988887777",            
 	            "12345678901",             
-	            "joao.silva@example.com",  
-	            "SP",                     
-	            "Rua das Flores",         
-	            "123",                 
-	            "São Paulo",            
-	            "01001000",               
-	            "Centro",                
-	            "Apto 45",               
+	            "joao.silva@example.com",          
 	            LocalDate.of(1990, 5, 20), 
 	            "senhaCriptografada"      
 	        );
@@ -132,15 +125,15 @@ class UserCrudServiceTest {
 		@DisplayName("Should update a user with sucess")
 		void ShouldUpdateAUserWithSucess() {
 			User user = new User();
-			user.setAdress("rua batata palha");
-			user.setCity("nova cidade");
+			user.setName("rua batata palha");
+			user.setPhone_number("nova cidade");
 			
 			doReturn(user).when(userCrudRepository).updateUser(any());
 
 			var input = userCrudService.updateUser(UUID.randomUUID(), user);
 			
 			verify(userCrudRepository, times(1)).updateUser(userArgumentCaptor.capture());
-			assertEquals(input.getAdress(), userArgumentCaptor.getValue().getAdress());
+			assertEquals(input.getPhone_number(), userArgumentCaptor.getValue().getPhone_number());
 			assertNotNull(input);
 		}
 		

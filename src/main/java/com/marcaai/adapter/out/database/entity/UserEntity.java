@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Past;
 
@@ -37,27 +39,6 @@ public class UserEntity {
 	@Column(nullable = false, length = 180, unique = true)
 	private String email;
 	
-	@Column(name = "state", nullable = false, columnDefinition = "CHAR(2)") 
-	private String state;
-	
-	@Column(nullable = false, length = 255)
-	private String adress;
-	
-	@Column(nullable = false, length = 10)
-	private String adress_number;
-	
-	@Column(nullable = false, length = 100)
-	private String city;
-	
-	@Column(name = "CEP", nullable = false, columnDefinition = "CHAR(8)") 
-	private String CEP;
-
-	@Column(nullable = false, length = 100)
-	private String neighborhood;
-	
-	@Column(nullable = false, length = 100)
-	private String complement;
-	
 	@Past
 	@Column(nullable = false)
 	private LocalDate date_of_birth;
@@ -72,24 +53,18 @@ public class UserEntity {
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<RoleEntity> roles;
 	
+	@OneToOne(mappedBy = "userEntity", cascade = CascadeType.ALL)
+	private AddressEntity addressEntity;
+	
 	public UserEntity() {
 	}
 
-	public UserEntity( String name, String phone_number, String cpf, String email, String state, String adress,
-		String adress_number, String city, String cEP, String neighborhood, String complement,
-		LocalDate date_of_birth, String password) {
+	public UserEntity( String name, String phone_number, String cpf, String email, LocalDate date_of_birth, String password) {
 		
 		this.name = name;
 		this.phone_number = phone_number;
 		this.cpf = cpf;
 		this.email = email;
-		this.state = state;
-		this.adress = adress;
-		this.adress_number = adress_number;
-		this.city = city;
-		CEP = cEP;
-		this.neighborhood = neighborhood;
-		this.complement = complement;
 		this.date_of_birth = date_of_birth;
 		this.password = password;
 	}
@@ -134,62 +109,6 @@ public class UserEntity {
 		this.email = email;
 	}
 
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getAdress() {
-		return adress;
-	}
-
-	public void setAdress(String adress) {
-		this.adress = adress;
-	}
-
-	public String getAdress_number() {
-		return adress_number;
-	}
-
-	public void setAdress_number(String adress_number) {
-		this.adress_number = adress_number;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getCEP() {
-		return CEP;
-	}
-
-	public void setCEP(String cEP) {
-		CEP = cEP;
-	}
-
-	public String getNeighborhood() {
-		return neighborhood;
-	}
-
-	public void setNeighborhood(String neighborhood) {
-		this.neighborhood = neighborhood;
-	}
-
-	public String getComplement() {
-		return complement;
-	}
-
-	public void setComplement(String complement) {
-		this.complement = complement;
-	}
-
 	public LocalDate getDate_of_birth() {
 		return date_of_birth;
 	}
@@ -220,5 +139,13 @@ public class UserEntity {
 
 	public void setRoles(Set<RoleEntity> roles) {
 		this.roles = roles;
+	}
+
+	public AddressEntity getAddressEntity() {
+		return addressEntity;
+	}
+
+	public void setAddressEntity(AddressEntity addressEntity) {
+		this.addressEntity = addressEntity;
 	}
 }

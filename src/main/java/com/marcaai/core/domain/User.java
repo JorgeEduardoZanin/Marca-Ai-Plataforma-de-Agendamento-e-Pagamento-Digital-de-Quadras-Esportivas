@@ -18,20 +18,6 @@ public class User {
 	
 	private String email;
 	
-	private String state;
-	
-	private String adress;
-	
-	private String adress_number;
-	
-	private String city;
-	
-	private String CEP;
-	
-	private String neighborhood;
-	
-	private String complement;
-	
 	private LocalDate date_of_birth;
 	
 	private String password;
@@ -43,20 +29,11 @@ public class User {
 	public User() {
 	}
 
-	public User(String name, String phone_number, String cpf, String email, String state, String adress,
-			String adress_number, String city, String cEP, String neighborhood, String complement,
-			LocalDate date_of_birth, String password) {
+	public User(String name, String phone_number, String cpf, String email, LocalDate date_of_birth, String password) {
 		this.name = name;
 		this.phone_number = phone_number;
 		this.cpf = cpf;
 		this.email = email;
-		this.state = state;
-		this.adress = adress;
-		this.adress_number = adress_number;
-		this.city = city;
-		CEP = cEP;
-		this.neighborhood = neighborhood;
-		this.complement = complement;
 		this.date_of_birth = date_of_birth;
 		this.password = password;
 	}
@@ -91,62 +68,6 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getAdress() {
-		return adress;
-	}
-
-	public void setAdress(String adress) {
-		this.adress = adress;
-	}
-
-	public String getAdress_number() {
-		return adress_number;
-	}
-
-	public void setAdress_number(String adress_number) {
-		this.adress_number = adress_number;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getCEP() {
-		return CEP;
-	}
-
-	public void setCEP(String CEP) {
-		this.CEP = CEP;
-	}
-
-	public String getNeighborhood() {
-		return neighborhood;
-	}
-
-	public void setNeighborhood(String neighborhood) {
-		this.neighborhood = neighborhood;
-	}
-
-	public String getComplement() {
-		return complement;
-	}
-
-	public void setComplement(String complement) {
-		this.complement = complement;
 	}
 
 	public LocalDate getDate_of_birth() {
@@ -191,8 +112,7 @@ public class User {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(CEP, adress, adress_number, city, complement, cpf, creation_date, date_of_birth, email,
-				name, neighborhood, password, phone_number, state);
+		return Objects.hash(cpf, creation_date, date_of_birth, email, id, name, password, phone_number, roles);
 	}
 
 	@Override
@@ -204,14 +124,11 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(CEP, other.CEP) && Objects.equals(adress, other.adress)
-				&& Objects.equals(adress_number, other.adress_number) && Objects.equals(city, other.city)
-				&& Objects.equals(complement, other.complement) && Objects.equals(cpf, other.cpf)
-				&& Objects.equals(creation_date, other.creation_date)
+		return Objects.equals(cpf, other.cpf) && Objects.equals(creation_date, other.creation_date)
 				&& Objects.equals(date_of_birth, other.date_of_birth) && Objects.equals(email, other.email)
-				&& Objects.equals(name, other.name) && Objects.equals(neighborhood, other.neighborhood)
+				&& Objects.equals(id, other.id) && Objects.equals(name, other.name)
 				&& Objects.equals(password, other.password) && Objects.equals(phone_number, other.phone_number)
-				&& Objects.equals(state, other.state);
+				&& Objects.equals(roles, other.roles);
 	}
 	
 }

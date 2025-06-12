@@ -13,7 +13,6 @@ import com.marcaai.adapter.out.database.entity.UserEntity;
 @Repository
 public interface UserCrudDatabaseRepository extends JpaRepository<UserEntity, UUID>{
 
-	
 	@Query("SELECT u.password FROM UserEntity u WHERE u.id = :id")
     String findPasswordById(UUID id);
 	

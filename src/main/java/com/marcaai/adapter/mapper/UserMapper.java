@@ -14,13 +14,6 @@ public class UserMapper {
 				userRequest.phone_number(),
 				userRequest.cpf(),
 				userRequest.email(),
-				userRequest.state(),
-				userRequest.adress(), 
-				userRequest.adress_number(),
-				userRequest.city(),
-				userRequest.CEP(),
-				userRequest.neighborhood(),
-				userRequest.complement(), 
 				userRequest.date_of_birth(),
 				userRequest.password()
 				);
@@ -32,13 +25,6 @@ public class UserMapper {
 				userEntity.getPhone_number(),
 				userEntity.getCpf(),
 				userEntity.getEmail(),
-				userEntity.getState(),
-				userEntity.getAdress(), 
-				userEntity.getAdress_number(),
-				userEntity.getCity(),
-				userEntity.getCEP(),
-				userEntity.getNeighborhood(),
-				userEntity.getComplement(), 
 				userEntity.getDate_of_birth(),
 				null
 				);
@@ -53,13 +39,6 @@ public class UserMapper {
 					userDomain.getCpf(), 
 					userDomain.getCpf(),
 					userDomain.getEmail(),
-					userDomain.getState(),
-					userDomain.getAdress(),
-					userDomain.getAdress_number(),
-					userDomain.getCity(),
-					userDomain.getCEP(),
-					userDomain.getNeighborhood(),
-					userDomain.getComplement(),
 					userDomain.getDate_of_birth() != null ? userDomain.getDate_of_birth() : null,
 					userDomain.getPassword() != null ? userDomain.getPassword() : null
 					);
@@ -76,13 +55,6 @@ public class UserMapper {
 				updateUserCrudRequest.phone_number(),
 				null,
 				updateUserCrudRequest.email(),
-				updateUserCrudRequest.state(),
-				updateUserCrudRequest.adress(), 
-				updateUserCrudRequest.adress_number(),
-				updateUserCrudRequest.city(),
-				updateUserCrudRequest.CEP(),
-				updateUserCrudRequest.neighborhood(),
-				updateUserCrudRequest.complement(),
 				null,
 				null
 				);
@@ -92,14 +64,7 @@ public class UserMapper {
 		return new UserCrudResponse(
 				userDomain.getName(),
 				userDomain.getPhone_number(),
-				userDomain.getEmail(),
-				userDomain.getState(),
-				userDomain.getAdress(), 
-				userDomain.getAdress_number(),
-				userDomain.getCity(),
-				userDomain.getCEP(),
-				userDomain.getNeighborhood(),
-				userDomain.getComplement()
+				userDomain.getEmail()
 				);
 	}
 	
@@ -109,13 +74,6 @@ public class UserMapper {
 					userDomain.getCpf() != null ? userDomain.getPhone_number() : userFindById.getPhone_number(), 
 					userDomain.getCpf() != null ? userDomain.getCpf() : userFindById.getCpf(),
 					userDomain.getEmail() != null ? userDomain.getEmail() : userFindById.getEmail(),
-					userDomain.getState() != null  ? userDomain.getState() : userFindById.getState(),
-					userDomain.getAdress() != null ? userDomain.getAdress() : userFindById.getAdress(),
-					userDomain.getAdress_number() != null ? userDomain.getAdress_number() : userFindById.getAdress_number(),
-					userDomain.getCity() != null ? userDomain.getCity() : userFindById.getCity(),
-					userDomain.getCEP() != null ? userDomain.getCEP() : userFindById.getCEP(),
-					userDomain.getNeighborhood() != null ? userDomain.getNeighborhood() : userFindById.getNeighborhood(),
-					userDomain.getComplement() != null ? userDomain.getComplement() : userFindById.getComplement(),
 					userDomain.getDate_of_birth() != null ? userDomain.getDate_of_birth() : userFindById.getDate_of_birth(),
 					userDomain.getPassword() != null ? userDomain.getPassword() : userFindById.getPassword()
 					);

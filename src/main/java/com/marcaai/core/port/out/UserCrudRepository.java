@@ -6,7 +6,7 @@ import com.marcaai.core.domain.User;
 
 public interface UserCrudRepository {
 
-	void createUser(User user);
+	UUID createUser(User user);
 	
 	User updateUser(User user);
 	

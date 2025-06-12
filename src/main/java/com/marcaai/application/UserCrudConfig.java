@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.marcaai.core.port.in.UserCrudUseCase;
 import com.marcaai.core.port.out.UserCrudRepository;
+import com.marcaai.core.usecase.AddressService;
 import com.marcaai.core.usecase.RoleService;
 import com.marcaai.core.usecase.UserCrudService;
 
@@ -14,8 +15,8 @@ public class UserCrudConfig {
 	
 		@Bean
 	    public UserCrudUseCase userCrudUseCase(UserCrudRepository userCrudRepository, BCryptPasswordEncoder passwordEncoder,
-	    		RoleService roleService) {
-	        return new UserCrudService(roleService, userCrudRepository, passwordEncoder);
+	    		RoleService roleService, AddressService addressService) {
+	        return new UserCrudService(roleService, userCrudRepository, passwordEncoder, addressService);
 	    }
 
 }

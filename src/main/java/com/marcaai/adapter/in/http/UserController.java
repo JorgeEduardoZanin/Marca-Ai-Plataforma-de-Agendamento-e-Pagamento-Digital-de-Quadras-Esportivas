@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.marcaai.adapter.dto.grouping.UserAndAddressResponse;
 import com.marcaai.adapter.dto.request.usercrud.CreateUserCrudRequest;
 import com.marcaai.adapter.dto.request.usercrud.UpdatePasswordCrudRequest;
 import com.marcaai.adapter.dto.request.usercrud.UpdateUserCrudRequest;
 import com.marcaai.adapter.dto.response.usercrud.UserCrudResponse;
+import com.marcaai.adapter.mapper.AddressMapper;
 import com.marcaai.adapter.mapper.UserMapper;
 import com.marcaai.core.port.in.UserCrudUseCase;
 
@@ -44,7 +46,7 @@ public class UserController {
 	*/
 	@PostMapping
 	public ResponseEntity<Map<String, String>> createUser( @Valid @RequestBody CreateUserCrudRequest createUserCrudRequest){
-		userCrudUseCase.createUser(UserMapper.toUserDomain(createUserCrudRequest));
+		userCrudUseCase.createUser(UserMapper.toUserDomain(createUserCrudRequest), AddressMapper.createUserCrudRequestToAdressDomain(createUserCrudRequest));
 		return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message:", " Usuário criado com sucesso."));
 		
 	}
@@ -70,10 +72,16 @@ public class UserController {
 	-
 	*/
 	@PutMapping()
-	public ResponseEntity<UserCrudResponse> updateUser(@RequestBody UpdateUserCrudRequest updateUserCrudRequest, JwtAuthenticationToken token){
-		var userResponse = UserMapper.UserToUpdateUserCrudResponse(
-				userCrudUseCase.updateUser(UUID.fromString(token.getName()), UserMapper.UpdateUserCrudRequestToUserDomain(updateUserCrudRequest)));	
-		return ResponseEntity.status(HttpStatus.OK).body(userResponse);
+	public ResponseEntity<UserAndAddressResponse> updateUser(@RequestBody UpdateUserCrudRequest updateUserCrudRequest, JwtAuthenticationToken token){
+		var userResponse = userCrudUseCase.updateUser(UUID.fromString(token.getName()), 
+					UserMapper.UpdateUserCrudRequestToUserDomain(updateUserCrudRequest), 
+					AddressMapper.updateUserCrudRequestToAdressDomain(updateUserCrudRequest));	
+		
+		var addressUserGrouping = new UserAndAddressResponse(
+				UserMapper.UserToUpdateUserCrudResponse(userResponse.user()), 
+				AddressMapper.AddressDomainToAddressResponse(userResponse.adress()));
+		
+		return ResponseEntity.status(HttpStatus.OK).body(addressUserGrouping);
 	}
 	
 	@PutMapping("/password")

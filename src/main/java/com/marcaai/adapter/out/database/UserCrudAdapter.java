@@ -24,8 +24,9 @@ public class UserCrudAdapter implements UserCrudRepository {
 	}
 
 	@Override
-	public void createUser(User user) {
-		UserMapper.UserEntityToUserDomain(userCrudDatabaseRepository.save(UserMapper.toUserEntity(user)));
+	public UUID createUser(User user) {
+		UserEntity userEntity = userCrudDatabaseRepository.save(UserMapper.toUserEntity(user));
+		return userEntity.getId();
 	}
 
 	@Override
