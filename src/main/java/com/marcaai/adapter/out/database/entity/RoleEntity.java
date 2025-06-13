@@ -3,13 +3,13 @@ package com.marcaai.adapter.out.database.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tb_roles")
+@Table(name = "tb_role")
 public class RoleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id")
     private Long roleId;
+    
     private String name;
     
     public RoleEntity(Long roleId, String name) {

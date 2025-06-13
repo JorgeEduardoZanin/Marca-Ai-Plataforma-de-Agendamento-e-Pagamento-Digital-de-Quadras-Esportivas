@@ -2,7 +2,6 @@ package com.marcaai.adapter.in.http;
 
 import java.util.Map;
 import java.util.UUID;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -14,12 +13,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.marcaai.adapter.dto.grouping.UserAndAddressResponse;
 import com.marcaai.adapter.dto.request.usercrud.CreateUserCrudRequest;
 import com.marcaai.adapter.dto.request.usercrud.UpdatePasswordCrudRequest;
 import com.marcaai.adapter.dto.request.usercrud.UpdateUserCrudRequest;
-import com.marcaai.adapter.dto.response.usercrud.UserCrudResponse;
 import com.marcaai.adapter.mapper.AddressMapper;
 import com.marcaai.adapter.mapper.UserMapper;
 import com.marcaai.core.port.in.UserCrudUseCase;
@@ -59,9 +56,13 @@ public class UserController {
 	-
 	*/
 	@GetMapping
-	public ResponseEntity<UserCrudResponse> findUserById(JwtAuthenticationToken token){
-		var userResponse = UserMapper.UserToUpdateUserCrudResponse(userCrudUseCase.getUserById(UUID.fromString(token.getName())));
-		return ResponseEntity.ok(userResponse);
+	public ResponseEntity<UserAndAddressResponse> findUserById(JwtAuthenticationToken token){
+		var userResponse = userCrudUseCase.getUserById(UUID.fromString(token.getName()));
+		var response = new UserAndAddressResponse(
+				UserMapper.UserToUpdateUserCrudResponse(userResponse.user()),
+				AddressMapper.AddressDomainToAddressResponse(userResponse.adress()));
+		
+		return ResponseEntity.ok(response);
 	}
 	/*
 	-

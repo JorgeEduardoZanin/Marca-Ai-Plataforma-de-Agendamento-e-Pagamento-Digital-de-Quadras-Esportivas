@@ -29,4 +29,9 @@ public class AddressService {
 		return addressRepository.updateAddress(address);
 	}
 	
+	public Address findById(UUID id) {
+		
+		return addressRepository.findByUserId(id);
+	}
+	
 }

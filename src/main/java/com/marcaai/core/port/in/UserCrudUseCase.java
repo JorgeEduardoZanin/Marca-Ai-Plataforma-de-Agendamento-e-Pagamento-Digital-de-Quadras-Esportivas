@@ -14,7 +14,7 @@ public interface UserCrudUseCase {
 	
 	void deleteUser(UUID id);
 	
-	User getUserById(UUID id);
+	UserAndAddressGrouping getUserById(UUID id);
 	
 	void updatePassword(UUID id, String password);
 }

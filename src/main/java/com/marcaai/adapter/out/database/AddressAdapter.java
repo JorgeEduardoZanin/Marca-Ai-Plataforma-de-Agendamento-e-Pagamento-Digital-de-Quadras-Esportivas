@@ -1,5 +1,7 @@
 package com.marcaai.adapter.out.database;
 
+import java.util.UUID;
+
 import org.springframework.stereotype.Component;
 
 import com.marcaai.adapter.mapper.AddressMapper;
@@ -33,6 +35,15 @@ public class AddressAdapter implements AddressRepositiry{
 				AddressMapper.updateAddressDomainToAddressEntity(address, addressEntity.get())));
 		
 		return address;
+	}
+
+	@Override
+	public Address findByUserId(UUID id) {
+
+		var address = addressDatabaseRepository.findByUserEntityId(id)
+				.orElseThrow(() -> null);
+		
+		return AddressMapper.AddressEntityToAdressDomain(address);
 	}
 
 	

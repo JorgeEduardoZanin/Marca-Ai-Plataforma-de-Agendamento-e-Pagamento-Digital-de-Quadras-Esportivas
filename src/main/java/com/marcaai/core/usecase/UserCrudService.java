@@ -61,10 +61,12 @@ public class UserCrudService implements UserCrudUseCase{
 	}
 
 	@Override
-	public User getUserById(UUID id) {		
+	public UserAndAddressGrouping getUserById(UUID id) {		
 		
 		validateId(id);
-		return userCrudRepository.getUserById(id);
+		var user = userCrudRepository.getUserById(id);
+		var address = addressService.findById(id);
+		return new UserAndAddressGrouping(user, address);
 	}
 	
 	@Override
