@@ -4,6 +4,10 @@ import com.marcaai.core.domain.Login;
 
 public interface LoginUseCase {
 
-	Login login(Login login);
+	Login userLogin(Login login);
+	
+	Login adminLogin(Login login);
+	
+	Login enterpriseLogin(Login login);
 	
 }

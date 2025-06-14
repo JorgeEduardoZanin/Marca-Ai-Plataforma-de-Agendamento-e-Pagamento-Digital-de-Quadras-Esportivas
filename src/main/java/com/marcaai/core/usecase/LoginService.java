@@ -24,33 +24,32 @@ public class LoginService implements LoginUseCase {
 	private final JwtEncoder jwtEncoder;
 	private final BCryptPasswordEncoder passwordEncoder;
 	
-	public LoginService(LoginRepository loginRepository, JwtEncoder jwtEncoder,
-			BCryptPasswordEncoder bCryptPasswordEncoder) {
+	public LoginService(LoginRepository loginRepository, JwtEncoder jwtEncoder, BCryptPasswordEncoder bCryptPasswordEncoder) {
 		this.loginRepository = loginRepository;
 		this.jwtEncoder = jwtEncoder;
 		this.passwordEncoder = bCryptPasswordEncoder;
 	}
 
 	@Override
-	public Login login(Login login) {
+	public Login userLogin(Login login) {
 		
-		var usuarioLogin = loginRepository.findByEmail(login.getEmail());
+		var userLogin = loginRepository.findByEmail(login.getEmail());
 		
-		 if (!usuarioLogin.isLoginCorrect(passwordEncoder, login)) {
+		 if (!userLogin.isLoginCorrect(passwordEncoder, login)) {
 	            throw new LoginException(ExceptionLoginType.INVALID_PASSWORD_OR_EMAIL);
 	        }
 
 	        var now = Instant.now();
 	        var expiresIn = 300L;
 
-	        var scopes = usuarioLogin.getRoles()
+	        var scopes = userLogin.getRoles()
 	                .stream()
 	                .map(Role::getName)
 	                .collect(Collectors.joining(" "));
 
 	        var claims = JwtClaimsSet.builder()
 	                .issuer("mybackend")
-	                .subject(usuarioLogin.getId().toString())
+	                .subject(userLogin.getId().toString())
 	                .issuedAt(now)
 	                .expiresAt(now.plusSeconds(expiresIn))
 	                .claim("scope", scopes)
@@ -63,6 +62,18 @@ public class LoginService implements LoginUseCase {
 	        loginResponse.setExpireIn(expiresIn);
 	        	      
 	        return loginResponse;
+	}
+
+	@Override
+	public Login adminLogin(Login login) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Login enterpriseLogin(Login login) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

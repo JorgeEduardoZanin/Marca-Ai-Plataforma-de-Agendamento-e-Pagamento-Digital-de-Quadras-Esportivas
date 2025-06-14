@@ -2,7 +2,8 @@ package com.marcaai.adapter.out.database.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,18 +11,16 @@ import org.hibernate.annotations.CreationTimestamp;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Past;
 
 @Entity
-@Table(name = "tb_user")
-public class UserEntity {
+@Table(name = "tb_company_owner")
+public class CompanyOwnerEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,30 +42,24 @@ public class UserEntity {
 	@Column(nullable = false)
 	private LocalDate date_of_birth;
 	
-	@Column(nullable = false, length = 255)
-	private String password;
-	
 	@Column(nullable = false)
 	@CreationTimestamp
 	private LocalDateTime creation_date;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
-	private Set<RoleEntity> roles;
-	
-	@OneToOne(mappedBy = "userEntity", cascade = CascadeType.ALL)
-	private AddressEntity addressEntity;
-	
-	public UserEntity() {
+	@OneToMany(mappedBy = "companyOwner", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<EnterpriseEntity> enterprises = new ArrayList<>();
+
+	public CompanyOwnerEntity() {
 	}
 
-	public UserEntity( String name, String phone_number, String cpf, String email, LocalDate date_of_birth, String password) {
-		
+	public CompanyOwnerEntity(UUID id, String name, String phone_number, String cpf, String email,
+			@Past LocalDate date_of_birth) {
+		this.id = id;
 		this.name = name;
 		this.phone_number = phone_number;
 		this.cpf = cpf;
 		this.email = email;
 		this.date_of_birth = date_of_birth;
-		this.password = password;
 	}
 
 	public UUID getId() {
@@ -97,6 +90,9 @@ public class UserEntity {
 		return cpf;
 	}
 
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 
 	public String getEmail() {
 		return email;
@@ -114,10 +110,6 @@ public class UserEntity {
 		this.date_of_birth = date_of_birth;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
 	public LocalDateTime getCreation_date() {
 		return creation_date;
 	}
@@ -125,20 +117,7 @@ public class UserEntity {
 	public void setCreation_date(LocalDateTime creation_date) {
 		this.creation_date = creation_date;
 	}
-
-	public Set<RoleEntity> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<RoleEntity> roles) {
-		this.roles = roles;
-	}
-
-	public AddressEntity getAddressEntity() {
-		return addressEntity;
-	}
-
-	public void setAddressEntity(AddressEntity addressEntity) {
-		this.addressEntity = addressEntity;
-	}
+	
+	
+	
 }

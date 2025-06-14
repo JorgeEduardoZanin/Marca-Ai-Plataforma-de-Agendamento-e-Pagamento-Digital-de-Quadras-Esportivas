@@ -27,7 +27,7 @@ public class LoginController {
 	@PostMapping
 	public ResponseEntity<LoginResponse> login (@RequestBody LoginRequest loginRequest){
 		System.out.println(loginRequest.email());
-		var login = loginUseCase.login(LoginMapper.LoginRequestToLoginDomain(loginRequest));
+		var login = loginUseCase.userLogin(LoginMapper.LoginRequestToLoginDomain(loginRequest));
 		return ResponseEntity.status(HttpStatus.OK).body(LoginMapper.loginDomainToLoginResponse(login));
 	}
 	
