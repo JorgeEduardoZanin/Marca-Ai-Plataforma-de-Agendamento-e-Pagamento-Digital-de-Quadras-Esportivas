@@ -13,10 +13,13 @@ public class Enterprise {
 	private String phone_number;
 	private String state_registration;
 	private String municipal_registration;
+	private boolean approved;
+	
+	private Address address;
 	
 	private CompanyOwner company_owner;
 
-	public Enterprise(String corporate_reason, String fantasy_name, String cnpj, String email, String password, String phone_number, String state_registration, CompanyOwner company_owner) {
+	public Enterprise(String corporate_reason, String fantasy_name, String cnpj, String email, String password, String phone_number, String state_registration) {
 		this.corporate_reason = corporate_reason;
 		this.fantasy_name = fantasy_name;
 		this.cnpj = cnpj;
@@ -24,7 +27,6 @@ public class Enterprise {
 		this.password = password;
 		this.phone_number = phone_number;
 		this.state_registration = state_registration;
-		this.company_owner = company_owner;
 	}
 
 	public UUID getId() {
@@ -106,10 +108,21 @@ public class Enterprise {
 	public void setCompany_owner(CompanyOwner company_owner) {
 		this.company_owner = company_owner;
 	}
-	
-	
-	
-	
-	
+
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 	
 }

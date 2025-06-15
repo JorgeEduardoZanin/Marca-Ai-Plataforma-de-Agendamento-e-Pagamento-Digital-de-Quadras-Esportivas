@@ -42,8 +42,7 @@ public class AddressMapper {
 				addressDomain.getCity(),
 				addressDomain.getCEP(),
 				addressDomain.getNeighborhood(),
-				addressDomain.getComplement(),
-				userEntity);
+				addressDomain.getComplement());
 	}
 	
 	
@@ -58,8 +57,7 @@ public class AddressMapper {
 				addressDomain.getCity() != null ? addressDomain.getCity() : addressEntity.getCity(),
 				addressDomain.getCEP() != null ? addressDomain.getCEP() : addressEntity.getCEP(),
 				addressDomain.getNeighborhood() != null ? addressDomain.getNeighborhood() : addressEntity.getNeighborhood(),
-				addressDomain.getComplement() != null ? addressDomain.getComplement() : addressEntity.getComplement(),
-				userEntity);
+				addressDomain.getComplement() != null ? addressDomain.getComplement() : addressEntity.getComplement());
 		
 		addressSave.setId(addressEntity.getId());
 		

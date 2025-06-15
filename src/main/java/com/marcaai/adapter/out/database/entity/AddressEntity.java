@@ -7,8 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -40,14 +38,11 @@ public class AddressEntity {
 	@Column(nullable = false, length = 100)
 	private String complement;
 	
-	@OneToOne
-	@JoinColumn(name = "user_id", unique = true)
-	private UserEntity userEntity;
 	
 	public AddressEntity() {
 	}
 
-	public AddressEntity(String state, String adress, String adress_number, String city, String CEP, String neighborhood, String complement, UserEntity userEntity) {
+	public AddressEntity(String state, String adress, String adress_number, String city, String CEP, String neighborhood, String complement) {
 		this.state = state;
 		this.adress = adress;
 		this.adress_number = adress_number;
@@ -55,7 +50,6 @@ public class AddressEntity {
 		this.CEP = CEP;
 		this.neighborhood = neighborhood;
 		this.complement = complement;
-		this.userEntity = userEntity;
 	}
 
 	public String getState() {
@@ -120,14 +114,6 @@ public class AddressEntity {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public UserEntity getUserEntity() {
-		return userEntity;
-	}
-
-	public void setUserEntity(UserEntity userEntity) {
-		this.userEntity = userEntity;
 	}
 
 	@Override

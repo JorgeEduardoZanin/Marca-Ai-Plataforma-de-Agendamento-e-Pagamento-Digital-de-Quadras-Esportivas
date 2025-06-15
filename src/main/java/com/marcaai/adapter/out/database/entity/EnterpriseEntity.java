@@ -3,12 +3,14 @@ package com.marcaai.adapter.out.database.entity;
 import java.util.UUID;
 import com.marcaai.core.domain.CompanyOwner;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 public class EnterpriseEntity {
 
@@ -41,9 +43,15 @@ public class EnterpriseEntity {
 	@Column(nullable = false, length = 20)
 	private String municipal_registration;
 	
+	private boolean approved;
+	
 	@ManyToOne
 	@JoinColumn(name = "company_owner_id", nullable = false)
 	private CompanyOwner company_owner;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id", referencedColumnName = "id")
+	private AddressEntity addressEntity;
 	
 	public EnterpriseEntity() {
 	}
@@ -137,6 +145,14 @@ public class EnterpriseEntity {
 
 	public void setCompany_owner(CompanyOwner company_owner) {
 		this.company_owner = company_owner;
+	}
+
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
 	}
 	
 }

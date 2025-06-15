@@ -40,17 +40,15 @@ public class CompanyOwnerAdapter implements CompanyOwnerRepository{
 		
 		var findCompanyOwner = companyOwnerDatabaseRepository.findById(id);
 				
-		var save = companyOwnerDatabaseRepository.save(
-				CompanyOwnerMapper.updateCompanyOwnerDomainToCompanyOwnerEntity(companyOwner, findCompanyOwner.get()));
-		
-		return CompanyOwnerMapper.companyOwnerEntityToCompanyOwnerDomain(save);
+		return CompanyOwnerMapper.companyOwnerEntityToCompanyOwnerDomain(companyOwnerDatabaseRepository.save(
+				CompanyOwnerMapper.updateCompanyOwnerDomainToCompanyOwnerEntity(companyOwner, findCompanyOwner.get())));
 				
 	}
 
 	@Override
 	public CompanyOwner findById(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		return CompanyOwnerMapper.companyOwnerEntityToCompanyOwnerDomain(companyOwnerDatabaseRepository.findById(id)
+				.orElseThrow(()-> null));
 	}
 
 }
