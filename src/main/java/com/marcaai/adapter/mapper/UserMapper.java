@@ -3,7 +3,9 @@ package com.marcaai.adapter.mapper;
 import com.marcaai.adapter.dto.request.usercrud.CreateUserCrudRequest;
 import com.marcaai.adapter.dto.request.usercrud.UpdateUserCrudRequest;
 import com.marcaai.adapter.dto.response.usercrud.UserCrudResponse;
+import com.marcaai.adapter.out.database.entity.AddressEntity;
 import com.marcaai.adapter.out.database.entity.UserEntity;
+import com.marcaai.core.domain.Address;
 import com.marcaai.core.domain.User;
 
 public class UserMapper {
@@ -29,11 +31,19 @@ public class UserMapper {
 				null
 				);
 		
+		var newAddress = new Address();
+		newAddress.setId(userEntity.getAddressEntity().getId());
+		
+		user.setAddress(newAddress);
 		return user;
 		
 	}
 	
 	public static UserEntity toUserEntity(User userDomain) {
+		
+		var newAdressEntity = new AddressEntity();
+		newAdressEntity.setId(userDomain.getAddress().getId());
+		
 		UserEntity userEntity = new UserEntity(
 					userDomain.getName(),
 					userDomain.getCpf(), 
@@ -43,6 +53,7 @@ public class UserMapper {
 					userDomain.getPassword() != null ? userDomain.getPassword() : null
 					);
 		
+		userEntity.setAddressEntity(newAdressEntity);
 		userEntity.setId(userDomain.getId() != null ? userDomain.getId() : null);
 		userEntity.setRoles(userDomain.getRoles() != null ? RoleMapper.RoleDomainToSetRoleEntity(userDomain) : null);
 		
@@ -68,7 +79,7 @@ public class UserMapper {
 				);
 	}
 	
-	public static UserEntity UpdateUserEntityToUserEntity(User userDomain, UserEntity userFindById) {
+	public static UserEntity UpdateUserDomainToUserEntity(User userDomain, UserEntity userFindById) {
 		UserEntity userEntity = new UserEntity(
 					userDomain.getName() != null ? userDomain.getName() : userFindById.getName(),
 					userDomain.getCpf() != null ? userDomain.getPhone_number() : userFindById.getPhone_number(), 
@@ -78,6 +89,7 @@ public class UserMapper {
 					userDomain.getPassword() != null ? userDomain.getPassword() : userFindById.getPassword()
 					);
 		
+		userEntity.setAddressEntity(userFindById.getAddressEntity());
 		userEntity.setCreation_date(userDomain.getCreation_date() != null ? userDomain.getCreation_date() : userFindById.getCreation_date());
 		userEntity.setId(userDomain.getId() != null ? userDomain.getId() : userFindById.getId());
 		userEntity.setRoles(userDomain.getRoles() != null ? RoleMapper.RoleDomainToSetRoleEntity(userDomain) : userFindById.getRoles());

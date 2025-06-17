@@ -23,9 +23,8 @@ public class CompanyOwner {
 		public CompanyOwner() {
 		}
 
-		public CompanyOwner(UUID id, String name, String phone_number, String cpf, String email,
+		public CompanyOwner(String name, String phone_number, String cpf, String email,
 				LocalDate date_of_birth) {
-			this.id = id;
 			this.name = name;
 			this.phone_number = phone_number;
 			this.cpf = cpf;

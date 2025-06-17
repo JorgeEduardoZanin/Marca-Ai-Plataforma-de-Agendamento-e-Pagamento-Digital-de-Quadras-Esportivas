@@ -18,8 +18,8 @@ public class CompanyOwnerService implements CompanyOwnerUseCase{
 		return companyOwnerRepository.create(companyOwner);
 	}
 	
-	public CompanyOwner findById(UUID id) {
-		return companyOwnerRepository.findById(id);
+	public CompanyOwner findById(UUID entepriseId) {
+		return companyOwnerRepository.findById(entepriseId);
 	}
 
 	@Override

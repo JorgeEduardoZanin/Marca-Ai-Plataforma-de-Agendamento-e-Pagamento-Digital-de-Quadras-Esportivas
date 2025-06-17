@@ -1,15 +1,13 @@
 package com.marcaai.core.port.out;
 
-import java.util.UUID;
-
 import com.marcaai.core.domain.Address;
 
 public interface AddressRepositiry {
 
-	void createAddress(Address address);
+	Long createAddress(Address address);
 	
-	Address updateAddress(Address address);
+	Address updateAddress(Address address, Long id);
 	
-	Address findByUserId (UUID id);
+	Address findById (Long id);
 	
 }

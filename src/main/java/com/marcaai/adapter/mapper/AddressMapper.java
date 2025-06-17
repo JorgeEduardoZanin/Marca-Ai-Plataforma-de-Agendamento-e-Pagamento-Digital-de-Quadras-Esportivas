@@ -1,10 +1,10 @@
 package com.marcaai.adapter.mapper;
 
+import com.marcaai.adapter.dto.request.address.AddressRequest;
 import com.marcaai.adapter.dto.request.usercrud.CreateUserCrudRequest;
 import com.marcaai.adapter.dto.request.usercrud.UpdateUserCrudRequest;
 import com.marcaai.adapter.dto.response.address.AddressResponse;
 import com.marcaai.adapter.out.database.entity.AddressEntity;
-import com.marcaai.adapter.out.database.entity.UserEntity;
 import com.marcaai.core.domain.Address;
 
 public class AddressMapper {
@@ -33,9 +33,6 @@ public class AddressMapper {
 	
 	public static AddressEntity createAddressDomainToAddressEntity(Address addressDomain) {
 		
-		UserEntity userEntity = new UserEntity();
-		userEntity.setId(addressDomain.getUser().getId());
-		
 		return new AddressEntity(addressDomain.getState(),
 				addressDomain.getAdress(),
 				addressDomain.getAdress_number(),
@@ -47,9 +44,7 @@ public class AddressMapper {
 	
 	
 	public static AddressEntity updateAddressDomainToAddressEntity(Address addressDomain, AddressEntity addressEntity) {
-		
-		UserEntity userEntity = new UserEntity();
-		userEntity.setId(addressDomain.getUser().getId());
+
 		
 		var addressSave = new AddressEntity(addressDomain.getState() != null ? addressDomain.getState() : addressEntity.getState(),
 				addressDomain.getAdress() != null ? addressDomain.getAdress() : addressEntity.getAdress(),
@@ -84,6 +79,16 @@ public class AddressMapper {
 				address.getCEP(),
 				address.getNeighborhood(),
 				address.getComplement());
+	}
+	
+	public static Address AddressRequestToAddressDomain(AddressRequest address) {
+		return new Address(address.state(),
+				address.adress(),
+				address.adress_number(),
+				address.city(),
+				address.CEP(),
+				address.neighborhood(),
+				address.complement());
 	}
 	
 }

@@ -24,9 +24,10 @@ public class UserCrudAdapter implements UserCrudRepository {
 	}
 
 	@Override
-	public UUID createUser(User user) {
+	public Long createUser(User user) {
+		
 		UserEntity userEntity = userCrudDatabaseRepository.save(UserMapper.toUserEntity(user));
-		return userEntity.getId();
+		return userEntity.getAddressEntity().getId();
 	}
 
 	@Override
@@ -37,9 +38,9 @@ public class UserCrudAdapter implements UserCrudRepository {
 		
 		user.setId(findUserById.getId());
 		
-		var userDomain = userCrudDatabaseRepository.saveAndFlush(UserMapper.UpdateUserEntityToUserEntity(user, findUserById));
+		var userEntity = userCrudDatabaseRepository.saveAndFlush(UserMapper.UpdateUserDomainToUserEntity(user, findUserById));
 		
-		return UserMapper.UserEntityToUserDomain(userDomain);
+		return UserMapper.UserEntityToUserDomain(userEntity);
 	}
 
 	@Override

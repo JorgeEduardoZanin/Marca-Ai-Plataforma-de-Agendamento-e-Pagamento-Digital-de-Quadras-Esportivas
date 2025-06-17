@@ -2,7 +2,7 @@ package com.marcaai.adapter.dto.request.enterprise;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record CreateEnterpriseRequest(
+public record EnterpriseRequest(
 		@NotBlank String corporateReason,
 		@NotBlank String fantasyName,
 		@NotBlank String cnpj,

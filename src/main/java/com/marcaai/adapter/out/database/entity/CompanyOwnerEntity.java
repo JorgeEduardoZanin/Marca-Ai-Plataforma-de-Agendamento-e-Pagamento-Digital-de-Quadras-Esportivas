@@ -48,7 +48,7 @@ public class CompanyOwnerEntity {
 	@CreationTimestamp
 	private LocalDateTime creation_date;
 	
-	@OneToMany(mappedBy = "companyOwner", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "company_owner", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<EnterpriseEntity> enterprises = new ArrayList<>();
 	
 	@OneToOne(cascade = CascadeType.ALL)

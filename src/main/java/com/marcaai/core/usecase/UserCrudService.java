@@ -35,9 +35,10 @@ public class UserCrudService implements UserCrudUseCase{
 		user.setRoles(Set.of(role));
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		
-		UUID idNewUser = userCrudRepository.createUser(user);
-		
-		addressService.createAddress(address, idNewUser);
+		var addressId = addressService.createAddress(address);
+		address.setId(addressId);
+		user.setAddress(address);
+		userCrudRepository.createUser(user);
 		
 	}
 
@@ -47,8 +48,8 @@ public class UserCrudService implements UserCrudUseCase{
 		validateId(id);
 
 		user.setId(id);
-		Address address = addressService.updateAddress(addres, user);
 		User updateUser = userCrudRepository.updateUser(user);
+		Address address = addressService.updateAddress(addres, updateUser.getAddress().getId());
 		
 		return new UserAndAddressGrouping(updateUser, address);
 	}
@@ -65,7 +66,7 @@ public class UserCrudService implements UserCrudUseCase{
 		
 		validateId(id);
 		var user = userCrudRepository.getUserById(id);
-		var address = addressService.findById(id);
+		var address = addressService.findById(user.getAddress().getId());
 		return new UserAndAddressGrouping(user, address);
 	}
 	

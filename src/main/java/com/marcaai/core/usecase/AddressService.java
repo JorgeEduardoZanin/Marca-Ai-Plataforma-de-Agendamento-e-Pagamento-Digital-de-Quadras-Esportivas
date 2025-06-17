@@ -1,9 +1,6 @@
 package com.marcaai.core.usecase;
 
-import java.util.UUID;
-
 import com.marcaai.core.domain.Address;
-import com.marcaai.core.domain.User;
 import com.marcaai.core.port.out.AddressRepositiry;
 
 public class AddressService {
@@ -14,24 +11,19 @@ public class AddressService {
 		this.addressRepository = addressRepository;
 	}
 
-	public void createAddress(Address address, UUID idUser) {
+	public Long createAddress(Address address) {
 		
-		User user = new User();
-		user.setId(idUser);
-		
-		address.setUser(user);
-		addressRepository.createAddress(address);
+		return addressRepository.createAddress(address);
 	}
 	
-	public Address updateAddress(Address address, User user) {
+	public Address updateAddress(Address address, Long id) {
 		
-		address.setUser(user);
-		return addressRepository.updateAddress(address);
+		return addressRepository.updateAddress(address, id);
 	}
 	
-	public Address findById(UUID id) {
+	public Address findById(Long id) {
 		
-		return addressRepository.findByUserId(id);
+		return addressRepository.findById(id);
 	}
 	
 }

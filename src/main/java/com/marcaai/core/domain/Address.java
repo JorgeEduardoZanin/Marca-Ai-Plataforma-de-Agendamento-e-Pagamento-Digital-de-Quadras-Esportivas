@@ -21,8 +21,6 @@ public class Address {
 	
 	private String complement;
 	
-	private User userEntity;
-	
 	public Address() {
 	}
 
@@ -100,13 +98,6 @@ public class Address {
 		this.id = id;
 	}
 
-	public User getUser() {
-		return userEntity;
-	}
-
-	public void setUser(User userEntity) {
-		this.userEntity = userEntity;
-	}
 
 	@Override
 	public int hashCode() {

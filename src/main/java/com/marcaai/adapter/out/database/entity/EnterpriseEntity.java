@@ -1,17 +1,22 @@
 package com.marcaai.adapter.out.database.entity;
 
+import java.util.Set;
 import java.util.UUID;
-import com.marcaai.core.domain.CompanyOwner;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "tb_enterprise")
 public class EnterpriseEntity {
 
 	@Id
@@ -45,9 +50,12 @@ public class EnterpriseEntity {
 	
 	private boolean approved;
 	
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<RoleEntity> roles;
+	
 	@ManyToOne
 	@JoinColumn(name = "company_owner_id", nullable = false)
-	private CompanyOwner company_owner;
+	private CompanyOwnerEntity company_owner;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "address_id", referencedColumnName = "id")
@@ -56,7 +64,7 @@ public class EnterpriseEntity {
 	public EnterpriseEntity() {
 	}
 
-	public EnterpriseEntity(String corporate_reason, String fantasy_name, String cnpj, String email, String password, String phone_number, String state_registration, CompanyOwner company_owner) {
+	public EnterpriseEntity(String corporate_reason, String fantasy_name, String cnpj, String email, String password, String phone_number, String state_registration) {
 		this.corporate_reason = corporate_reason;
 		this.fantasy_name = fantasy_name;
 		this.cnpj = cnpj;
@@ -64,7 +72,7 @@ public class EnterpriseEntity {
 		this.password = password;
 		this.phone_number = phone_number;
 		this.state_registration = state_registration;
-		this.company_owner = company_owner;
+
 	}
 
 	public UUID getId() {
@@ -139,11 +147,11 @@ public class EnterpriseEntity {
 		this.municipal_registration = municipal_registration;
 	}
 
-	public CompanyOwner getCompany_owner() {
+	public CompanyOwnerEntity getCompany_owner() {
 		return company_owner;
 	}
 
-	public void setCompany_owner(CompanyOwner company_owner) {
+	public void setCompany_owner(CompanyOwnerEntity company_owner) {
 		this.company_owner = company_owner;
 	}
 
@@ -153,6 +161,22 @@ public class EnterpriseEntity {
 
 	public void setApproved(boolean approved) {
 		this.approved = approved;
+	}
+
+	public Set<RoleEntity> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<RoleEntity> roles) {
+		this.roles = roles;
+	}
+
+	public AddressEntity getAddressEntity() {
+		return addressEntity;
+	}
+
+	public void setAddressEntity(AddressEntity addressEntity) {
+		this.addressEntity = addressEntity;
 	}
 	
 }

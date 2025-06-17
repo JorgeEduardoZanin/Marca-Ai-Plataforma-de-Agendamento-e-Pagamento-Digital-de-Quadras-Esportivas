@@ -4,10 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
-
 import org.hibernate.annotations.CreationTimestamp;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -54,7 +51,7 @@ public class UserEntity {
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<RoleEntity> roles;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "address_id", referencedColumnName = "id")
 	private AddressEntity addressEntity;
 	

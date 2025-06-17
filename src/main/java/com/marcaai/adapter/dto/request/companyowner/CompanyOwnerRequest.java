@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record createCompanyOwnerRequest(
+public record CompanyOwnerRequest(
 		@NotBlank String name, 
 		@NotBlank String phoneNumber,
 		@NotBlank String cpf,

@@ -26,6 +26,8 @@ public class User {
 	
 	private Set<Role> roles;
 
+	private Address Address;
+	
 	public User() {
 	}
 
@@ -108,6 +110,14 @@ public class User {
 
 	public void setId(UUID id) {
 		this.id = id;
+	}
+
+	public Address getAddress() {
+		return Address;
+	}
+
+	public void setAddress(Address address) {
+		Address = address;
 	}
 
 	@Override

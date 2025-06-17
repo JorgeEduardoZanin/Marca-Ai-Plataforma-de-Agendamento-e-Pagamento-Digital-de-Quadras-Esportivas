@@ -1,6 +1,8 @@
 package com.marcaai.core.domain;
 
+import java.util.Set;
 import java.util.UUID;
+import com.marcaai.adapter.out.database.entity.RoleEntity;
 
 public class Enterprise {
 
@@ -16,6 +18,8 @@ public class Enterprise {
 	private boolean approved;
 	
 	private Address address;
+	
+	private Set<RoleEntity> roles;
 	
 	private CompanyOwner company_owner;
 
@@ -123,6 +127,14 @@ public class Enterprise {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public Set<RoleEntity> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<RoleEntity> roles) {
+		this.roles = roles;
 	}
 	
 }

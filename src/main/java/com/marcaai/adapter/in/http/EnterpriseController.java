@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.marcaai.adapter.dto.grouping.request.CreateEnterpriseGrouping;
+import com.marcaai.adapter.mapper.AddressMapper;
+import com.marcaai.adapter.mapper.CompanyOwnerMapper;
 import com.marcaai.adapter.mapper.EnterpriseMapper;
 import com.marcaai.core.port.in.EnterpriseUseCase;
 
@@ -24,7 +26,9 @@ public class EnterpriseController {
 
 	public ResponseEntity<Map<String, String>> create(@RequestBody CreateEnterpriseGrouping createEnterprise) {
 		
-		enterpriseUseCase.create(null, EnterpriseMapper.createEnterpriseRequestToEnterpriseDomain(createEnterprise.enterprise()));
+		enterpriseUseCase.create(CompanyOwnerMapper.companyOwnerRequestToCompanyOwnerDomain(createEnterprise.companyOwner()), 
+				EnterpriseMapper.createEnterpriseRequestToEnterpriseDomain(createEnterprise.enterprise()), 
+				AddressMapper.AddressRequestToAddressDomain(createEnterprise.address()));
 		return ResponseEntity.ok(Map.of("message: ", "Empresa registrada com sucesso. Em até 3 dias úteis, um administrador entrará em contato para informar se a solicitação foi aprovada."));
 	}
 	
