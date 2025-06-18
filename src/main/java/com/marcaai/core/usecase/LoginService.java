@@ -33,7 +33,7 @@ public class LoginService implements LoginUseCase {
 	@Override
 	public Login userLogin(Login login) {
 		
-		var userLogin = loginRepository.findByEmail(login.getEmail());
+		var userLogin = loginRepository.findByUserEmail(login.getEmail());
 		
 		 if (!userLogin.isLoginCorrect(passwordEncoder, login)) {
 	            throw new LoginException(ExceptionLoginType.INVALID_PASSWORD_OR_EMAIL);
@@ -72,8 +72,36 @@ public class LoginService implements LoginUseCase {
 
 	@Override
 	public Login enterpriseLogin(Login login) {
-		// TODO Auto-generated method stub
-		return null;
+		var enterpriseLoign = loginRepository.findByEnterpriseEmail(login.getEmail());
+		
+		 if (!enterpriseLoign.isLoginCorrect(passwordEncoder, login)) {
+	            throw new LoginException(ExceptionLoginType.INVALID_PASSWORD_OR_EMAIL);
+	        }
+
+	        var now = Instant.now();
+	        var expiresIn = 300L;
+
+	        var scopes = enterpriseLoign.getRoles()
+	                .stream()
+	                .map(Role::getName)
+	                .collect(Collectors.joining(" "));
+
+	        var claims = JwtClaimsSet.builder()
+	                .issuer("mybackend")
+	                .subject(enterpriseLoign.getId().toString())
+	                .issuedAt(now)
+	                .expiresAt(now.plusSeconds(expiresIn))
+	                .claim("scope", scopes)
+	                .build();
+
+	        var jwtValue = jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+	        
+	        Login loginResponse = new Login();
+	        loginResponse.setToken(jwtValue);
+	        loginResponse.setExpireIn(expiresIn);
+	        	      
+	        return loginResponse;
+	
 	}
 
 	

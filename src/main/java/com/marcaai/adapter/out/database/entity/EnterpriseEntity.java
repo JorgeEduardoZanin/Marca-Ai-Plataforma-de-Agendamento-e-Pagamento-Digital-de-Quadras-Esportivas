@@ -2,7 +2,6 @@ package com.marcaai.adapter.out.database.entity;
 
 import java.util.Set;
 import java.util.UUID;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -45,7 +44,7 @@ public class EnterpriseEntity {
 	@Column(nullable = false, length = 20)
 	private String state_registration;
 	
-	@Column(nullable = false, length = 20)
+	@Column(length = 20)
 	private String municipal_registration;
 	
 	private boolean approved;
@@ -57,7 +56,7 @@ public class EnterpriseEntity {
 	@JoinColumn(name = "company_owner_id", nullable = false)
 	private CompanyOwnerEntity company_owner;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "address_id", referencedColumnName = "id")
 	private AddressEntity addressEntity;
 	

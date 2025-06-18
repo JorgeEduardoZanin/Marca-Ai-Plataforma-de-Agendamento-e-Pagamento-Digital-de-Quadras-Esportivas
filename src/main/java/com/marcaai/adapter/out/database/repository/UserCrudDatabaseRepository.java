@@ -1,5 +1,6 @@
 package com.marcaai.adapter.out.database.repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +14,8 @@ import com.marcaai.adapter.out.database.entity.UserEntity;
 @Repository
 public interface UserCrudDatabaseRepository extends JpaRepository<UserEntity, UUID>{
 
+	Optional<UserEntity> findByEmail(String email);
+	
 	@Query("SELECT u.password FROM UserEntity u WHERE u.id = :id")
     String findPasswordById(UUID id);
 	

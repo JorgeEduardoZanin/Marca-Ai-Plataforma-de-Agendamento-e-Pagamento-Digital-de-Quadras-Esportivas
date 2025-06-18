@@ -12,7 +12,8 @@ public class RoleService {
 	}
 
 
-	public Role findBasicRole() {
-		return roleRepository.findByName(Role.Values.BASIC.name());
+	public Role findRoleByName(String name) {
+		return roleRepository.findByName(name);
 	}
+	
 }

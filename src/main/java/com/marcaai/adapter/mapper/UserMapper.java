@@ -55,7 +55,7 @@ public class UserMapper {
 		
 		userEntity.setAddressEntity(newAdressEntity);
 		userEntity.setId(userDomain.getId() != null ? userDomain.getId() : null);
-		userEntity.setRoles(userDomain.getRoles() != null ? RoleMapper.RoleDomainToSetRoleEntity(userDomain) : null);
+		userEntity.setRoles(userDomain.getRoles() != null ? RoleMapper.RoleDomainToSetRoleEntityUser(userDomain) : null);
 		
 		return userEntity;
 	}
@@ -75,7 +75,9 @@ public class UserMapper {
 		return new UserCrudResponse(
 				userDomain.getName(),
 				userDomain.getPhone_number(),
-				userDomain.getEmail()
+				userDomain.getEmail(),
+				userDomain.getCpf(),
+				userDomain.getDate_of_birth()
 				);
 	}
 	
@@ -92,7 +94,7 @@ public class UserMapper {
 		userEntity.setAddressEntity(userFindById.getAddressEntity());
 		userEntity.setCreation_date(userDomain.getCreation_date() != null ? userDomain.getCreation_date() : userFindById.getCreation_date());
 		userEntity.setId(userDomain.getId() != null ? userDomain.getId() : userFindById.getId());
-		userEntity.setRoles(userDomain.getRoles() != null ? RoleMapper.RoleDomainToSetRoleEntity(userDomain) : userFindById.getRoles());
+		userEntity.setRoles(userDomain.getRoles() != null ? RoleMapper.RoleDomainToSetRoleEntityUser(userDomain) : userFindById.getRoles());
 		
 		return userEntity;
 	}

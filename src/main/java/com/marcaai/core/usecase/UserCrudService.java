@@ -30,7 +30,7 @@ public class UserCrudService implements UserCrudUseCase{
 	@Override
 	public void createUser(User user, Address address) {
 		
-		Role role = roleService.findBasicRole();
+		Role role = roleService.findRoleByName(Role.Values.BASIC.name());
 		
 		user.setRoles(Set.of(role));
 		user.setPassword(passwordEncoder.encode(user.getPassword()));

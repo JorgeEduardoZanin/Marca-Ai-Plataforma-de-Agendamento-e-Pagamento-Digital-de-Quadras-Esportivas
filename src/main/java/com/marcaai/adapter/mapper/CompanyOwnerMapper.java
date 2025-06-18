@@ -3,6 +3,7 @@ package com.marcaai.adapter.mapper;
 import java.util.Optional;
 
 import com.marcaai.adapter.dto.request.companyowner.CompanyOwnerRequest;
+import com.marcaai.adapter.dto.response.companyowner.CompanyOwnerResponse;
 import com.marcaai.adapter.out.database.entity.CompanyOwnerEntity;
 import com.marcaai.core.domain.CompanyOwner;
 
@@ -44,6 +45,17 @@ public class CompanyOwnerMapper {
 				comapanyOwner.cpf(),
 				comapanyOwner.email(),
 				comapanyOwner.dateOfBirth());
+		
+	}
+	
+	
+	public static CompanyOwnerResponse companyOwnerDomainToCompanyOwnerResponse(CompanyOwner companyOwner) {
+		return new CompanyOwnerResponse(companyOwner.getName(),
+				companyOwner.getPhone_number(),
+				companyOwner.getCpf(),
+				companyOwner.getEmail(),
+				companyOwner.getDate_of_birth());
+		
 		
 	}
 }

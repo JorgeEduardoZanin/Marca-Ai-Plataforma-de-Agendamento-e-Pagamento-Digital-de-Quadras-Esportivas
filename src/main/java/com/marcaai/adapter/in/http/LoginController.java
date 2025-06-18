@@ -24,10 +24,15 @@ public class LoginController {
 		this.loginUseCase = loginUseCase;
 	}
 	
-	@PostMapping
-	public ResponseEntity<LoginResponse> login (@RequestBody LoginRequest loginRequest){
-		System.out.println(loginRequest.email());
+	@PostMapping("/user")
+	public ResponseEntity<LoginResponse> loginUser (@RequestBody LoginRequest loginRequest){
 		var login = loginUseCase.userLogin(LoginMapper.LoginRequestToLoginDomain(loginRequest));
+		return ResponseEntity.status(HttpStatus.OK).body(LoginMapper.loginDomainToLoginResponse(login));
+	}
+	
+	@PostMapping("/enterprise")
+	public ResponseEntity<LoginResponse> loginEnterprise(@RequestBody LoginRequest loginRequest){
+		var login = loginUseCase.enterpriseLogin(LoginMapper.LoginRequestToLoginDomain(loginRequest));
 		return ResponseEntity.status(HttpStatus.OK).body(LoginMapper.loginDomainToLoginResponse(login));
 	}
 	
