@@ -27,7 +27,7 @@ public class AddressAdapter implements AddressRepositiry{
 		var addressEntity = addressDatabaseRepository.findById(id)
 				.orElseThrow(()-> null);
 		
-		address = AddressMapper.AddressEntityToAdressDomain(addressDatabaseRepository.save(
+		address = AddressMapper.addressEntityToAdressDomain(addressDatabaseRepository.save(
 				AddressMapper.updateAddressDomainToAddressEntity(address, addressEntity)));
 		
 		return address;
@@ -39,7 +39,7 @@ public class AddressAdapter implements AddressRepositiry{
 		var address = addressDatabaseRepository.findById(id)
 				.orElseThrow(() -> null);
 		
-		return AddressMapper.AddressEntityToAdressDomain(address);
+		return AddressMapper.addressEntityToAdressDomain(address);
 	}
 
 	

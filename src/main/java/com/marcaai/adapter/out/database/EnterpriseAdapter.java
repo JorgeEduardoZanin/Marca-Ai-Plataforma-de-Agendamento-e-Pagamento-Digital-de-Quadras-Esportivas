@@ -9,7 +9,7 @@ import com.marcaai.adapter.mapper.CompanyOwnerMapper;
 import com.marcaai.adapter.mapper.EnterpriseMapper;
 import com.marcaai.adapter.out.database.repository.EnterpriseDatabaseRepository;
 import com.marcaai.core.domain.Enterprise;
-import com.marcaai.core.domain.group.EnterpriseGrouping;
+import com.marcaai.core.domain.group.EnterpriseDomainGrouping;
 import com.marcaai.core.port.out.EnterpriseRepository;
 
 @Component
@@ -27,9 +27,14 @@ public class EnterpriseAdapter implements EnterpriseRepository{
 	}
 
 	@Override
-	public Enterprise update(Enterprise enterprise, UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Enterprise update(Enterprise enterprise) {
+		
+		var enterpriseEntity = enterpriseDatabaseRepository.findById(enterprise.getId())
+				.orElseThrow(() -> null);
+		
+		var enterpriseUpdate = enterpriseDatabaseRepository.saveAndFlush(EnterpriseMapper.updateEnterpriseDomainToEnterpriseEntity(enterpriseEntity, enterprise));
+		
+		return EnterpriseMapper.enterpriseEntityToEnterpriseDomain(enterpriseUpdate);
 	}
 
 	@Override
@@ -39,13 +44,13 @@ public class EnterpriseAdapter implements EnterpriseRepository{
 	}
 
 	@Override
-	public EnterpriseGrouping findById(UUID id) {
+	public EnterpriseDomainGrouping findById(UUID id) {
 		
 		var findEnterprise = enterpriseDatabaseRepository.findById(id)
 				.orElseThrow(() -> null);
 		
-		return new EnterpriseGrouping(EnterpriseMapper.enterpriseEntityToEnterpriseDomain(findEnterprise),
-				AddressMapper.AddressEntityToAdressDomain(findEnterprise.getAddressEntity()),
+		return new EnterpriseDomainGrouping(EnterpriseMapper.enterpriseEntityToEnterpriseDomain(findEnterprise),
+				AddressMapper.addressEntityToAdressDomain(findEnterprise.getAddressEntity()),
 				CompanyOwnerMapper.companyOwnerEntityToCompanyOwnerDomain(findEnterprise.getCompany_owner()));
 		
 	}

@@ -16,4 +16,6 @@ public interface EnterpriseDatabaseRepository extends JpaRepository<EnterpriseEn
 	Optional<EnterpriseEntity> findById(UUID id);
 	
 	Optional<EnterpriseEntity> findByEmail(String email);
+	
+	
 }

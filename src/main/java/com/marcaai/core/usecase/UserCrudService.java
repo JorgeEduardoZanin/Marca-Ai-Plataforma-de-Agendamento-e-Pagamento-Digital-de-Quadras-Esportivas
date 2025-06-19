@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.marcaai.core.domain.Address;
 import com.marcaai.core.domain.Role;
 import com.marcaai.core.domain.User;
-import com.marcaai.core.domain.group.UserAndAddressGrouping;
+import com.marcaai.core.domain.group.UserDomainGrouping;
 import com.marcaai.core.exception.UserCrudException;
 import com.marcaai.core.exception.enums.ExceptionUserCrudType;
 import com.marcaai.core.port.in.UserCrudUseCase;
@@ -43,7 +43,7 @@ public class UserCrudService implements UserCrudUseCase{
 	}
 
 	@Override
-	public UserAndAddressGrouping updateUser(UUID id, User user, Address addres) {
+	public UserDomainGrouping updateUser(UUID id, User user, Address addres) {
 		
 		validateId(id);
 
@@ -51,7 +51,7 @@ public class UserCrudService implements UserCrudUseCase{
 		User updateUser = userCrudRepository.updateUser(user);
 		Address address = addressService.updateAddress(addres, updateUser.getAddress().getId());
 		
-		return new UserAndAddressGrouping(updateUser, address);
+		return new UserDomainGrouping(updateUser, address);
 	}
 
 	@Override
@@ -62,12 +62,12 @@ public class UserCrudService implements UserCrudUseCase{
 	}
 
 	@Override
-	public UserAndAddressGrouping getUserById(UUID id) {		
+	public UserDomainGrouping getUserById(UUID id) {		
 		
 		validateId(id);
 		var user = userCrudRepository.getUserById(id);
 		var address = addressService.findById(user.getAddress().getId());
-		return new UserAndAddressGrouping(user, address);
+		return new UserDomainGrouping(user, address);
 	}
 	
 	@Override

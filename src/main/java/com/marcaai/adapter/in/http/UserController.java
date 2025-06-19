@@ -60,7 +60,7 @@ public class UserController {
 		var userResponse = userCrudUseCase.getUserById(UUID.fromString(token.getName()));
 		var response = new UserAndAddressResponse(
 				UserMapper.UserToUpdateUserCrudResponse(userResponse.user()),
-				AddressMapper.AddressDomainToAddressResponse(userResponse.adress()));
+				AddressMapper.addressDomainToAddressResponse(userResponse.adress()));
 		
 		return ResponseEntity.ok(response);
 	}
@@ -80,7 +80,7 @@ public class UserController {
 		
 		var addressUserGrouping = new UserAndAddressResponse(
 				UserMapper.UserToUpdateUserCrudResponse(userResponse.user()), 
-				AddressMapper.AddressDomainToAddressResponse(userResponse.adress()));
+				AddressMapper.addressDomainToAddressResponse(userResponse.adress()));
 		
 		return ResponseEntity.status(HttpStatus.OK).body(addressUserGrouping);
 	}

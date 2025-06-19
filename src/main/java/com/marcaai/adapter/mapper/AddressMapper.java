@@ -60,7 +60,7 @@ public class AddressMapper {
 		
 	}
 	
-	public static Address AddressEntityToAdressDomain(AddressEntity addressEntity) {
+	public static Address addressEntityToAdressDomain(AddressEntity addressEntity) {
 		return new Address(addressEntity.getState(),
 				addressEntity.getAdress(),
 				addressEntity.getAdress_number(),
@@ -71,7 +71,7 @@ public class AddressMapper {
 				);
 	}
 	
-	public static AddressResponse AddressDomainToAddressResponse(Address address) {
+	public static AddressResponse addressDomainToAddressResponse(Address address) {
 		return new AddressResponse(address.getState(),
 				address.getAdress(),
 				address.getAdress_number(),
@@ -81,7 +81,7 @@ public class AddressMapper {
 				address.getComplement());
 	}
 	
-	public static Address AddressRequestToAddressDomain(AddressRequest address) {
+	public static Address addressRequestToAddressDomain(AddressRequest address) {
 		return new Address(address.state(),
 				address.adress(),
 				address.adress_number(),

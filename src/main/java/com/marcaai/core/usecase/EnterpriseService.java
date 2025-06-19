@@ -14,6 +14,7 @@ import com.marcaai.core.domain.Address;
 import com.marcaai.core.domain.CompanyOwner;
 import com.marcaai.core.domain.Enterprise;
 import com.marcaai.core.domain.Role;
+import com.marcaai.core.domain.group.UpdateEnterpriseDomainGrouping;
 import com.marcaai.core.port.in.EnterpriseUseCase;
 import com.marcaai.core.port.out.EnterpriseRepository;
 
@@ -27,6 +28,7 @@ public class EnterpriseService implements EnterpriseUseCase {
 
 	public EnterpriseService(CompanyOwnerService companyOwnerService, AddressService addressService,
 			RoleService roleService, EnterpriseRepository enterpriseRepository, BCryptPasswordEncoder passwordEncoder) {
+
 		this.companyOwnerService = companyOwnerService;
 		this.addressService = addressService;
 		this.roleService = roleService;
@@ -57,9 +59,14 @@ public class EnterpriseService implements EnterpriseUseCase {
 	}
 
 	@Override
-	public Enterprise update(Enterprise enterprise, UUID id, Address address) {
-		// TODO Auto-generated method stub
-		return null;
+	public UpdateEnterpriseDomainGrouping update(Enterprise enterprise, UUID id, Address address) {
+		
+		enterprise.setId(id);
+		var enterpriseUpdate = enterpriseRepository.update(enterprise);
+		
+		var addressUpdate = addressService.updateAddress(address, enterpriseUpdate.getAddress().getId());
+
+		return new UpdateEnterpriseDomainGrouping(enterprise, addressUpdate);
 	}
 
 	@Override
@@ -67,7 +74,7 @@ public class EnterpriseService implements EnterpriseUseCase {
 		var enterprise = enterpriseRepository.findById(id);
 		
 		
-		return new EnterpriseResponseGrouping(AddressMapper.AddressDomainToAddressResponse(enterprise.address()), 
+		return new EnterpriseResponseGrouping(AddressMapper.addressDomainToAddressResponse(enterprise.address()), 
 				EnterpriseMapper.enterpriseDomainToEnterpriseResponse(enterprise.enterprise()),
 				CompanyOwnerMapper.companyOwnerDomainToCompanyOwnerResponse(enterprise.companyOwner()));
 	}

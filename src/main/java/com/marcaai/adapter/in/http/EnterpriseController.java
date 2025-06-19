@@ -7,11 +7,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.marcaai.adapter.dto.grouping.request.CreateEnterpriseGrouping;
+import com.marcaai.adapter.dto.grouping.request.CreateEnterpriseRequestGrouping;
+import com.marcaai.adapter.dto.grouping.request.UpdateEnterpriseRequestGrouping;
 import com.marcaai.adapter.dto.grouping.response.EnterpriseResponseGrouping;
+import com.marcaai.adapter.dto.grouping.response.enterprise.UpdateEnterpriseResponseGrouping;
 import com.marcaai.adapter.mapper.AddressMapper;
 import com.marcaai.adapter.mapper.CompanyOwnerMapper;
 import com.marcaai.adapter.mapper.EnterpriseMapper;
@@ -30,11 +33,11 @@ public class EnterpriseController {
 
 
 	@PostMapping
-	public ResponseEntity<Map<String, String>> create(@RequestBody CreateEnterpriseGrouping createEnterprise) {
+	public ResponseEntity<Map<String, String>> create(@RequestBody CreateEnterpriseRequestGrouping createEnterprise) {
 		
 		enterpriseUseCase.create(CompanyOwnerMapper.companyOwnerRequestToCompanyOwnerDomain(createEnterprise.companyOwner()), 
 				EnterpriseMapper.createEnterpriseRequestToEnterpriseDomain(createEnterprise.enterprise()), 
-				AddressMapper.AddressRequestToAddressDomain(createEnterprise.address()));
+				AddressMapper.addressRequestToAddressDomain(createEnterprise.address()));
 		return ResponseEntity.ok(Map.of("message: ", "Empresa registrada com sucesso. Em até 3 dias úteis, um administrador entrará em contato para informar se a solicitação foi aprovada."));
 	}
 	
@@ -42,6 +45,17 @@ public class EnterpriseController {
 	public ResponseEntity<EnterpriseResponseGrouping> findById(JwtAuthenticationToken token){
 		var enterpriseResponse = enterpriseUseCase.findById(UUID.fromString(token.getName()));
 		return ResponseEntity.ok(enterpriseResponse);		
+	}
+	
+	@PutMapping ResponseEntity<UpdateEnterpriseResponseGrouping> update(@RequestBody UpdateEnterpriseRequestGrouping enterpriseGrouping, JwtAuthenticationToken token){
+		var request = enterpriseUseCase.update(EnterpriseMapper.updateEnterpriseRequestToEnterpriseDomain(enterpriseGrouping.enterprise()),
+				UUID.fromString(token.getName()),
+				AddressMapper.addressRequestToAddressDomain(enterpriseGrouping.address()));
+		
+		var response = new UpdateEnterpriseResponseGrouping(AddressMapper.addressDomainToAddressResponse(request.address()),
+				EnterpriseMapper.enterpriseDomainToEnterpriseResponse(request.enterprise()));
+		
+		return ResponseEntity.ok(response);
 	}
 	
 }
