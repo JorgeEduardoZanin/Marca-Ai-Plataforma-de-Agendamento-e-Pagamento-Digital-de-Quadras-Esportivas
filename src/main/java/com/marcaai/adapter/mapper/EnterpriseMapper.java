@@ -55,7 +55,8 @@ public class EnterpriseMapper {
 				enterprise.getPassword(),
 				enterprise.getPhone_number(),
 				enterprise.getState_registration());
-	
+		
+		enterpriseEntity.setPartialApproved(enterprise.isPartialApproved());
 		enterpriseEntity.setMunicipal_registration(enterprise.getMunicipal_registration());
 		enterpriseEntity.setAddressEntity(address);
 		enterpriseEntity.setCompany_owner(companyOwner);

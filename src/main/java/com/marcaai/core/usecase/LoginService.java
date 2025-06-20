@@ -35,7 +35,7 @@ public class LoginService implements LoginUseCase {
 		
 		var userLogin = loginRepository.findByUserEmail(login.getEmail());
 		
-		 if (!userLogin.isLoginCorrect(passwordEncoder, login)) {
+		 if (!userLogin.isLoginCorrect(passwordEncoder, login) || login.isPartialApproved() == false) {
 	            throw new LoginException(ExceptionLoginType.INVALID_PASSWORD_OR_EMAIL);
 	        }
 

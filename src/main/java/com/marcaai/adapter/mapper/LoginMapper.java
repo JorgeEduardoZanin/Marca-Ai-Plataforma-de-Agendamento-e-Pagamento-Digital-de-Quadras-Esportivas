@@ -21,6 +21,7 @@ public class LoginMapper {
 			      .collect(Collectors.toSet()));
 		login.setId(userEntity.getId());
 		
+		
 		return login;
 	}
 	
@@ -32,6 +33,7 @@ public class LoginMapper {
 			      .map(LoginMapper::toRoleDomain)
 			      .collect(Collectors.toSet()));
 		login.setId(enterprise.getId());
+		login.setPartialApproved(enterprise.isPartialApproved());
 		
 		return login;
 	}

@@ -14,9 +14,11 @@ import com.marcaai.core.domain.Address;
 import com.marcaai.core.domain.CompanyOwner;
 import com.marcaai.core.domain.Enterprise;
 import com.marcaai.core.domain.Role;
+import com.marcaai.core.domain.group.CnpjGrouping;
 import com.marcaai.core.domain.group.UpdateEnterpriseDomainGrouping;
 import com.marcaai.core.port.in.EnterpriseUseCase;
 import com.marcaai.core.port.out.EnterpriseRepository;
+import com.marcaai.core.port.out.documents.external.CheckCnpjRepository;
 
 public class EnterpriseService implements EnterpriseUseCase {
 
@@ -25,19 +27,23 @@ public class EnterpriseService implements EnterpriseUseCase {
 	private final RoleService roleService;
 	private final EnterpriseRepository enterpriseRepository;
 	private final BCryptPasswordEncoder passwordEncoder;
+	private final CheckCnpjRepository checkCnpjRepository;
 
 	public EnterpriseService(CompanyOwnerService companyOwnerService, AddressService addressService,
-			RoleService roleService, EnterpriseRepository enterpriseRepository, BCryptPasswordEncoder passwordEncoder) {
-
+			RoleService roleService, EnterpriseRepository enterpriseRepository, BCryptPasswordEncoder passwordEncoder,
+			CheckCnpjRepository checkCnpjRepository) {
 		this.companyOwnerService = companyOwnerService;
 		this.addressService = addressService;
 		this.roleService = roleService;
 		this.enterpriseRepository = enterpriseRepository;
 		this.passwordEncoder = passwordEncoder;
+		this.checkCnpjRepository = checkCnpjRepository;
 	}
 
 	@Override
 	public void create(CompanyOwner companyOwner, Enterprise enterprise, Address address) {
+		
+		validateEnterprise(address, enterprise);
 		
 		var createCompanyOwner = companyOwnerService.create(companyOwner);
 		var createAddress = addressService.createAddress(address);
@@ -89,6 +95,18 @@ public class EnterpriseService implements EnterpriseUseCase {
 	public void delete(UUID id) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private void validateEnterprise(Address address, Enterprise enterprise) {
+		CnpjGrouping addressAndCnpj = checkCnpjRepository.checkCnpj(enterprise.getCnpj());
+		
+		boolean corporateReasonOk = addressAndCnpj.cnpj().hasSameCorporateReason(enterprise);
+		boolean cnpjActive = addressAndCnpj.cnpj().isActive();
+		boolean addressEnterpriseOk =  addressAndCnpj.address().validateEnterpriseAddress(address);
+		
+		if(corporateReasonOk && addressEnterpriseOk && cnpjActive) {
+			enterprise.setPartialApproved(true);
+		}
 	}
 
 }

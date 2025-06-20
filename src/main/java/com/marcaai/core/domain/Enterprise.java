@@ -14,13 +14,16 @@ public class Enterprise {
 	private String phone_number;
 	private String state_registration;
 	private String municipal_registration;
-	private boolean approved;
+	private boolean fullyApproved;;
+	private boolean partialApproved;
 	
 	private Address address;
 	
 	private Set<Role> roles;
 	
 	private CompanyOwner company_owner;
+	
+
 
 	public Enterprise(String corporate_reason, String fantasy_name, String cnpj, String email, String password, String phone_number, String state_registration) {
 		this.corporate_reason = corporate_reason;
@@ -112,12 +115,20 @@ public class Enterprise {
 		this.company_owner = company_owner;
 	}
 
-	public boolean isApproved() {
-		return approved;
+	public boolean isFullyApproved() {
+		return fullyApproved;
 	}
 
-	public void setApproved(boolean approved) {
-		this.approved = approved;
+	public void setFullyApproved(boolean fullyApproved) {
+		this.fullyApproved = fullyApproved;
+	}
+
+	public boolean isPartialApproved() {
+		return partialApproved;
+	}
+
+	public void setPartialApproved(boolean partialApproved) {
+		this.partialApproved = partialApproved;
 	}
 
 	public Address getAddress() {

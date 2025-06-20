@@ -13,6 +13,7 @@ public class Login {
 	private Set<Role> roles;
 	private String token;
 	private Long expireIn;
+	private boolean partialApproved;
 	
 	public Login(String email, String password) {
 		this.email = email;
@@ -68,6 +69,14 @@ public class Login {
 
 	public void setExpireIn(Long expireIn) {
 		this.expireIn = expireIn;
+	}
+
+	public boolean isPartialApproved() {
+		return partialApproved;
+	}
+
+	public void setPartialApproved(boolean partialApproved) {
+		this.partialApproved = partialApproved;
 	}
 
 	public boolean isLoginCorrect(PasswordEncoder passwordEncoder, Login login) {

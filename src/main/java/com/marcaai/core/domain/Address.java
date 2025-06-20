@@ -119,7 +119,20 @@ public class Address {
 				&& Objects.equals(state, other.state);
 	}
 	
-	
-	
+	@Override
+	public String toString() {
+		return "Address [id=" + id + ", state=" + state + ", adress=" + adress + ", adress_number=" + adress_number
+				+ ", city=" + city + ", CEP=" + CEP + ", neighborhood=" + neighborhood + ", complement=" + complement
+				+ "]";
+	}
+
+	public boolean validateEnterpriseAddress(Address enterpriseAddress) {
+		if(!this.state.equals(enterpriseAddress.state) || !this.city.equals(enterpriseAddress.city)
+				|| !this.adress.equals(enterpriseAddress.adress)) {
+			return false;
+		}
+		
+		return true;
+	}
 	
 }

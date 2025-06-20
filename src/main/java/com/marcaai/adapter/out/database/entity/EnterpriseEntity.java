@@ -47,7 +47,9 @@ public class EnterpriseEntity {
 	@Column(length = 20)
 	private String municipal_registration;
 	
-	private boolean approved;
+	private boolean fullyApproved;;
+	
+	private boolean partialApproved;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<RoleEntity> roles;
@@ -154,12 +156,20 @@ public class EnterpriseEntity {
 		this.company_owner = company_owner;
 	}
 
-	public boolean isApproved() {
-		return approved;
+	public boolean isFullyApproved() {
+		return fullyApproved;
 	}
 
-	public void setApproved(boolean approved) {
-		this.approved = approved;
+	public void setFullyApproved(boolean fullyApproved) {
+		this.fullyApproved = fullyApproved;
+	}
+
+	public boolean isPartialApproved() {
+		return partialApproved;
+	}
+
+	public void setPartialApproved(boolean partialApproved) {
+		this.partialApproved = partialApproved;
 	}
 
 	public Set<RoleEntity> getRoles() {
