@@ -2,6 +2,11 @@ package com.marcaai.adapter.out.database.entity;
 
 import java.util.Set;
 import java.util.UUID;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -52,13 +57,14 @@ public class EnterpriseEntity {
 	private boolean partialApproved;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Set<RoleEntity> roles;
 	
 	@ManyToOne
 	@JoinColumn(name = "company_owner_id", nullable = false)
 	private CompanyOwnerEntity company_owner;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
 	@JoinColumn(name = "address_id", referencedColumnName = "id")
 	private AddressEntity addressEntity;
 	

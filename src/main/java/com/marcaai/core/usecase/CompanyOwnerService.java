@@ -14,12 +14,9 @@ public class CompanyOwnerService implements CompanyOwnerUseCase{
 		this.companyOwnerRepository = companyOwnerRepository;
 	}
 	
+	@Override
 	public UUID create(CompanyOwner companyOwner) {
 		return companyOwnerRepository.create(companyOwner);
-	}
-	
-	public CompanyOwner findById(UUID entepriseId) {
-		return companyOwnerRepository.findById(entepriseId);
 	}
 
 	@Override

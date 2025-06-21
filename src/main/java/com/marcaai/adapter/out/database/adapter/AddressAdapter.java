@@ -11,6 +11,7 @@ public class AddressAdapter implements AddressRepositiry{
 
 	private final AddressDatabaseRepository addressDatabaseRepository;
 
+
 	public AddressAdapter(AddressDatabaseRepository addressDatabaseRepository) {
 		this.addressDatabaseRepository = addressDatabaseRepository;
 	}

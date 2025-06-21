@@ -39,7 +39,6 @@ public class EnterpriseController {
 	-
 	-
 	*/
-
 	@PostMapping
 	public ResponseEntity<Map<String, String>> create(@RequestBody CreateEnterpriseRequestGrouping createEnterprise) {
 		

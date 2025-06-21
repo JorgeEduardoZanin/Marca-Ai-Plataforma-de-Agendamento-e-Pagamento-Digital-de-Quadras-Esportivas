@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.marcaai.adapter.mapper.CompanyOwnerMapper;
 import com.marcaai.adapter.out.database.repository.CompanyOwnerDatabaseRepository;
+import com.marcaai.adapter.out.database.repository.EnterpriseDatabaseRepository;
 import com.marcaai.core.domain.CompanyOwner;
 import com.marcaai.core.port.out.internal.CompanyOwnerRepository;
 
@@ -13,9 +14,13 @@ import com.marcaai.core.port.out.internal.CompanyOwnerRepository;
 public class CompanyOwnerAdapter implements CompanyOwnerRepository{
 
 	private final CompanyOwnerDatabaseRepository companyOwnerDatabaseRepository;
+	private final EnterpriseDatabaseRepository enterpriseDatabaseRepository;
 	
-	public CompanyOwnerAdapter(CompanyOwnerDatabaseRepository companyOwnerDatabaseRepository) {
+
+	public CompanyOwnerAdapter(CompanyOwnerDatabaseRepository companyOwnerDatabaseRepository,
+			EnterpriseDatabaseRepository enterpriseDatabaseRepository) {
 		this.companyOwnerDatabaseRepository = companyOwnerDatabaseRepository;
+		this.enterpriseDatabaseRepository = enterpriseDatabaseRepository;
 	}
 
 	@Override
@@ -38,10 +43,10 @@ public class CompanyOwnerAdapter implements CompanyOwnerRepository{
 	@Override
 	public CompanyOwner update(UUID id, CompanyOwner companyOwner) {
 		
-		var findCompanyOwner = companyOwnerDatabaseRepository.findById(id);
+		var findEnterprise = enterpriseDatabaseRepository.findById(id);
 				
 		return CompanyOwnerMapper.companyOwnerEntityToCompanyOwnerDomain(companyOwnerDatabaseRepository.save(
-				CompanyOwnerMapper.updateCompanyOwnerDomainToCompanyOwnerEntity(companyOwner, findCompanyOwner.get())));
+				CompanyOwnerMapper.updateCompanyOwnerDomainToCompanyOwnerEntity(companyOwner, findEnterprise.get().getCompany_owner())));
 				
 	}
 
