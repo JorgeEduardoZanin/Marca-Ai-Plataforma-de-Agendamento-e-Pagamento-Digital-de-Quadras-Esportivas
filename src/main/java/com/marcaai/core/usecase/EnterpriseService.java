@@ -17,8 +17,8 @@ import com.marcaai.core.domain.Role;
 import com.marcaai.core.domain.group.CnpjGrouping;
 import com.marcaai.core.domain.group.UpdateEnterpriseDomainGrouping;
 import com.marcaai.core.port.in.EnterpriseUseCase;
-import com.marcaai.core.port.out.EnterpriseRepository;
-import com.marcaai.core.port.out.documents.external.CheckCnpjRepository;
+import com.marcaai.core.port.out.external.CheckCnpjRepository;
+import com.marcaai.core.port.out.internal.EnterpriseRepository;
 
 public class EnterpriseService implements EnterpriseUseCase {
 
@@ -67,6 +67,7 @@ public class EnterpriseService implements EnterpriseUseCase {
 	@Override
 	public UpdateEnterpriseDomainGrouping update(Enterprise enterprise, UUID id, Address address) {
 		
+		validateId(id);
 		enterprise.setId(id);
 		var enterpriseUpdate = enterpriseRepository.update(enterprise);
 		
@@ -77,8 +78,9 @@ public class EnterpriseService implements EnterpriseUseCase {
 
 	@Override
 	public EnterpriseResponseGrouping findById(UUID id) {
-		var enterprise = enterpriseRepository.findById(id);
 		
+		validateId(id);
+		var enterprise = enterpriseRepository.findById(id);
 		
 		return new EnterpriseResponseGrouping(AddressMapper.addressDomainToAddressResponse(enterprise.address()), 
 				EnterpriseMapper.enterpriseDomainToEnterpriseResponse(enterprise.enterprise()),
@@ -93,7 +95,9 @@ public class EnterpriseService implements EnterpriseUseCase {
 
 	@Override
 	public void delete(UUID id) {
-		// TODO Auto-generated method stub
+		validateId(id);
+		enterpriseRepository.delete(id);
+		
 		
 	}
 	
@@ -106,6 +110,12 @@ public class EnterpriseService implements EnterpriseUseCase {
 		
 		if(corporateReasonOk && addressEnterpriseOk && cnpjActive) {
 			enterprise.setPartialApproved(true);
+		}
+	}
+	
+	public void validateId(UUID id) {
+		if(id == null) {
+			throw new IllegalArgumentException("Id não pode ser nulo");      
 		}
 	}
 

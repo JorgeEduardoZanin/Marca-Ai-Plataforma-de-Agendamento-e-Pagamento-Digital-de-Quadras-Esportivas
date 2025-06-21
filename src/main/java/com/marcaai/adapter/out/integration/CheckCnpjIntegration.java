@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.marcaai.adapter.out.integration.client.CheckCnpjClient;
 import com.marcaai.adapter.out.integration.dto.CnpjValidationResponse;
 import com.marcaai.core.domain.group.CnpjGrouping;
-import com.marcaai.core.port.out.documents.external.CheckCnpjRepository;
+import com.marcaai.core.port.out.external.CheckCnpjRepository;
 
 
 
@@ -24,7 +24,8 @@ public class CheckCnpjIntegration implements CheckCnpjRepository{
 	@Override
 	public CnpjGrouping checkCnpj(String cnpj) {	
 		var response = CnpjValidationResponse.cnpjResponseToCnpjDomain(cnpjClient.getValidatedCnpj(cnpj));
-		LOGGER.info("Consumindo api receita: "+ response.cnpj());
+		LOGGER.info("Consumindo api receita empreasa: "+ response.cnpj());
+		LOGGER.info("Consumindo api receita empreasa: "+ response.address()); 
 		return response;
 	}
 

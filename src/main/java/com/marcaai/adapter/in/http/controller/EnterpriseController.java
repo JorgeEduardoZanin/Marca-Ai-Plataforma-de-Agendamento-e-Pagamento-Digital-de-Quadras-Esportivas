@@ -1,10 +1,11 @@
-package com.marcaai.adapter.in.http;
+package com.marcaai.adapter.in.http.controller;
 
 import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -30,7 +31,14 @@ public class EnterpriseController {
 	public EnterpriseController(EnterpriseUseCase enterpriseUseCase) {
 		this.enterpriseUseCase = enterpriseUseCase;
 	}
-
+	/*
+	-
+	-
+	-
+	POST METHODS	
+	-
+	-
+	*/
 
 	@PostMapping
 	public ResponseEntity<Map<String, String>> create(@RequestBody CreateEnterpriseRequestGrouping createEnterprise) {
@@ -40,14 +48,29 @@ public class EnterpriseController {
 				AddressMapper.addressRequestToAddressDomain(createEnterprise.address()));
 		return ResponseEntity.ok(Map.of("message: ", "Empresa registrada com sucesso. Em até 3 dias úteis, um administrador entrará em contato para informar se a solicitação foi aprovada."));
 	}
-	
+	/*
+	-
+	-
+	-
+	GET METHODS	
+	-
+	-
+	*/
 	@GetMapping
 	public ResponseEntity<EnterpriseResponseGrouping> findById(JwtAuthenticationToken token){
 		var enterpriseResponse = enterpriseUseCase.findById(UUID.fromString(token.getName()));
 		return ResponseEntity.ok(enterpriseResponse);		
 	}
-	
-	@PutMapping ResponseEntity<UpdateEnterpriseResponseGrouping> update(@RequestBody UpdateEnterpriseRequestGrouping enterpriseGrouping, JwtAuthenticationToken token){
+	/*
+	-
+	-
+	-
+	PUT METHODS	
+	-
+	-
+	*/
+	@PutMapping 
+	public ResponseEntity<UpdateEnterpriseResponseGrouping> update(@RequestBody UpdateEnterpriseRequestGrouping enterpriseGrouping, JwtAuthenticationToken token){
 		var request = enterpriseUseCase.update(EnterpriseMapper.updateEnterpriseRequestToEnterpriseDomain(enterpriseGrouping.enterprise()),
 				UUID.fromString(token.getName()),
 				AddressMapper.addressRequestToAddressDomain(enterpriseGrouping.address()));
@@ -56,6 +79,19 @@ public class EnterpriseController {
 				EnterpriseMapper.enterpriseDomainToEnterpriseResponse(request.enterprise()));
 		
 		return ResponseEntity.ok(response);
+	}
+	/*
+	-
+	-
+	-
+	DELETE METHODS	
+	-
+	-
+	*/
+	@DeleteMapping
+	public ResponseEntity<Map<String, String>> delete(JwtAuthenticationToken token){
+		enterpriseUseCase.delete(UUID.fromString(token.getName()));
+		return ResponseEntity.ok(Map.of("message:", "Empresa deletada com sucesso !"));
 	}
 	
 }

@@ -25,7 +25,7 @@ import com.marcaai.adapter.dto.response.login.LoginResponse;
 import com.marcaai.core.domain.Login;
 import com.marcaai.core.domain.Role;
 import com.marcaai.core.exception.LoginException;
-import com.marcaai.core.port.out.LoginRepository;
+import com.marcaai.core.port.out.internal.LoginRepository;
 
 @ExtendWith(MockitoExtension.class)
 class LoginServiceTest {

@@ -1,7 +1,7 @@
 package com.marcaai.core.usecase;
 
 import com.marcaai.core.domain.Address;
-import com.marcaai.core.port.out.AddressRepositiry;
+import com.marcaai.core.port.out.internal.AddressRepositiry;
 
 public class AddressService {
 

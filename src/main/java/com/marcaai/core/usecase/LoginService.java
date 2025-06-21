@@ -14,7 +14,7 @@ import com.marcaai.core.domain.Role;
 import com.marcaai.core.exception.LoginException;
 import com.marcaai.core.exception.enums.ExceptionLoginType;
 import com.marcaai.core.port.in.LoginUseCase;
-import com.marcaai.core.port.out.LoginRepository;
+import com.marcaai.core.port.out.internal.LoginRepository;
 
 public class LoginService implements LoginUseCase {
 

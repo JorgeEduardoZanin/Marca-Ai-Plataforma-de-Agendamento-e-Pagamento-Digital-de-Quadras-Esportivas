@@ -1,7 +1,7 @@
 package com.marcaai.core.usecase;
 
 import com.marcaai.core.domain.Role;
-import com.marcaai.core.port.out.RoleRepository;
+import com.marcaai.core.port.out.internal.RoleRepository;
 
 public class RoleService {
 

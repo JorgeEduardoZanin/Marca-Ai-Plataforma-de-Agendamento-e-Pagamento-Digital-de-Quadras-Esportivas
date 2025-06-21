@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.marcaai.adapter.in.http.exception.ResponseError;
+import com.marcaai.adapter.in.http.exception.response.ResponseError;
 
 @RestControllerAdvice
 public class GlobalExceptionsHandle extends ResponseEntityExceptionHandler{

@@ -1,4 +1,4 @@
-package com.marcaai.core.port.out.documents.external;
+package com.marcaai.core.port.out.external;
 
 import com.marcaai.core.domain.group.CnpjGrouping;
 

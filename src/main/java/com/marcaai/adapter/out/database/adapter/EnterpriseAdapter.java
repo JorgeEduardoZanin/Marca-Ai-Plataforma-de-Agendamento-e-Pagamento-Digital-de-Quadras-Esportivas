@@ -1,4 +1,4 @@
-package com.marcaai.adapter.out.database;
+package com.marcaai.adapter.out.database.adapter;
 
 import java.util.UUID;
 
@@ -10,7 +10,7 @@ import com.marcaai.adapter.mapper.EnterpriseMapper;
 import com.marcaai.adapter.out.database.repository.EnterpriseDatabaseRepository;
 import com.marcaai.core.domain.Enterprise;
 import com.marcaai.core.domain.group.EnterpriseDomainGrouping;
-import com.marcaai.core.port.out.EnterpriseRepository;
+import com.marcaai.core.port.out.internal.EnterpriseRepository;
 
 @Component
 public class EnterpriseAdapter implements EnterpriseRepository{
@@ -39,7 +39,7 @@ public class EnterpriseAdapter implements EnterpriseRepository{
 
 	@Override
 	public void delete(UUID id) {
-		// TODO Auto-generated method stub
+		enterpriseDatabaseRepository.deleteById(id);
 		
 	}
 

@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import com.marcaai.core.domain.CompanyOwner;
 import com.marcaai.core.port.in.CompanyOwnerUseCase;
-import com.marcaai.core.port.out.CompanyOwnerRepository;
+import com.marcaai.core.port.out.internal.CompanyOwnerRepository;
 
 public class CompanyOwnerService implements CompanyOwnerUseCase{
 

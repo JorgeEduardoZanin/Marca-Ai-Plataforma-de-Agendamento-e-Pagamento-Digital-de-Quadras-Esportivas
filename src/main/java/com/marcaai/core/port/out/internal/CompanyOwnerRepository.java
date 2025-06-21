@@ -1,4 +1,4 @@
-package com.marcaai.core.port.out;
+package com.marcaai.core.port.out.internal;
 
 import java.util.UUID;
 

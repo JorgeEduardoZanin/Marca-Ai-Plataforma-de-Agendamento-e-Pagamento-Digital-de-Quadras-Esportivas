@@ -1,4 +1,4 @@
-package com.marcaai.adapter.in.http;
+package com.marcaai.adapter.in.http.controller;
 
 import java.util.Map;
 import java.util.UUID;

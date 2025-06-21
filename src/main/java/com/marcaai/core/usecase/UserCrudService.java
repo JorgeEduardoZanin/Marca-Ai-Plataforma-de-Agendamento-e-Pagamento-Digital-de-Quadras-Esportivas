@@ -11,7 +11,7 @@ import com.marcaai.core.domain.group.UserDomainGrouping;
 import com.marcaai.core.exception.UserCrudException;
 import com.marcaai.core.exception.enums.ExceptionUserCrudType;
 import com.marcaai.core.port.in.UserCrudUseCase;
-import com.marcaai.core.port.out.UserCrudRepository;
+import com.marcaai.core.port.out.internal.UserCrudRepository;
 
 public class UserCrudService implements UserCrudUseCase{
 

@@ -1,4 +1,4 @@
-package com.marcaai.adapter.out.database;
+package com.marcaai.adapter.out.database.adapter;
 
 import java.util.UUID;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.marcaai.adapter.mapper.CompanyOwnerMapper;
 import com.marcaai.adapter.out.database.repository.CompanyOwnerDatabaseRepository;
 import com.marcaai.core.domain.CompanyOwner;
-import com.marcaai.core.port.out.CompanyOwnerRepository;
+import com.marcaai.core.port.out.internal.CompanyOwnerRepository;
 
 @Component
 public class CompanyOwnerAdapter implements CompanyOwnerRepository{

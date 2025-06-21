@@ -1,4 +1,4 @@
-package com.marcaai.adapter.out.database;
+package com.marcaai.adapter.out.database.adapter;
 
 import java.util.UUID;
 
@@ -10,7 +10,7 @@ import com.marcaai.adapter.out.database.repository.UserCrudDatabaseRepository;
 import com.marcaai.core.domain.User;
 import com.marcaai.core.exception.UserCrudException;
 import com.marcaai.core.exception.enums.ExceptionUserCrudType;
-import com.marcaai.core.port.out.UserCrudRepository;
+import com.marcaai.core.port.out.internal.UserCrudRepository;
 
 import jakarta.transaction.Transactional;
 

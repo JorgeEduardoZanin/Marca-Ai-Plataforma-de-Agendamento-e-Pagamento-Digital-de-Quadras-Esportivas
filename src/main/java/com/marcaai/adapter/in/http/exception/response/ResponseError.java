@@ -1,4 +1,4 @@
-package com.marcaai.adapter.in.http.exception;
+package com.marcaai.adapter.in.http.exception.response;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

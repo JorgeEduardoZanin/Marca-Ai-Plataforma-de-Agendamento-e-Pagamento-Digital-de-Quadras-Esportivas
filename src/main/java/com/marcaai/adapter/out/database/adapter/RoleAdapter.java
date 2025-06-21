@@ -1,4 +1,4 @@
-package com.marcaai.adapter.out.database;
+package com.marcaai.adapter.out.database.adapter;
 
 import org.springframework.stereotype.Component;
 
@@ -7,7 +7,7 @@ import com.marcaai.adapter.out.database.repository.RoleDatabaseRepository;
 import com.marcaai.core.domain.Role;
 import com.marcaai.core.exception.RoleException;
 import com.marcaai.core.exception.enums.ExceptionRoleType;
-import com.marcaai.core.port.out.RoleRepository;
+import com.marcaai.core.port.out.internal.RoleRepository;
 
 @Component
 public class RoleAdapter implements RoleRepository{

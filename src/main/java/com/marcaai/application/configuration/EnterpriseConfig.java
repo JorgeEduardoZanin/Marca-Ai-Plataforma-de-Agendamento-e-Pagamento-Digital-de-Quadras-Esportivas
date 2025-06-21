@@ -1,12 +1,12 @@
-package com.marcaai.application;
+package com.marcaai.application.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.marcaai.core.port.in.EnterpriseUseCase;
-import com.marcaai.core.port.out.EnterpriseRepository;
-import com.marcaai.core.port.out.documents.external.CheckCnpjRepository;
+import com.marcaai.core.port.out.external.CheckCnpjRepository;
+import com.marcaai.core.port.out.internal.EnterpriseRepository;
 import com.marcaai.core.usecase.AddressService;
 import com.marcaai.core.usecase.CompanyOwnerService;
 import com.marcaai.core.usecase.EnterpriseService;

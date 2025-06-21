@@ -25,8 +25,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.marcaai.core.domain.Role;
 import com.marcaai.core.domain.User;
 import com.marcaai.core.exception.UserCrudException;
-import com.marcaai.core.port.out.RoleRepository;
-import com.marcaai.core.port.out.UserCrudRepository;
+import com.marcaai.core.port.out.internal.RoleRepository;
+import com.marcaai.core.port.out.internal.UserCrudRepository;
 
 @ExtendWith(MockitoExtension.class)
 class UserCrudServiceTest {

@@ -1,4 +1,4 @@
-package com.marcaai.application;
+package com.marcaai.application.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -6,7 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 
 import com.marcaai.core.port.in.LoginUseCase;
-import com.marcaai.core.port.out.LoginRepository;
+import com.marcaai.core.port.out.internal.LoginRepository;
 import com.marcaai.core.usecase.LoginService;
 
 

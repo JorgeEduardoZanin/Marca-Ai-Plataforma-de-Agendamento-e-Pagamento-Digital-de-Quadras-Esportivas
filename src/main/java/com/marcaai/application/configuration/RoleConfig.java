@@ -1,8 +1,9 @@
-package com.marcaai.application;
+package com.marcaai.application.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.marcaai.core.port.out.RoleRepository;
+
+import com.marcaai.core.port.out.internal.RoleRepository;
 import com.marcaai.core.usecase.RoleService;
 
 

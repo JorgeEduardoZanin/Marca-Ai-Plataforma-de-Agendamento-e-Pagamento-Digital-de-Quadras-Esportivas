@@ -1,4 +1,4 @@
-package com.marcaai.adapter.out.database;
+package com.marcaai.adapter.out.database.adapter;
 
 import org.springframework.stereotype.Component;
 
@@ -8,7 +8,7 @@ import com.marcaai.adapter.out.database.repository.UserCrudDatabaseRepository;
 import com.marcaai.core.domain.Login;
 import com.marcaai.core.exception.LoginException;
 import com.marcaai.core.exception.enums.ExceptionLoginType;
-import com.marcaai.core.port.out.LoginRepository;
+import com.marcaai.core.port.out.internal.LoginRepository;
 
 @Component
 public class LoginAdapter implements LoginRepository {

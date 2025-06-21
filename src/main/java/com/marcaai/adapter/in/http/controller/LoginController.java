@@ -1,4 +1,4 @@
-package com.marcaai.adapter.in.http;
+package com.marcaai.adapter.in.http.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
