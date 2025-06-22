@@ -1,10 +1,7 @@
 package com.marcaai.adapter.out.database.entity;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
 import org.hibernate.annotations.CreationTimestamp;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,20 +26,16 @@ public class SchedulingEntity {
 	
 	private LocalDateTime endTime;
 	
-	private BigDecimal value;
-	
 	@CreationTimestamp
 	private LocalDateTime creationTimestamp;
 
 	public SchedulingEntity() {
 	}
 
-	public SchedulingEntity(FootballCourtEntity footballCourtEntity, LocalDateTime startTime, LocalDateTime endTime,
-			BigDecimal value) {
+	public SchedulingEntity(FootballCourtEntity footballCourtEntity, LocalDateTime startTime, LocalDateTime endTime) {
 		this.footballCourtEntity = footballCourtEntity;
 		this.startTime = startTime;
 		this.endTime = endTime;
-		this.value = value;
 	}
 
 	public Long getId() {
@@ -75,14 +68,6 @@ public class SchedulingEntity {
 
 	public void setEndTime(LocalDateTime endTime) {
 		this.endTime = endTime;
-	}
-
-	public BigDecimal getValue() {
-		return value;
-	}
-
-	public void setValue(BigDecimal value) {
-		this.value = value;
 	}
 
 	public LocalDateTime getCreationTimestamp() {

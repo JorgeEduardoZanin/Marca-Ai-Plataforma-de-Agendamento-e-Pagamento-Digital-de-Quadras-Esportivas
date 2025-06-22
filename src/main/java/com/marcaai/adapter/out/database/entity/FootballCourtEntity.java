@@ -17,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "tb_football_court")
@@ -48,20 +49,28 @@ public class FootballCourtEntity {
 	@Column(nullable = false)
 	private Boolean available;
 	
+	@Size(max = 400)
+	@Column(nullable = false, columnDefinition = "TEXT")
+	private String description;
+	
 	@CreationTimestamp
 	private LocalDateTime creationDate;
 	
 	@OneToMany(mappedBy = "footballCourtEntity", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<SchedulingEntity> schedulingEntity = new HashSet<>();
 
-	public FootballCourtEntity(String name, Set<ClosedDaysEntity> closedDay, LocalTime openingHours, LocalTime closingTimes,
-			BigDecimal value, Boolean available) {
+	public FootballCourtEntity(String name, Set<ClosedDaysEntity> closedDay, LocalTime openingHours,
+			LocalTime closingTimes, BigDecimal value, Boolean available, @Size(max = 400) String description) {
 		this.name = name;
 		this.closedDay = closedDay;
 		this.openingHours = openingHours;
 		this.closingTimes = closingTimes;
 		this.value = value;
 		this.available = available;
+		this.description = description;
+	}
+
+	public FootballCourtEntity() {
 	}
 
 	public Long getId() {
@@ -142,6 +151,14 @@ public class FootballCourtEntity {
 
 	public void setSchedulingEntity(Set<SchedulingEntity> schedulingEntity) {
 		this.schedulingEntity = schedulingEntity;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override
