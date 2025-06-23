@@ -1,4 +1,4 @@
-package com.marcaai.adapter.out.database.entity;
+/*package com.marcaai.adapter.out.database.entity;
 
 import java.time.DayOfWeek;
 import jakarta.persistence.Column;
@@ -60,4 +60,4 @@ public class ClosedDaysEntity {
 	}
 
 
-}
+}*/

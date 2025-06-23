@@ -1,6 +1,7 @@
 package com.marcaai.core.domain;
 
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +15,7 @@ public class FootballCourt {
 	
 	private String name;
 	
-	private Set<ClosedDays> closedDay = new HashSet<>();
+	private Set<DayOfWeek> closedDay = new HashSet<>();
 	
 	private LocalTime openingHours;
 	
@@ -28,7 +29,7 @@ public class FootballCourt {
 	
 	private Set<Scheduling> scheduling = new HashSet<>();
 
-	public FootballCourt(String name, Set<ClosedDays> closedDay, LocalTime openingHours, LocalTime closingTimes,
+	public FootballCourt(String name, Set<DayOfWeek> closedDay, LocalTime openingHours, LocalTime closingTimes,
 			BigDecimal value, Boolean available, String description) {
 		this.name = name;
 		this.closedDay = closedDay;
@@ -63,11 +64,11 @@ public class FootballCourt {
 		this.name = name;
 	}
 
-	public Set<ClosedDays> getClosedDay() {
+	public Set<DayOfWeek> getClosedDay() {
 		return closedDay;
 	}
 
-	public void setClosedDay(Set<ClosedDays> closedDay) {
+	public void setClosedDay(Set<DayOfWeek> closedDay) {
 		this.closedDay = closedDay;
 	}
 

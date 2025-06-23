@@ -22,8 +22,9 @@ public class Enterprise {
 	private Set<Role> roles;
 	
 	private CompanyOwner company_owner;
-	
 
+	public Enterprise() {
+	}
 
 	public Enterprise(String corporate_reason, String fantasy_name, String cnpj, String email, String password, String phone_number, String state_registration) {
 		this.corporate_reason = corporate_reason;

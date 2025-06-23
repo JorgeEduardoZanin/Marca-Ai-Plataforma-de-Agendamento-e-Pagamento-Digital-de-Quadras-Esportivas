@@ -113,10 +113,17 @@ public class EnterpriseService implements EnterpriseUseCase {
 		}
 	}
 	
+	@Override
+	public void updatePassword(UUID id, String password) {
+		validateId(id);
+		
+	}
+	
 	public void validateId(UUID id) {
 		if(id == null) {
 			throw new IllegalArgumentException("Id não pode ser nulo");      
 		}
 	}
+
 
 }

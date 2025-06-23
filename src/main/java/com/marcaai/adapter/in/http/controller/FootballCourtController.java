@@ -25,7 +25,7 @@ public class FootballCourtController {
 	
 	public ResponseEntity<FootballCourtResponse> create(@RequestBody FootballCourtRequest footballCourtRequest, JwtAuthenticationToken token){
 		var footballCourtDomain = footballCourtUseCase.create(FootballCourtMapper.footballCourtRequestToFootballCourtDomain(footballCourtRequest), UUID.fromString(token.getName()));
-		
+		return ResponseEntity.ok(FootballCourtMapper.footballCourtDomainToFootBallCourtResponse(footballCourtDomain));
 	}
 	
 }

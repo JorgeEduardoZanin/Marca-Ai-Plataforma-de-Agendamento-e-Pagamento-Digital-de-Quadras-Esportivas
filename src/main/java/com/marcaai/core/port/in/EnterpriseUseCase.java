@@ -21,4 +21,6 @@ public interface EnterpriseUseCase {
 	
 	void delete(UUID id);
 	
+	void updatePassword(UUID id, String password);
+	
 }

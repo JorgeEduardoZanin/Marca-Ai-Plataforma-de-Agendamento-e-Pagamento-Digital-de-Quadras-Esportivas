@@ -1,6 +1,7 @@
 package com.marcaai.adapter.out.database.entity;
 
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashSet;
@@ -8,8 +9,12 @@ import java.util.Objects;
 import java.util.Set;
 import org.hibernate.annotations.CreationTimestamp;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,8 +39,11 @@ public class FootballCourtEntity {
 	@Column(nullable = false, length = 180)
 	private String name;
 	
-	@OneToMany(mappedBy = "enterpriseEntity", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<ClosedDaysEntity> closedDay = new HashSet<>();
+	@ElementCollection
+	@CollectionTable(name = "tb_closed_days",  joinColumns = @JoinColumn(name = "football_court_id"))
+	@Column(name = "day_of_week", nullable = false, length = 20)
+	@Enumerated(EnumType.STRING)
+	private Set<DayOfWeek> closedDay = new HashSet<>();
 	
 	@Column(nullable = false)
 	private LocalTime openingHours;
@@ -59,7 +67,7 @@ public class FootballCourtEntity {
 	@OneToMany(mappedBy = "footballCourtEntity", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<SchedulingEntity> schedulingEntity = new HashSet<>();
 
-	public FootballCourtEntity(String name, Set<ClosedDaysEntity> closedDay, LocalTime openingHours,
+	public FootballCourtEntity(String name, Set<DayOfWeek> closedDay, LocalTime openingHours,
 			LocalTime closingTimes, BigDecimal value, Boolean available, @Size(max = 400) String description) {
 		this.name = name;
 		this.closedDay = closedDay;
@@ -97,11 +105,11 @@ public class FootballCourtEntity {
 		this.name = name;
 	}
 
-	public Set<ClosedDaysEntity> getClosedDay() {
+	public Set<DayOfWeek> getClosedDay() {
 		return closedDay;
 	}
 
-	public void setClosedDay(Set<ClosedDaysEntity> closedDay) {
+	public void setClosedDay(Set<DayOfWeek> closedDay) {
 		this.closedDay = closedDay;
 	}
 
