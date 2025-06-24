@@ -1,9 +1,15 @@
 package com.marcaai.adapter.in.http.controller;
 
+import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,10 +28,61 @@ public class FootballCourtController {
 	public FootballCourtController(FootballCourtUseCase footballCourtUseCase) {
 		this.footballCourtUseCase = footballCourtUseCase;
 	}
-	
+	/*
+	-
+	-
+	-
+	POST METHODS	
+	-
+	-
+	*/
 	public ResponseEntity<FootballCourtResponse> create(@RequestBody FootballCourtRequest footballCourtRequest, JwtAuthenticationToken token){
 		var footballCourtDomain = footballCourtUseCase.create(FootballCourtMapper.footballCourtRequestToFootballCourtDomain(footballCourtRequest), UUID.fromString(token.getName()));
+		return ResponseEntity.status(HttpStatus.CREATED).body((FootballCourtMapper.footballCourtDomainToFootBallCourtResponse(footballCourtDomain)));
+				
+	}
+	/*
+	-
+	-
+	-
+	GET METHODS	
+	-
+	-
+	*/
+	@GetMapping("/{id}")
+	public ResponseEntity<FootballCourtResponse> findById(@PathVariable Long id){
+		var footballCourtDomain = footballCourtUseCase.findById(id);
 		return ResponseEntity.ok(FootballCourtMapper.footballCourtDomainToFootBallCourtResponse(footballCourtDomain));
 	}
-	
+	/*
+	-
+	-
+	-
+	PUT METHODS	
+	-
+	-
+	*/
+	@PutMapping("/{id}")
+	public ResponseEntity<FootballCourtResponse> update(@RequestBody FootballCourtRequest footballCourt, @PathVariable Long id){
+		var footballCourtDomain = footballCourtUseCase.update(FootballCourtMapper.footballCourtRequestToFootballCourtDomain(footballCourt), id);
+		return ResponseEntity.ok(FootballCourtMapper.footballCourtDomainToFootBallCourtResponse(footballCourtDomain));
+	}
+	/*
+	-
+	-
+	-
+	DELETE METHODS	
+	-
+	-
+	*/
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Map<String, String>> deleteById(@PathVariable Long id){
+		footballCourtUseCase.delete(id);
+		return ResponseEntity.ok(Map.of("message: ", "Campo de futebol deletado com sucesso !"));
+	}
 }
+
+
+
+
+

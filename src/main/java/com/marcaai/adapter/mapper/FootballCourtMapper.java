@@ -13,7 +13,7 @@ public class FootballCourtMapper {
 	public static FootballCourt footballCourtRequestToFootballCourtDomain(FootballCourtRequest footballCourtRequest) {
 		
 		var newFootballCourt =  new FootballCourt(footballCourtRequest.name(),
-				null,
+				footballCourtRequest.daysOfWeek(),
 				footballCourtRequest.openingHours(),
 				footballCourtRequest.closingTimes(),
 				footballCourtRequest.value(),
@@ -27,7 +27,9 @@ public class FootballCourtMapper {
 		}
 	
 	public static FootballCourtResponse footballCourtDomainToFootBallCourtResponse(FootballCourt footballCourt) {
-		return new FootballCourtResponse(footballCourt.getName(),
+		return new FootballCourtResponse(
+				footballCourt.getId(),
+				footballCourt.getName(),
 				footballCourt.getOpeningHours(),
 				footballCourt.getClosingTimes(),
 				footballCourt.getValue(),
@@ -37,13 +39,17 @@ public class FootballCourtMapper {
 	}
 	
 	public static FootballCourt footballCourtEntityToFootballCourtDomain(FootballCourtEntity footballCourt) {
-		return new FootballCourt(footballCourt.getName(),
+		var domain = new FootballCourt(footballCourt.getName(),
 				footballCourt.getClosedDay(),
 				footballCourt.getOpeningHours(),
 				footballCourt.getClosingTimes(),
 				footballCourt.getValue(),
 				footballCourt.getAvailable(),
 				footballCourt.getDescription());
+		
+		domain.setId(footballCourt.getId());
+		
+		return domain;
 	}
 	
 	public static FootballCourtEntity footballCourtDomainToFootballCourtEntity(FootballCourt footballCourt) {
