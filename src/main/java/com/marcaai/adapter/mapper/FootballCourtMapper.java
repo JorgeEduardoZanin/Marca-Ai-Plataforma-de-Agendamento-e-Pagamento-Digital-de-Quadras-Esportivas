@@ -20,8 +20,6 @@ public class FootballCourtMapper {
 				footballCourtRequest.available(),
 				footballCourtRequest.description());
 		
-		newFootballCourt.setClosedDay(footballCourtRequest.daysOfWeek());
-		
 		return newFootballCourt;
 		
 		}

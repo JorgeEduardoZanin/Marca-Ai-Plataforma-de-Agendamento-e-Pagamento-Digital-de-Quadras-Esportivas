@@ -27,7 +27,7 @@ public class FootballCourt {
 
 	private String description;
 	
-	private Set<Scheduling> scheduling = new HashSet<>();
+	private Set<Schedulling> scheduling = new HashSet<>();
 
 	public FootballCourt(String name, Set<DayOfWeek> closedDay, LocalTime openingHours, LocalTime closingTimes,
 			BigDecimal value, Boolean available, String description) {
@@ -38,6 +38,9 @@ public class FootballCourt {
 		this.value = value;
 		this.available = available;
 		this.description = description;
+	}
+
+	public FootballCourt() {
 	}
 
 	public Long getId() {
@@ -112,11 +115,11 @@ public class FootballCourt {
 		this.description = description;
 	}
 
-	public Set<Scheduling> getScheduling() {
+	public Set<Schedulling> getScheduling() {
 		return scheduling;
 	}
 
-	public void setScheduling(Set<Scheduling> scheduling) {
+	public void setScheduling(Set<Schedulling> scheduling) {
 		this.scheduling = scheduling;
 	}
 
