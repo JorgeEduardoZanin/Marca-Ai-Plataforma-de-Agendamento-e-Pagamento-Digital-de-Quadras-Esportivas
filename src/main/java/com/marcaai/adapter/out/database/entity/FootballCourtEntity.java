@@ -65,7 +65,7 @@ public class FootballCourtEntity {
 	private LocalDateTime creationDate;
 	
 	@OneToMany(mappedBy = "footballCourtEntity", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<SchedulingEntity> schedulingEntity = new HashSet<>();
+	private Set<SchedullingEntity> schedulingEntity = new HashSet<>();
 
 	public FootballCourtEntity(String name, Set<DayOfWeek> closedDay, LocalTime openingHours,
 			LocalTime closingTimes, BigDecimal value, Boolean available, @Size(max = 400) String description) {
@@ -153,11 +153,11 @@ public class FootballCourtEntity {
 		this.creationDate = creationDate;
 	}
 
-	public Set<SchedulingEntity> getSchedulingEntity() {
+	public Set<SchedullingEntity> getSchedulingEntity() {
 		return schedulingEntity;
 	}
 
-	public void setSchedulingEntity(Set<SchedulingEntity> schedulingEntity) {
+	public void setSchedulingEntity(Set<SchedullingEntity> schedulingEntity) {
 		this.schedulingEntity = schedulingEntity;
 	}
 

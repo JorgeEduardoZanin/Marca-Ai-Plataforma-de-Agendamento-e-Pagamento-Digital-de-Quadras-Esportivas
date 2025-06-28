@@ -16,7 +16,7 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tb_scheduling")
-public class SchedulingEntity {
+public class SchedullingEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,6 +31,9 @@ public class SchedulingEntity {
 	private LocalDateTime startTime;
 	
 	@NotNull
+	private LocalDateTime endTime;
+	
+	@NotNull
 	private Integer duration;
 
 	@NotNull
@@ -39,10 +42,10 @@ public class SchedulingEntity {
 	@CreationTimestamp
 	private LocalDateTime creationTimestamp;
 
-	public SchedulingEntity() {
+	public SchedullingEntity() {
 	}
 
-	public SchedulingEntity(FootballCourtEntity footballCourtEntity, LocalDateTime startTime, Integer duration, Boolean reserved) {
+	public SchedullingEntity(FootballCourtEntity footballCourtEntity, LocalDateTime startTime, Integer duration, Boolean reserved) {
 		this.footballCourtEntity = footballCourtEntity;
 		this.startTime = startTime;
 		this.duration = duration;
@@ -97,6 +100,14 @@ public class SchedulingEntity {
 		this.reserved = reserved;
 	}
 
+	public LocalDateTime getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(LocalDateTime endTime) {
+		this.endTime = endTime;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(creationTimestamp, duration, footballCourtEntity, id, reserved, startTime);
@@ -110,7 +121,7 @@ public class SchedulingEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SchedulingEntity other = (SchedulingEntity) obj;
+		SchedullingEntity other = (SchedullingEntity) obj;
 		return Objects.equals(creationTimestamp, other.creationTimestamp) && Objects.equals(duration, other.duration)
 				&& Objects.equals(footballCourtEntity, other.footballCourtEntity) && Objects.equals(id, other.id)
 				&& Objects.equals(reserved, other.reserved) && Objects.equals(startTime, other.startTime);

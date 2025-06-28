@@ -1,23 +1,20 @@
-package com.marcaai.core.port.in;
+package com.marcaai.core.port.out.internal;
 
 import java.util.List;
-import java.util.Set;
 
 import com.marcaai.core.domain.Schedulling;
 
-public interface SchedullingUseCase {
+public interface SchedullingRepository {
 
-	Set<Schedulling> create(Set<Schedulling> schedullings, Long footballCourtId);
-	
+	List<Schedulling> create(List<Schedulling> schedullings);
+		
 	Schedulling findById(Long id);
-	
+
 	List<Schedulling> listAllByFootballCourt(Long footballCourtId);
 	
-	Schedulling update(Schedulling schedulling, Long id);
-	
+	Schedulling update(Schedulling schedulling);
+
 	void deleteById(Long id);
 	
 	void deleteAllByFootballCourt(Long footballCourtId);
-	
-	
 }
