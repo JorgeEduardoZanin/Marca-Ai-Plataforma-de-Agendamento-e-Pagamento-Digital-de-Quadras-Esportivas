@@ -50,6 +50,7 @@ public class SchedullingMapper {
 					schedullingDomain.setId(entity.getId());
 					schedullingDomain.setEndTime(entity.getEndTime());
 					schedullingDomain.setFootballCourt(footballCourt);
+					schedullingDomain.setReserved(entity.getReserved());
 					return schedullingDomain;
 				})
 				.collect(Collectors.toList());
@@ -69,6 +70,19 @@ public class SchedullingMapper {
 					return response;
 				})
 				.collect(Collectors.toSet());
+	}
+	
+	public static Schedulling schedullingEntityToSchedullingDomain(SchedullingEntity schedulling) {
+		var footballCourt = new FootballCourt();
+		footballCourt.setId(schedulling.getFootballCourtEntity().getId());
+		
+		var response = new Schedulling(schedulling.getStartTime(), schedulling.getDuration());
+		response.setEndTime(schedulling.getEndTime());
+		response.setFootballCourt(footballCourt);
+		response.setId(schedulling.getId());
+		response.setReserved(schedulling.getReserved());
+		
+		return response;
 	}
 	
 }

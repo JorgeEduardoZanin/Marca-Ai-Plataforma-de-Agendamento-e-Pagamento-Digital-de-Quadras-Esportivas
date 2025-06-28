@@ -1,6 +1,7 @@
 package com.marcaai.core.usecase;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
@@ -70,8 +71,11 @@ public class SchedullingService implements SchedullingUseCase {
 	}
 
 	@Override
-	public List<Schedulling> listAllByFootballCourt(Long footballCourtId) {
-		return schedullingRepository.listAllByFootballCourt(footballCourtId);
+	public List<Schedulling> findAllByFootballCourtAndDate(Long footballCourtId, LocalDate date) {
+		return schedullingRepository.findAllByFootballCourtAndDate(footballCourtId, date).stream()
+				.sorted(Comparator.comparing(Schedulling::getStartTime))
+				.toList();
+				
 	}
 
 	@Override
@@ -95,6 +99,13 @@ public class SchedullingService implements SchedullingUseCase {
 	public void deleteAllByFootballCourt(Long footballCourtId) {
 		ValidateId.validateLongId(footballCourtId);
 		schedullingRepository.deleteAllByFootballCourt(footballCourtId);
+	}
+
+	@Override
+	public void deleteAllByFootballCourtAndDate(Long footballCourtId, LocalDate date) {
+		ValidateId.validateLongId(footballCourtId);
+		schedullingRepository.deleteAllByFootballCourtAndDate(footballCourtId, date);
+		
 	}
 
 }

@@ -1,9 +1,10 @@
 package com.marcaai.adapter.out.database.adapter;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.marcaai.adapter.mapper.SchedullingMapper;
 import com.marcaai.adapter.out.database.repository.SchedullingDatabaseRepository;
@@ -32,15 +33,19 @@ public class SchedullingAdapter implements SchedullingRepository {
 
 	@Override
 	public Schedulling findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		var schedulling = schedullingDatabaseRepository.findById(id)
+				.orElseThrow(() -> null);
+		
+		return SchedullingMapper.schedullingEntityToSchedullingDomain(schedulling);
 	}
 
 
 	@Override
-	public List<Schedulling> listAllByFootballCourt(Long footballCourtId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Schedulling> findAllByFootballCourtAndDate(Long footballCourtId, LocalDate date) {
+		var schedullings = schedullingDatabaseRepository.findAllByFootballCourtAndDate(footballCourtId, date.atTime(LocalTime.MIN), date.atTime(LocalTime.MAX));
+
+		return SchedullingMapper.listSchedullingEntityToListSchedullingDomain(schedullings);
 	}
 
 
@@ -52,14 +57,20 @@ public class SchedullingAdapter implements SchedullingRepository {
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
+		schedullingDatabaseRepository.deleteById(id);
+		
+	}
+
+	@Override
+	public void deleteAllByFootballCourt(Long footballCourtId) {
+		schedullingDatabaseRepository.deleteAllByFootballCourtEntity_Id(footballCourtId);
 		
 	}
 
 
 	@Override
-	public void deleteAllByFootballCourt(Long footballCourtId) {
-		// TODO Auto-generated method stub
+	public void deleteAllByFootballCourtAndDate(Long footballCourtId, LocalDate date) {
+		schedullingDatabaseRepository.deleteAllByFootballCourtAndDate(footballCourtId, date.atTime(LocalTime.MIN), date.atTime(LocalTime.MAX));
 		
 	}
 

@@ -1,6 +1,7 @@
 package com.marcaai.core.domain;
 
 import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
 import java.util.Objects;
 
 public class Schedulling {
@@ -92,5 +93,11 @@ public class Schedulling {
 				&& Objects.equals(id, other.id) && Objects.equals(reserved, other.reserved)
 				&& Objects.equals(startTime, other.startTime);
 	}
+
+	public int compareTo(Schedulling other) {
+	    return this.startTime.compareTo(other.startTime);
+	}
+	
+	
 }
 

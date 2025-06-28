@@ -1,5 +1,6 @@
 package com.marcaai.core.port.out.internal;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.marcaai.core.domain.Schedulling;
@@ -10,11 +11,13 @@ public interface SchedullingRepository {
 		
 	Schedulling findById(Long id);
 
-	List<Schedulling> listAllByFootballCourt(Long footballCourtId);
+	List<Schedulling> findAllByFootballCourtAndDate(Long footballCourtId, LocalDate date);
 	
 	Schedulling update(Schedulling schedulling);
 
 	void deleteById(Long id);
 	
 	void deleteAllByFootballCourt(Long footballCourtId);
+	
+	void deleteAllByFootballCourtAndDate(Long footballCourtId, LocalDate date);
 }
