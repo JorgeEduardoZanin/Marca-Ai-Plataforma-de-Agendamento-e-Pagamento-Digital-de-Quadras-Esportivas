@@ -1,6 +1,7 @@
 package com.marcaai.adapter.out.database.adapter;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.marcaai.adapter.mapper.FootballCourtMapper;
 import com.marcaai.adapter.out.database.repository.FootballCourtDatabaseRepository;
@@ -48,6 +49,12 @@ public class FootballCourtAdapter implements FootballCourtRepository{
 	@Override
 	public void delete(Long id) {
 		footballCourtDatabaseRepository.deleteById(id);
+	}
+
+	@Override
+	public UUID findEnterpriseUUIDInFootballCourt(Long id) {
+		return footballCourtDatabaseRepository.findEntepriseIdByFootballCourtId(id)
+				.orElseThrow(() -> null);
 	}
 
 }

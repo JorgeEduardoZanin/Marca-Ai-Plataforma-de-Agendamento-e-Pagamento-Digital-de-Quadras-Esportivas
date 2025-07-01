@@ -50,8 +50,8 @@ public class FootballCourtController {
 	-
 	*/
 	@GetMapping("/{id}")
-	public ResponseEntity<FootballCourtResponse> findById(@PathVariable Long id){
-		var footballCourtDomain = footballCourtUseCase.findById(id);
+	public ResponseEntity<FootballCourtResponse> findById(@PathVariable Long id, JwtAuthenticationToken token){
+		var footballCourtDomain = footballCourtUseCase.findById(id, UUID.fromString(token.getName()));
 		return ResponseEntity.ok(FootballCourtMapper.footballCourtDomainToFootBallCourtResponse(footballCourtDomain));
 	}
 	/*
@@ -63,8 +63,8 @@ public class FootballCourtController {
 	-
 	*/
 	@PutMapping("/{id}")
-	public ResponseEntity<FootballCourtResponse> update(@RequestBody FootballCourtRequest footballCourt, @PathVariable Long id){
-		var footballCourtDomain = footballCourtUseCase.update(FootballCourtMapper.footballCourtRequestToFootballCourtDomain(footballCourt), id);
+	public ResponseEntity<FootballCourtResponse> update(@RequestBody FootballCourtRequest footballCourt, @PathVariable Long id, JwtAuthenticationToken token){
+		var footballCourtDomain = footballCourtUseCase.update(FootballCourtMapper.footballCourtRequestToFootballCourtDomain(footballCourt), id, UUID.fromString(token.getName()));
 		return ResponseEntity.ok(FootballCourtMapper.footballCourtDomainToFootBallCourtResponse(footballCourtDomain));
 	}
 	/*
@@ -76,8 +76,8 @@ public class FootballCourtController {
 	-
 	*/
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Map<String, String>> deleteById(@PathVariable Long id){
-		footballCourtUseCase.delete(id);
+	public ResponseEntity<Map<String, String>> deleteById(@PathVariable Long id, JwtAuthenticationToken token){
+		footballCourtUseCase.delete(id, UUID.fromString(token.getName()));
 		return ResponseEntity.ok(Map.of("message: ", "Campo de futebol deletado com sucesso !"));
 	}
 }

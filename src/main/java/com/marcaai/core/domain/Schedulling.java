@@ -1,7 +1,6 @@
 package com.marcaai.core.domain;
 
 import java.time.LocalDateTime;
-import java.time.chrono.ChronoLocalDateTime;
 import java.util.Objects;
 
 public class Schedulling {

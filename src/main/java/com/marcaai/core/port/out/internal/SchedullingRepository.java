@@ -10,8 +10,10 @@ public interface SchedullingRepository {
 	List<Schedulling> create(List<Schedulling> schedullings);
 		
 	Schedulling findById(Long id);
+	
+	List<Schedulling> findAllByFootballCourtAndDate(Long footballCourtId, LocalDate initialDate, LocalDate finalDate);
 
-	List<Schedulling> findAllByFootballCourtAndDate(Long footballCourtId, LocalDate date);
+	List<Schedulling> findAllByFootballCourtAndDay(Long footballCourtId, LocalDate date);
 	
 	Schedulling update(Schedulling schedulling);
 
@@ -20,4 +22,6 @@ public interface SchedullingRepository {
 	void deleteAllByFootballCourt(Long footballCourtId);
 	
 	void deleteAllByFootballCourtAndDate(Long footballCourtId, LocalDate date);
+	
+	Long findFootballCourtByScheduleId(Long id);
 }

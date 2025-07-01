@@ -3,22 +3,23 @@ package com.marcaai.core.port.in;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import com.marcaai.core.domain.Schedulling;
 
 public interface SchedullingUseCase {
 
-	Set<Schedulling> create(Set<Schedulling> schedullings, Long footballCourtId);
+	Set<Schedulling> create(Set<Schedulling> schedullings, Long footballCourtId, UUID enterpriseId);
 	
-	Schedulling findById(Long id);
+	Schedulling findById(Long id, Long footballCourtId, UUID enterpriseId);
 	
-	List<Schedulling> findAllByFootballCourtAndDate(Long footballCourtId, LocalDate date);
+	List<Schedulling> findAllByFootballCourtAndDay(Long footballCourtId, LocalDate date, UUID enterpriseId);
 	
 	Schedulling update(Schedulling schedulling, Long id);
 	
-	void deleteById(Long id);
+	void deleteById(Long id, UUID enterpriseId, Long footballCourtId);
 	
-	void deleteAllByFootballCourt(Long footballCourtId);
+	void deleteAllByFootballCourt(Long footballCourtId, UUID enterpriseId);
 	
-	void deleteAllByFootballCourtAndDate(Long footballCourtId, LocalDate date);
+	void deleteAllByFootballCourtAndDate(Long footballCourtId, LocalDate date, UUID enterpriseId);
 }

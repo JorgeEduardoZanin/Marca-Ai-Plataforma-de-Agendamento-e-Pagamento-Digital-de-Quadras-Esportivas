@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.marcaai.core.domain.Schedulling;
@@ -26,24 +27,38 @@ public class SchedullingService implements SchedullingUseCase {
 	}
 
 	@Override
-	public Set<Schedulling> create(Set<Schedulling> schedullings, Long footballCourtId) {
+	public Set<Schedulling> create(Set<Schedulling> schedullings, Long footballCourtId, UUID enterpriseId) {
 		
 		ValidateId.validateLongId(footballCourtId);
 		
-		var footballCourt = footballCourtService.findById(footballCourtId);
+		var footballCourt = footballCourtService.findById(footballCourtId, enterpriseId);
 		
 		
 		
 		schedullings = schedullings.stream()
-		.peek(s -> s.setFootballCourt(footballCourt))
-		.peek(s -> s.setEndTime(s.getStartTime().plusMinutes(s.getDuration())))
+		.map(s -> {
+			s.setFootballCourt(footballCourt);
+			s.setEndTime(s.getStartTime().plusMinutes(s.getDuration()));
+			return s;
+		})
 		.filter(s -> s.getStartTime().isBefore(s.getEndTime()))
 		.sorted(Comparator.comparing(Schedulling::getStartTime))
 		.collect(Collectors.toCollection(LinkedHashSet::new));
 		
-		
-		
 		List<Schedulling> schedullingsList = new ArrayList<>(schedullings);
+		
+		var databaseSchedullingsList = schedullingRepository.findAllByFootballCourtAndDate(footballCourtId, schedullingsList.get(0).getStartTime().toLocalDate(),
+				schedullingsList.get(schedullingsList.size()-1).getStartTime().toLocalDate());
+		
+		for (Schedulling databaseSchedulling : databaseSchedullingsList) {
+			for (Schedulling newSchedulling : schedullingsList) {
+				if(newSchedulling.getEndTime().isBefore(databaseSchedulling.getStartTime()) ||
+						newSchedulling.getStartTime().isAfter(databaseSchedulling.getEndTime())) {
+					System.out.println("erro");
+				}
+			}
+			
+		}
 		
 		for(Schedulling sched : schedullingsList) {
 			for (DayOfWeek closedDays : footballCourt.getClosedDay()) {
@@ -61,25 +76,41 @@ public class SchedullingService implements SchedullingUseCase {
 
 	schedullingsList=schedullingRepository.create(schedullingsList);
 
-	return schedullingsList.stream().sorted(Comparator.comparing(Schedulling::getStartTime)).collect(Collectors.toCollection(LinkedHashSet::new));
+	return schedullingsList.stream()
+			.sorted(Comparator.comparing(Schedulling::getStartTime))
+			.collect(Collectors.toCollection(LinkedHashSet::new));
 
 	}
 
 	@Override
-	public Schedulling findById(Long id) {
+	public Schedulling findById(Long id, Long footballCourtId, UUID enterpriseId) {
+		validateSchedulingOwnership(footballCourtId, id);
+		footballCourtService.validateEnterpriseOwnership(footballCourtId, enterpriseId);
 		return schedullingRepository.findById(id);
 	}
 
 	@Override
-	public List<Schedulling> findAllByFootballCourtAndDate(Long footballCourtId, LocalDate date) {
-		return schedullingRepository.findAllByFootballCourtAndDate(footballCourtId, date).stream()
+	public List<Schedulling> findAllByFootballCourtAndDay(Long footballCourtId, LocalDate date, UUID enterpriseId) {
+
+		footballCourtService.validateEnterpriseOwnership(footballCourtId, enterpriseId);
+		
+		var schedullingsByFootballCourt = schedullingRepository.findAllByFootballCourtAndDay(footballCourtId, date).stream()
 				.sorted(Comparator.comparing(Schedulling::getStartTime))
 				.toList();
+	
+
+			
+		if(schedullingsByFootballCourt.isEmpty()) {
+			System.out.println("erro");
+		}
+			
+		return schedullingsByFootballCourt;
 				
 	}
 
 	@Override
 	public Schedulling update(Schedulling schedulling, Long id) {
+		
 		
 		ValidateId.validateLongId(id);
 		
@@ -89,22 +120,39 @@ public class SchedullingService implements SchedullingUseCase {
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(Long id, UUID enterpriseId, Long footballCourtId) {
+		footballCourtService.validateEnterpriseOwnership(footballCourtId, enterpriseId);
 		ValidateId.validateLongId(id);
+		validateSchedulingOwnership(footballCourtId, id);
+		
 		schedullingRepository.deleteById(id);
 		
 	}
 
 	@Override
-	public void deleteAllByFootballCourt(Long footballCourtId) {
+	public void deleteAllByFootballCourt(Long footballCourtId, UUID enterpriseId) {
+		footballCourtService.validateEnterpriseOwnership(footballCourtId, enterpriseId);
 		ValidateId.validateLongId(footballCourtId);
 		schedullingRepository.deleteAllByFootballCourt(footballCourtId);
 	}
 
 	@Override
-	public void deleteAllByFootballCourtAndDate(Long footballCourtId, LocalDate date) {
+	public void deleteAllByFootballCourtAndDate(Long footballCourtId, LocalDate date, UUID enterpriseId) {
+		footballCourtService.validateEnterpriseOwnership(footballCourtId, enterpriseId);
+		
 		ValidateId.validateLongId(footballCourtId);
+		
 		schedullingRepository.deleteAllByFootballCourtAndDate(footballCourtId, date);
+		
+	}
+	
+	public void validateSchedulingOwnership(Long footballCourtId, Long id) {
+		
+		Long schedulingDatabaseId = schedullingRepository.findFootballCourtByScheduleId(id);
+		
+		if(!schedulingDatabaseId.equals(footballCourtId)) {
+			System.out.println("erro");
+		}
 		
 	}
 

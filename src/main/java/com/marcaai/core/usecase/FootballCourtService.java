@@ -7,6 +7,7 @@ import com.marcaai.core.domain.Enterprise;
 import com.marcaai.core.domain.FootballCourt;
 import com.marcaai.core.port.in.FootballCourtUseCase;
 import com.marcaai.core.port.out.internal.FootballCourtRepository;
+import com.marcaai.core.usecase.utils.ValidateId;
 
 public class FootballCourtService implements FootballCourtUseCase{
 
@@ -27,8 +28,10 @@ public class FootballCourtService implements FootballCourtUseCase{
 	}
 	
 	@Override
-	public FootballCourt findById(Long id) {
-		validateId(id);
+	public FootballCourt findById(Long id, UUID enterpriseId) {
+		ValidateId.validateLongId(id);
+		validateEnterpriseOwnership(id, enterpriseId);
+		
 		return footballCourtRepository.findById(id);
 	}
 
@@ -39,23 +42,31 @@ public class FootballCourtService implements FootballCourtUseCase{
 	}
 
 	@Override
-	public void delete(Long id) {
-		validateId(id);
+	public void delete(Long id, UUID enterpriseId) {
+		ValidateId.validateLongId(id);
+		validateEnterpriseOwnership(id, enterpriseId);
+		
 		footballCourtRepository.delete(id);
 		
 	}
 
 	@Override
-	public FootballCourt update(FootballCourt footballCourt, Long id) {
-		validateId(id);
+	public FootballCourt update(FootballCourt footballCourt, Long id, UUID enterpriseId) {
+		ValidateId.validateLongId(id);
+		validateEnterpriseOwnership(id, enterpriseId);
+		
 		footballCourtRepository.update(footballCourt, id);
 		return null;
 	}
 	
-	public void validateId(Long id) {
-		if(id == null) {
-			throw new IllegalArgumentException("Id não pode ser nulo");      
+	public void validateEnterpriseOwnership (Long id, UUID enterpriseId) {
+		UUID databaseEnterpriseId = footballCourtRepository.findEnterpriseUUIDInFootballCourt(id);
+		
+		if(!databaseEnterpriseId.equals(enterpriseId)) {
+			System.out.println("erro");
 		}
 	}
+	
+	
 
 }

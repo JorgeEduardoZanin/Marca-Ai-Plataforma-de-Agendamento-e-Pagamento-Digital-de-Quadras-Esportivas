@@ -42,7 +42,14 @@ public class SchedullingAdapter implements SchedullingRepository {
 
 
 	@Override
-	public List<Schedulling> findAllByFootballCourtAndDate(Long footballCourtId, LocalDate date) {
+	public List<Schedulling> findAllByFootballCourtAndDate(Long footballCourtId, LocalDate initialDate, LocalDate finalDate) {
+		var schedullings = schedullingDatabaseRepository.findAllByFootballCourtAndDate(footballCourtId, initialDate.atTime(LocalTime.MIN), finalDate.atTime(LocalTime.MAX));
+
+		return SchedullingMapper.listSchedullingEntityToListSchedullingDomain(schedullings);
+	}
+	
+	@Override
+	public List<Schedulling> findAllByFootballCourtAndDay(Long footballCourtId, LocalDate date) {
 		var schedullings = schedullingDatabaseRepository.findAllByFootballCourtAndDate(footballCourtId, date.atTime(LocalTime.MIN), date.atTime(LocalTime.MAX));
 
 		return SchedullingMapper.listSchedullingEntityToListSchedullingDomain(schedullings);
@@ -72,6 +79,12 @@ public class SchedullingAdapter implements SchedullingRepository {
 	public void deleteAllByFootballCourtAndDate(Long footballCourtId, LocalDate date) {
 		schedullingDatabaseRepository.deleteAllByFootballCourtAndDate(footballCourtId, date.atTime(LocalTime.MIN), date.atTime(LocalTime.MAX));
 		
+	}
+
+
+	@Override
+	public Long findFootballCourtByScheduleId(Long id) {
+		return schedullingDatabaseRepository.findFootballCourtIdByScheduleId(id);
 	}
 
 }

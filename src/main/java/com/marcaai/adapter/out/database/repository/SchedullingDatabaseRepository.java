@@ -28,4 +28,7 @@ public interface SchedullingDatabaseRepository extends JpaRepository<Schedulling
 			@Param("start") LocalDateTime start, 
 			@Param("end") LocalDateTime end);
 	
+	@Query("SELECT s.footballCourtEntity.id FROM SchedullingEntity s WHERE s.id = :id")
+	Long findFootballCourtIdByScheduleId(Long id);
+	
 }

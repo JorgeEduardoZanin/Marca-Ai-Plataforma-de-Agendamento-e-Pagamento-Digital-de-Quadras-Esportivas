@@ -2,9 +2,11 @@ package com.marcaai.adapter.in.http.controller;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,8 +30,8 @@ public class SchedullingController {
 
 
 	@PostMapping
-	public ResponseEntity<Set<SchedullingResponse>> create (@PathVariable Long footballCourtId, @RequestBody List<SchedullingRequest> schedullings){
-		var schedullingsDomain = schedullingUseCase.create(SchedullingMapper.listSchedullingsRequestToSetListSchedullingsDomain(schedullings), footballCourtId);
+	public ResponseEntity<Set<SchedullingResponse>> create (@PathVariable Long footballCourtId, @RequestBody List<SchedullingRequest> schedullings, JwtAuthenticationToken token){
+		var schedullingsDomain = schedullingUseCase.create(SchedullingMapper.listSchedullingsRequestToSetListSchedullingsDomain(schedullings), footballCourtId, UUID.fromString(token.getName()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(SchedullingMapper.listSchedullingDomainToListSchedullingResponse(schedullingsDomain));
 	}
 
