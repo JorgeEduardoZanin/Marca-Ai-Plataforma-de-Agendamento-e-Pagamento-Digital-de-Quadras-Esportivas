@@ -28,7 +28,7 @@ public class UserCrudAdapter implements UserCrudRepository {
 	@Override
 	public Long createUser(User user) {
 		
-		UserEntity userEntity = userCrudDatabaseRepository.save(UserMapper.toUserEntity(user));
+		UserEntity userEntity = userCrudDatabaseRepository.save(UserMapper.userDomainToUserEntity(user));
 		return userEntity.getAddressEntity().getId();
 	}
 

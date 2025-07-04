@@ -1,12 +1,14 @@
 package com.marcaai.adapter.in.http.exception.handle;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -30,6 +32,18 @@ public class GlobalExceptionsHandle extends ResponseEntityExceptionHandler{
 				request.getDescription(false)
 				);
 		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+	}
+	
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<ResponseError> illegallArgumentException(IllegalArgumentException illegalArgumentException, WebRequest request){
+		var response = new ResponseError(Arrays.asList(
+				illegalArgumentException.getMessage()),
+				"ERROR_ILLEGAL_ARGUMENT",
+				HttpStatus.BAD_REQUEST.value(),
+				LocalDateTime.now(),
+				request.getDescription(false));
+	
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 	}
 	

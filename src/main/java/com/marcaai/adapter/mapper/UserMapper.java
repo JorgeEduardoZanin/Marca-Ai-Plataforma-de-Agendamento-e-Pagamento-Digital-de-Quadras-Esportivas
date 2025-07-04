@@ -1,5 +1,7 @@
 package com.marcaai.adapter.mapper;
 
+import java.util.Optional;
+
 import com.marcaai.adapter.dto.request.usercrud.CreateUserCrudRequest;
 import com.marcaai.adapter.dto.request.usercrud.UpdateUserCrudRequest;
 import com.marcaai.adapter.dto.response.usercrud.UserCrudResponse;
@@ -10,7 +12,7 @@ import com.marcaai.core.domain.User;
 
 public class UserMapper {
 
-	public static User toUserDomain(CreateUserCrudRequest userRequest) {
+	public static User userRequestToUserDomain(CreateUserCrudRequest userRequest) {
 		return new User(
 				userRequest.name(),
 				userRequest.phone_number(),
@@ -39,7 +41,7 @@ public class UserMapper {
 		
 	}
 	
-	public static UserEntity toUserEntity(User userDomain) {
+	public static UserEntity userDomainToUserEntity(User userDomain) {
 		
 		var newAdressEntity = new AddressEntity();
 		newAdressEntity.setId(userDomain.getAddress().getId());
@@ -71,7 +73,7 @@ public class UserMapper {
 				);
 	}
 	
-	public static UserCrudResponse UserToUpdateUserCrudResponse(User userDomain) {
+	public static UserCrudResponse UserCrudToUserCrudResponse(User userDomain) {
 		return new UserCrudResponse(
 				userDomain.getName(),
 				userDomain.getPhone_number(),
@@ -81,20 +83,19 @@ public class UserMapper {
 				);
 	}
 	
-	public static UserEntity UpdateUserDomainToUserEntity(User userDomain, UserEntity userFindById) {
-		UserEntity userEntity = new UserEntity(
-					userDomain.getName() != null ? userDomain.getName() : userFindById.getName(),
-					userDomain.getCpf() != null ? userDomain.getPhone_number() : userFindById.getPhone_number(), 
-					userDomain.getCpf() != null ? userDomain.getCpf() : userFindById.getCpf(),
-					userDomain.getEmail() != null ? userDomain.getEmail() : userFindById.getEmail(),
-					userDomain.getDate_of_birth() != null ? userDomain.getDate_of_birth() : userFindById.getDate_of_birth(),
-					userDomain.getPassword() != null ? userDomain.getPassword() : userFindById.getPassword()
-					);
+	public static UserEntity UpdateUserDomainToUserEntity(User userDomain, UserEntity userEntity) {
 		
-		userEntity.setAddressEntity(userFindById.getAddressEntity());
-		userEntity.setCreation_date(userDomain.getCreation_date() != null ? userDomain.getCreation_date() : userFindById.getCreation_date());
-		userEntity.setId(userDomain.getId() != null ? userDomain.getId() : userFindById.getId());
-		userEntity.setRoles(userDomain.getRoles() != null ? RoleMapper.RoleDomainToSetRoleEntityUser(userDomain) : userFindById.getRoles());
+		
+		Optional.ofNullable(userDomain.getName()).ifPresent(userEntity::setName);
+		Optional.ofNullable(userDomain.getPhone_number()).ifPresent(userEntity::setPhone_number);
+		Optional.ofNullable(userDomain.getCpf()).ifPresent(userEntity::setCpf);
+		Optional.ofNullable(userDomain.getEmail()).ifPresent(userEntity::setEmail);
+		Optional.ofNullable(userDomain.getDate_of_birth()).ifPresent(userEntity::setDate_of_birth);
+		Optional.ofNullable(userDomain.getPassword()).ifPresent(userEntity::setPassword);
+		Optional.ofNullable(userDomain.getCreation_date()).ifPresent(userEntity::setCreation_date);
+	
+		userEntity.setAddressEntity(userEntity.getAddressEntity());
+		userEntity.setRoles(userDomain.getRoles() != null ? RoleMapper.RoleDomainToSetRoleEntityUser(userDomain) : userEntity.getRoles());
 		
 		return userEntity;
 	}

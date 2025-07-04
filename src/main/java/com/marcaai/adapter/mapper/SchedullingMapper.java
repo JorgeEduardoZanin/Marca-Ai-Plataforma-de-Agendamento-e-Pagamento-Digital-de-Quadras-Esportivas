@@ -85,4 +85,16 @@ public class SchedullingMapper {
 		return response;
 	}
 	
+	public static SchedullingResponse schedulingDomainToSchedulingResponse(Schedulling schedulling) {
+		
+		return new SchedullingResponse(
+				schedulling.getId(),
+				schedulling.getFootballCourt().getId(),
+				schedulling.getStartTime(),
+				schedulling.getReserved(),
+				schedulling.getEndTime(),
+				schedulling.getDuration());
+			
+	}
+	
 }

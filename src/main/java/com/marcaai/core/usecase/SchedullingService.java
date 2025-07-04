@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 import com.marcaai.core.domain.Schedulling;
 import com.marcaai.core.exception.SchedulingException;
 import com.marcaai.core.exception.enums.ExceptionSchedulingType;
-import com.marcaai.core.port.in.SchedullingUseCase;
+import com.marcaai.core.port.in.SchedulingUseCase;
 import com.marcaai.core.port.out.internal.SchedullingRepository;
 import com.marcaai.core.usecase.utils.ValidateId;
 
-public class SchedullingService implements SchedullingUseCase {
+public class SchedullingService implements SchedulingUseCase {
 
 	private final SchedullingRepository schedullingRepository;
 
@@ -93,13 +93,13 @@ public class SchedullingService implements SchedullingUseCase {
 	}
 
 	@Override
-	public List<Schedulling> findAllByFootballCourtAndDay(Long footballCourtId, LocalDate date, UUID enterpriseId) {
+	public Set<Schedulling> findAllByFootballCourtAndDay(Long footballCourtId, LocalDate date, UUID enterpriseId) {
 
 		footballCourtService.validateEnterpriseOwnership(footballCourtId, enterpriseId);
 		
 		var schedullingsByFootballCourt = schedullingRepository.findAllByFootballCourtAndDay(footballCourtId, date).stream()
 				.sorted(Comparator.comparing(Schedulling::getStartTime))
-				.toList();
+				.collect(Collectors.toSet());
 			
 		return schedullingsByFootballCourt;
 				

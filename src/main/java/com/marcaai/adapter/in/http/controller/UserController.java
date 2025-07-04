@@ -43,7 +43,7 @@ public class UserController {
 	*/
 	@PostMapping
 	public ResponseEntity<Map<String, String>> createUser( @Valid @RequestBody CreateUserCrudRequest createUserCrudRequest){
-		userCrudUseCase.createUser(UserMapper.toUserDomain(createUserCrudRequest), AddressMapper.createUserCrudRequestToAdressDomain(createUserCrudRequest));
+		userCrudUseCase.createUser(UserMapper.userRequestToUserDomain(createUserCrudRequest), AddressMapper.createUserCrudRequestToAdressDomain(createUserCrudRequest));
 		return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message:", " Usuário criado com sucesso."));
 		
 	}
@@ -59,7 +59,7 @@ public class UserController {
 	public ResponseEntity<UserAndAddressResponse> findUserById(JwtAuthenticationToken token){
 		var userResponse = userCrudUseCase.getUserById(UUID.fromString(token.getName()));
 		var response = new UserAndAddressResponse(
-				UserMapper.UserToUpdateUserCrudResponse(userResponse.user()),
+				UserMapper.UserCrudToUserCrudResponse(userResponse.user()),
 				AddressMapper.addressDomainToAddressResponse(userResponse.adress()));
 		
 		return ResponseEntity.ok(response);
@@ -79,7 +79,7 @@ public class UserController {
 					AddressMapper.updateUserCrudRequestToAdressDomain(updateUserCrudRequest));	
 		
 		var addressUserGrouping = new UserAndAddressResponse(
-				UserMapper.UserToUpdateUserCrudResponse(userResponse.user()), 
+				UserMapper.UserCrudToUserCrudResponse(userResponse.user()), 
 				AddressMapper.addressDomainToAddressResponse(userResponse.adress()));
 		
 		return ResponseEntity.status(HttpStatus.OK).body(addressUserGrouping);

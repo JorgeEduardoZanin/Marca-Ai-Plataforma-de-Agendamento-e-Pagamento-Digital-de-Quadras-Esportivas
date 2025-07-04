@@ -1,19 +1,18 @@
 package com.marcaai.core.port.in;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 import com.marcaai.core.domain.Schedulling;
 
-public interface SchedullingUseCase {
+public interface SchedulingUseCase {
 
 	Set<Schedulling> create(Set<Schedulling> schedullings, Long footballCourtId, UUID enterpriseId);
 	
 	Schedulling findById(Long id, Long footballCourtId, UUID enterpriseId);
 	
-	List<Schedulling> findAllByFootballCourtAndDay(Long footballCourtId, LocalDate date, UUID enterpriseId);
+	Set<Schedulling> findAllByFootballCourtAndDay(Long footballCourtId, LocalDate date, UUID enterpriseId);
 	
 	Schedulling update(Schedulling schedulling, Long id);
 	

@@ -96,6 +96,9 @@ public class UserEntity {
 		return cpf;
 	}
 
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 
 	public String getEmail() {
 		return email;
@@ -115,6 +118,10 @@ public class UserEntity {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public LocalDateTime getCreation_date() {
