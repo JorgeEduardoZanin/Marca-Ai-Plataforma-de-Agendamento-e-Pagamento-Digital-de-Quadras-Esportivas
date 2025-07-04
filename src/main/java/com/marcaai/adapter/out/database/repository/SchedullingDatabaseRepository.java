@@ -2,6 +2,7 @@ package com.marcaai.adapter.out.database.repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,7 +24,7 @@ public interface SchedullingDatabaseRepository extends JpaRepository<Schedulling
 			@Param("end") LocalDateTime end);
 	
 	@Query("SELECT s FROM SchedullingEntity s WHERE s.footballCourt.id = :footballCourtId AND s.startTime BETWEEN :start AND :end ")
-	List<SchedullingEntity> findAllByFootballCourtAndDate(
+	Optional<List<SchedullingEntity>> findAllByFootballCourtAndDate(
 			@Param("footballCourtId") Long footballCourtId, 
 			@Param("start") LocalDateTime start, 
 			@Param("end") LocalDateTime end);

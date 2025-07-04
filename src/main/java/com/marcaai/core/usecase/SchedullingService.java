@@ -10,7 +10,10 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+
 import com.marcaai.core.domain.Schedulling;
+import com.marcaai.core.exception.SchedulingException;
+import com.marcaai.core.exception.enums.ExceptionSchedulingType;
 import com.marcaai.core.port.in.SchedullingUseCase;
 import com.marcaai.core.port.out.internal.SchedullingRepository;
 import com.marcaai.core.usecase.utils.ValidateId;
@@ -29,11 +32,15 @@ public class SchedullingService implements SchedullingUseCase {
 	@Override
 	public Set<Schedulling> create(Set<Schedulling> schedullings, Long footballCourtId, UUID enterpriseId) {
 		
+		if(schedullings.isEmpty()) {
+			throw new SchedulingException(ExceptionSchedulingType.REQUIRE_AT_LEAST_ONE_SCHEDULE , null);
+		}
+		
+		List<String> overlappingSchedules = new ArrayList<>();
+		
 		ValidateId.validateLongId(footballCourtId);
 		
 		var footballCourt = footballCourtService.findById(footballCourtId, enterpriseId);
-		
-		
 		
 		schedullings = schedullings.stream()
 		.map(s -> {
@@ -47,36 +54,32 @@ public class SchedullingService implements SchedullingUseCase {
 		
 		List<Schedulling> schedullingsList = new ArrayList<>(schedullings);
 		
+	
 		var databaseSchedullingsList = schedullingRepository.findAllByFootballCourtAndDate(footballCourtId, schedullingsList.get(0).getStartTime().toLocalDate(),
 				schedullingsList.get(schedullingsList.size()-1).getStartTime().toLocalDate());
 		
-		for (Schedulling databaseSchedulling : databaseSchedullingsList) {
-			for (Schedulling newSchedulling : schedullingsList) {
-				if(newSchedulling.getEndTime().isBefore(databaseSchedulling.getStartTime()) ||
-						newSchedulling.getStartTime().isAfter(databaseSchedulling.getEndTime())) {
-					System.out.println("erro");
-				}
-			}
-			
-		}
+		databaseSchedullingsList = databaseSchedullingsList.stream()
+				.filter(date -> date.getEndTime().isAfter(date.getStartTime()))
+				.toList();
+		
+		validateNoOverlapWithDatabaseSchedules(databaseSchedullingsList, schedullingsList, overlappingSchedules);
+		
 		
 		for(Schedulling sched : schedullingsList) {
 			for (DayOfWeek closedDays : footballCourt.getClosedDay()) {
 				if(sched.getStartTime().getDayOfWeek() == closedDays) {
-					System.out.println("erro");
+					throw new SchedulingException(ExceptionSchedulingType.CANNOT_SCHEDULE_ON_CLOSED_DAY, null);
 				}
 			}
 		}
 
-	for(int i = 1;i<schedullingsList.size();i++){
-		if (schedullingsList.get(i - 1).getEndTime().isAfter(schedullingsList.get(i).getStartTime())) {
-			System.out.println("erro");
+		if (schedullingsList.size() > 1) {	
+		validateNoOverlapWithinRequest(schedullingsList, overlappingSchedules);
 		}
-	}
+		
+		schedullingsList=schedullingRepository.create(schedullingsList);
 
-	schedullingsList=schedullingRepository.create(schedullingsList);
-
-	return schedullingsList.stream()
+		return schedullingsList.stream()
 			.sorted(Comparator.comparing(Schedulling::getStartTime))
 			.collect(Collectors.toCollection(LinkedHashSet::new));
 
@@ -97,12 +100,6 @@ public class SchedullingService implements SchedullingUseCase {
 		var schedullingsByFootballCourt = schedullingRepository.findAllByFootballCourtAndDay(footballCourtId, date).stream()
 				.sorted(Comparator.comparing(Schedulling::getStartTime))
 				.toList();
-	
-
-			
-		if(schedullingsByFootballCourt.isEmpty()) {
-			System.out.println("erro");
-		}
 			
 		return schedullingsByFootballCourt;
 				
@@ -151,9 +148,41 @@ public class SchedullingService implements SchedullingUseCase {
 		Long schedulingDatabaseId = schedullingRepository.findFootballCourtByScheduleId(id);
 		
 		if(!schedulingDatabaseId.equals(footballCourtId)) {
-			System.out.println("erro");
+			throw new SchedulingException(ExceptionSchedulingType.UNAUTHORIZED_SCHEDULING_ACCESS, null);
 		}
 		
+	}
+	
+	public void validateNoOverlapWithDatabaseSchedules(List<Schedulling> databaseSchedullingsList, List<Schedulling> schedullingsList, List<String> overlappingSchedules) {
+		
+		for (Schedulling databaseSchedulling : databaseSchedullingsList) {
+			for (Schedulling newSchedulling : schedullingsList) {
+				if(newSchedulling.getStartTime().isBefore(databaseSchedulling.getEndTime())
+						 && newSchedulling.getEndTime().isAfter(databaseSchedulling.getStartTime())) {
+					overlappingSchedules.add(newSchedulling.getStartTime()+" - "+newSchedulling.getEndTime()+" está em conflito com "
+						 +databaseSchedulling.getStartTime()+" - "+databaseSchedulling.getEndTime());                         
+				}
+			}
+		}
+		
+		if(!overlappingSchedules.isEmpty()){
+			throw new SchedulingException(ExceptionSchedulingType.SCHEDULING_CONFLICT, overlappingSchedules);
+		}
+		
+	}
+	
+	public void validateNoOverlapWithinRequest(List<Schedulling> schedulingsList, List<String> overlappingSchedules) {
+		
+		for(int i = 1;i<schedulingsList.size();i++){
+			if (schedulingsList.get(i - 1).getEndTime().isAfter(schedulingsList.get(i).getStartTime())) {
+				overlappingSchedules.add(schedulingsList.get(i-1).getStartTime()+" - "+ schedulingsList.get(i-1).getEndTime()+" está em conflito com "
+						+schedulingsList.get(i).getStartTime()+" - "+ schedulingsList.get(i).getEndTime());                 
+			}
+		}
+		
+		if(!overlappingSchedules.isEmpty()){
+			throw new SchedulingException(ExceptionSchedulingType.SCHEDULING_CONFLICT, overlappingSchedules);
+		}
 	}
 
 }

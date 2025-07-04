@@ -10,6 +10,8 @@ import com.marcaai.adapter.mapper.EnterpriseMapper;
 import com.marcaai.adapter.out.database.repository.EnterpriseDatabaseRepository;
 import com.marcaai.core.domain.Enterprise;
 import com.marcaai.core.domain.group.EnterpriseDomainGrouping;
+import com.marcaai.core.exception.EnterpriseException;
+import com.marcaai.core.exception.enums.ExceptionEnterpriseType;
 import com.marcaai.core.port.out.internal.EnterpriseRepository;
 
 @Component
@@ -30,7 +32,7 @@ public class EnterpriseAdapter implements EnterpriseRepository{
 	public Enterprise update(Enterprise enterprise) {
 		
 		var enterpriseEntity = enterpriseDatabaseRepository.findById(enterprise.getId())
-				.orElseThrow(() -> null);
+				.orElseThrow(() -> new EnterpriseException(ExceptionEnterpriseType.ENTERPRISE_NOT_FOUND));
 		
 		var enterpriseUpdate = enterpriseDatabaseRepository.saveAndFlush(EnterpriseMapper.updateEnterpriseDomainToEnterpriseEntity(enterpriseEntity, enterprise));
 		
@@ -47,7 +49,7 @@ public class EnterpriseAdapter implements EnterpriseRepository{
 	public EnterpriseDomainGrouping findById(UUID id) {
 		
 		var findEnterprise = enterpriseDatabaseRepository.findById(id)
-				.orElseThrow(() -> null);
+				.orElseThrow(() -> new EnterpriseException(ExceptionEnterpriseType.ENTERPRISE_NOT_FOUND));
 		
 		return new EnterpriseDomainGrouping(EnterpriseMapper.enterpriseEntityToEnterpriseDomain(findEnterprise),
 				AddressMapper.addressEntityToAdressDomain(findEnterprise.getAddressEntity()),

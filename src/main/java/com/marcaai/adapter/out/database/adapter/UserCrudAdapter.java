@@ -3,6 +3,7 @@ package com.marcaai.adapter.out.database.adapter;
 import java.util.UUID;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.marcaai.adapter.mapper.UserMapper;
 import com.marcaai.adapter.out.database.entity.UserEntity;
@@ -12,9 +13,10 @@ import com.marcaai.core.exception.UserCrudException;
 import com.marcaai.core.exception.enums.ExceptionUserCrudType;
 import com.marcaai.core.port.out.internal.UserCrudRepository;
 
-import jakarta.transaction.Transactional;
+
 
 @Component
+@Transactional(rollbackFor = UserCrudException.class)
 public class UserCrudAdapter implements UserCrudRepository {
 
 	private final UserCrudDatabaseRepository userCrudDatabaseRepository;

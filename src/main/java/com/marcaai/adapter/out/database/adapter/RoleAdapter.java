@@ -1,6 +1,7 @@
 package com.marcaai.adapter.out.database.adapter;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.marcaai.adapter.mapper.RoleMapper;
 import com.marcaai.adapter.out.database.repository.RoleDatabaseRepository;
@@ -9,7 +10,9 @@ import com.marcaai.core.exception.RoleException;
 import com.marcaai.core.exception.enums.ExceptionRoleType;
 import com.marcaai.core.port.out.internal.RoleRepository;
 
+
 @Component
+@Transactional(rollbackFor = RoleException.class)
 public class RoleAdapter implements RoleRepository{
 
 	private final RoleDatabaseRepository roleDatabaseRepository;

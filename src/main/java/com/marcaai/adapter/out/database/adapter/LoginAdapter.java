@@ -1,6 +1,7 @@
 package com.marcaai.adapter.out.database.adapter;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.marcaai.adapter.mapper.LoginMapper;
 import com.marcaai.adapter.out.database.repository.EnterpriseDatabaseRepository;
@@ -11,6 +12,7 @@ import com.marcaai.core.exception.enums.ExceptionLoginType;
 import com.marcaai.core.port.out.internal.LoginRepository;
 
 @Component
+@Transactional(rollbackFor = LoginException.class)
 public class LoginAdapter implements LoginRepository {
 
 	private final UserCrudDatabaseRepository userCrudDatabaseRepository;

@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import com.marcaai.core.domain.Enterprise;
 import com.marcaai.core.domain.FootballCourt;
+import com.marcaai.core.exception.FootballCourtException;
+import com.marcaai.core.exception.enums.ExceptionFootballCourtType;
 import com.marcaai.core.port.in.FootballCourtUseCase;
 import com.marcaai.core.port.out.internal.FootballCourtRepository;
 import com.marcaai.core.usecase.utils.ValidateId;
@@ -63,7 +65,7 @@ public class FootballCourtService implements FootballCourtUseCase{
 		UUID databaseEnterpriseId = footballCourtRepository.findEnterpriseUUIDInFootballCourt(id);
 		
 		if(!databaseEnterpriseId.equals(enterpriseId)) {
-			System.out.println("erro");
+			throw new FootballCourtException(ExceptionFootballCourtType.UNAUTHORIZED_FOOTBALL_COURT_ACCESS);
 		}
 	}
 	

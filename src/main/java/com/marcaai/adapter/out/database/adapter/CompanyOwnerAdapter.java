@@ -3,14 +3,18 @@ package com.marcaai.adapter.out.database.adapter;
 import java.util.UUID;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.marcaai.adapter.mapper.CompanyOwnerMapper;
 import com.marcaai.adapter.out.database.repository.CompanyOwnerDatabaseRepository;
 import com.marcaai.adapter.out.database.repository.EnterpriseDatabaseRepository;
 import com.marcaai.core.domain.CompanyOwner;
+import com.marcaai.core.exception.CompanyOwnerException;
+import com.marcaai.core.exception.enums.ExceptionCompanyOwnerType;
 import com.marcaai.core.port.out.internal.CompanyOwnerRepository;
 
 @Component
+@Transactional(rollbackFor = CompanyOwnerException.class)
 public class CompanyOwnerAdapter implements CompanyOwnerRepository{
 
 	private final CompanyOwnerDatabaseRepository companyOwnerDatabaseRepository;
@@ -53,7 +57,7 @@ public class CompanyOwnerAdapter implements CompanyOwnerRepository{
 	@Override
 	public CompanyOwner findById(UUID id) {
 		return CompanyOwnerMapper.companyOwnerEntityToCompanyOwnerDomain(companyOwnerDatabaseRepository.findById(id)
-				.orElseThrow(()-> null));
+				.orElseThrow(()-> new CompanyOwnerException(ExceptionCompanyOwnerType.COMPANY_OWNER_NOT_FOUND)));
 	}
 
 }
