@@ -12,6 +12,7 @@ import com.marcaai.core.exception.UserCrudException;
 import com.marcaai.core.exception.enums.ExceptionUserCrudType;
 import com.marcaai.core.port.in.UserCrudUseCase;
 import com.marcaai.core.port.out.internal.UserCrudRepository;
+import com.marcaai.core.usecase.utils.ValidateId;
 
 public class UserCrudService implements UserCrudUseCase{
 
@@ -45,7 +46,7 @@ public class UserCrudService implements UserCrudUseCase{
 	@Override
 	public UserDomainGrouping updateUser(UUID id, User user, Address addres) {
 		
-		validateId(id);
+		ValidateId.validateUUIDId(id);
 
 		user.setId(id);
 		User updateUser = userCrudRepository.updateUser(user);
@@ -57,14 +58,14 @@ public class UserCrudService implements UserCrudUseCase{
 	@Override
 	public void deleteUser(UUID id) {
 		
-		validateId(id);
+		ValidateId.validateUUIDId(id);
 		userCrudRepository.deleteUser(id);
 	}
 
 	@Override
 	public UserDomainGrouping getUserById(UUID id) {		
 		
-		validateId(id);
+		ValidateId.validateUUIDId(id);
 		var user = userCrudRepository.getUserById(id);
 		var address = addressService.findById(user.getAddress().getId());
 		return new UserDomainGrouping(user, address);
@@ -73,22 +74,15 @@ public class UserCrudService implements UserCrudUseCase{
 	@Override
 	public void updatePassword(UUID id, String newPassword){
 		
-		validateId(id);
+		ValidateId.validateUUIDId(id);
 		String oldPassword = userCrudRepository.findPasswordById(id);
-		
-		String newHashedPassword = passwordEncoder.encode(newPassword);
 		
 		if(passwordEncoder.matches(newPassword, oldPassword)) {
 			throw new UserCrudException(ExceptionUserCrudType.NEW_PASSWORD_SAME_AS_PREVIOUS_ONE);
 		}
 		
-		userCrudRepository.updatePassword(id, newHashedPassword);
+		userCrudRepository.updatePassword(id,  passwordEncoder.encode(newPassword));
 		
 	}
-	
-	public void validateId(UUID id) {
-		if(id == null) {
-			throw new IllegalArgumentException("Id não pode ser nulo");      
-		}
-	}
+
 }

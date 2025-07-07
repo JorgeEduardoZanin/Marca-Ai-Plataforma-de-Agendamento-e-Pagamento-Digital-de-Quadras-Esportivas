@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import com.marcaai.core.domain.Enterprise;
 import com.marcaai.core.domain.FootballCourt;
-import com.marcaai.core.domain.group.FootballCourtPaginationGroup;
+import com.marcaai.core.domain.group.FootballCourtPaginationGrouping;
 import com.marcaai.core.exception.FootballCourtException;
 import com.marcaai.core.exception.enums.ExceptionFootballCourtType;
 import com.marcaai.core.port.in.FootballCourtUseCase;
@@ -38,7 +38,7 @@ public class FootballCourtService implements FootballCourtUseCase{
 	}
 
 	@Override
-	public FootballCourtPaginationGroup findAllPaginatedByEnterprise(UUID enterpriseId, int page, int pageSize) {
+	public FootballCourtPaginationGrouping findAllPaginatedByEnterprise(UUID enterpriseId, int page, int pageSize) {
 		return footballCourtRepository.findAllPaginatedByEnterprise(enterpriseId ,page, pageSize);
 	}
 

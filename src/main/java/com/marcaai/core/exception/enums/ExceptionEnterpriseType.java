@@ -4,7 +4,8 @@ import org.springframework.http.HttpStatus;
 
 public enum ExceptionEnterpriseType {
 
-	ENTERPRISE_NOT_FOUND("emrepsa nao encontrada", HttpStatus.NOT_FOUND);
+	ENTERPRISE_NOT_FOUND("emrepsa nao encontrada", HttpStatus.NOT_FOUND),
+	NEW_PASSWORD_SAME_AS_PREVIOUS_ONE("A senha nova tem de ser diferente da antiga.", HttpStatus.CONFLICT);
 	
 	private final String message;
 	private final HttpStatus httpStatus;

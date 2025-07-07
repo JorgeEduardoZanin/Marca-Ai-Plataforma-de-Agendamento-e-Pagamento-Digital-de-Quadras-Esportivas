@@ -29,10 +29,10 @@ public class EnterpriseEntity {
 	
 	
 	@Column(nullable = false, length = 180)
-	private String corporate_reason;
+	private String corporateReason;
 	
 	@Column(nullable = false, length = 190)
-	private String fantasy_name;
+	private String fantasyName;
 	
 	@Column(name = "cnpj", nullable = false, columnDefinition = "CHAR(14)", unique = true) 
 	private String cnpj;
@@ -44,13 +44,13 @@ public class EnterpriseEntity {
 	private String password;
 	
 	@Column(nullable = false, length = 16)
-	private String phone_number;
+	private String phoneNumber;
 	
 	@Column(nullable = false, length = 20)
-	private String state_registration;
+	private String stateRegistration;
 	
 	@Column(length = 20)
-	private String municipal_registration;
+	private String municipalRegistration;
 	
 	private boolean fullyApproved;;
 	
@@ -71,15 +71,15 @@ public class EnterpriseEntity {
 	public EnterpriseEntity() {
 	}
 
-	public EnterpriseEntity(String corporate_reason, String fantasy_name, String cnpj, String email, String password, String phone_number, String state_registration) {
-		this.corporate_reason = corporate_reason;
-		this.fantasy_name = fantasy_name;
+	public EnterpriseEntity(String corporateReason, String fantasyName, String cnpj, String email, String password,
+			String phoneNumber, String stateRegistration) {
+		this.corporateReason = corporateReason;
+		this.fantasyName = fantasyName;
 		this.cnpj = cnpj;
 		this.email = email;
 		this.password = password;
-		this.phone_number = phone_number;
-		this.state_registration = state_registration;
-
+		this.phoneNumber = phoneNumber;
+		this.stateRegistration = stateRegistration;
 	}
 
 	public UUID getId() {
@@ -90,20 +90,20 @@ public class EnterpriseEntity {
 		this.id = id;
 	}
 
-	public String getCorporate_reason() {
-		return corporate_reason;
+	public String getCorporateReason() {
+		return corporateReason;
 	}
 
-	public void setCorporate_reason(String corporate_reason) {
-		this.corporate_reason = corporate_reason;
+	public void setCorporateReason(String corporateReason) {
+		this.corporateReason = corporateReason;
 	}
 
-	public String getFantasy_name() {
-		return fantasy_name;
+	public String getFantasyName() {
+		return fantasyName;
 	}
 
-	public void setFantasy_name(String fantasy_name) {
-		this.fantasy_name = fantasy_name;
+	public void setFantasyName(String fantasyName) {
+		this.fantasyName = fantasyName;
 	}
 
 	public String getCnpj() {
@@ -130,36 +130,28 @@ public class EnterpriseEntity {
 		this.password = password;
 	}
 
-	public String getPhone_number() {
-		return phone_number;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setPhone_number(String phone_number) {
-		this.phone_number = phone_number;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
-	public String getState_registration() {
-		return state_registration;
+	public String getStateRegistration() {
+		return stateRegistration;
 	}
 
-	public void setState_registration(String state_registration) {
-		this.state_registration = state_registration;
+	public void setStateRegistration(String stateRegistration) {
+		this.stateRegistration = stateRegistration;
 	}
 
-	public String getMunicipal_registration() {
-		return municipal_registration;
+	public String getMunicipalRegistration() {
+		return municipalRegistration;
 	}
 
-	public void setMunicipal_registration(String municipal_registration) {
-		this.municipal_registration = municipal_registration;
-	}
-
-	public CompanyOwnerEntity getCompany_owner() {
-		return company_owner;
-	}
-
-	public void setCompany_owner(CompanyOwnerEntity company_owner) {
-		this.company_owner = company_owner;
+	public void setMunicipalRegistration(String municipalRegistration) {
+		this.municipalRegistration = municipalRegistration;
 	}
 
 	public boolean isFullyApproved() {
@@ -186,6 +178,14 @@ public class EnterpriseEntity {
 		this.roles = roles;
 	}
 
+	public CompanyOwnerEntity getCompany_owner() {
+		return company_owner;
+	}
+
+	public void setCompany_owner(CompanyOwnerEntity company_owner) {
+		this.company_owner = company_owner;
+	}
+
 	public AddressEntity getAddressEntity() {
 		return addressEntity;
 	}
@@ -193,5 +193,5 @@ public class EnterpriseEntity {
 	public void setAddressEntity(AddressEntity addressEntity) {
 		this.addressEntity = addressEntity;
 	}
-	
+
 }

@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 
 public enum ExceptionUserCrudType {
 
-	NEW_PASSWORD_SAME_AS_PREVIOUS_ONE("A senha nova tem de ser diferente da antiga.", HttpStatus.BAD_REQUEST),
+	NEW_PASSWORD_SAME_AS_PREVIOUS_ONE("A senha nova tem de ser diferente da antiga.", HttpStatus.CONFLICT),
 	USER_NOT_FOUND("O usuário não foi encontrado.", HttpStatus.NOT_FOUND);
 	
 	private final String message;

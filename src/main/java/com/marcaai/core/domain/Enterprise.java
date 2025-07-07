@@ -6,34 +6,45 @@ import java.util.UUID;
 public class Enterprise {
 
 	private UUID id;
-	private String corporate_reason;
-	private String fantasy_name;
+	
+	private String corporateReason;
+	
+	private String fantasyName;
+	
 	private String cnpj;
+	
 	private String email;
+	
 	private String password;
-	private String phone_number;
-	private String state_registration;
-	private String municipal_registration;
+	
+	private String phoneNumber;
+	
+	private String stateRegistration;
+	
+	private String municipalRegistration;
+	
 	private boolean fullyApproved;;
+	
 	private boolean partialApproved;
 	
 	private Address address;
 	
 	private Set<Role> roles;
 	
-	private CompanyOwner company_owner;
+	private CompanyOwner companyOwner;
 
 	public Enterprise() {
 	}
 
-	public Enterprise(String corporate_reason, String fantasy_name, String cnpj, String email, String password, String phone_number, String state_registration) {
-		this.corporate_reason = corporate_reason;
-		this.fantasy_name = fantasy_name;
+
+	public Enterprise(String corporateReason, String fantasyName, String cnpj, String email, String password, String phoneNumber, String stateRegistration) {
+		this.corporateReason = corporateReason;
+		this.fantasyName = fantasyName;
 		this.cnpj = cnpj;
 		this.email = email;
 		this.password = password;
-		this.phone_number = phone_number;
-		this.state_registration = state_registration;
+		this.phoneNumber = phoneNumber;
+		this.stateRegistration = stateRegistration;
 	}
 
 	public UUID getId() {
@@ -44,20 +55,20 @@ public class Enterprise {
 		this.id = id;
 	}
 
-	public String getCorporate_reason() {
-		return corporate_reason;
+	public String getCorporateReason() {
+		return corporateReason;
 	}
 
-	public void setCorporate_reason(String corporate_reason) {
-		this.corporate_reason = corporate_reason;
+	public void setCorporateReason(String corporateReason) {
+		this.corporateReason = corporateReason;
 	}
 
-	public String getFantasy_name() {
-		return fantasy_name;
+	public String getFantasyName() {
+		return fantasyName;
 	}
 
-	public void setFantasy_name(String fantasy_name) {
-		this.fantasy_name = fantasy_name;
+	public void setFantasyName(String fantasyName) {
+		this.fantasyName = fantasyName;
 	}
 
 	public String getCnpj() {
@@ -84,36 +95,28 @@ public class Enterprise {
 		this.password = password;
 	}
 
-	public String getPhone_number() {
-		return phone_number;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setPhone_number(String phone_number) {
-		this.phone_number = phone_number;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
-	public String getState_registration() {
-		return state_registration;
+	public String getStateRegistration() {
+		return stateRegistration;
 	}
 
-	public void setState_registration(String state_registration) {
-		this.state_registration = state_registration;
+	public void setStateRegistration(String stateRegistration) {
+		this.stateRegistration = stateRegistration;
 	}
 
-	public String getMunicipal_registration() {
-		return municipal_registration;
+	public String getMunicipalRegistration() {
+		return municipalRegistration;
 	}
 
-	public void setMunicipal_registration(String municipal_registration) {
-		this.municipal_registration = municipal_registration;
-	}
-
-	public CompanyOwner getCompany_owner() {
-		return company_owner;
-	}
-
-	public void setCompany_owner(CompanyOwner company_owner) {
-		this.company_owner = company_owner;
+	public void setMunicipalRegistration(String municipalRegistration) {
+		this.municipalRegistration = municipalRegistration;
 	}
 
 	public boolean isFullyApproved() {
@@ -147,5 +150,13 @@ public class Enterprise {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-	
+
+	public CompanyOwner getCompanyOwner() {
+		return companyOwner;
+	}
+
+	public void setCompanyOwner(CompanyOwner companyOwner) {
+		this.companyOwner = companyOwner;
+	}
 }
+	

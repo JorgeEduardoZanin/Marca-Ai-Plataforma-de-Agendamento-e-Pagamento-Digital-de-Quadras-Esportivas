@@ -1,24 +1,24 @@
 package com.marcaai.core.usecase;
 
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.marcaai.adapter.dto.grouping.response.EnterpriseResponseGrouping;
-import com.marcaai.adapter.mapper.AddressMapper;
-import com.marcaai.adapter.mapper.CompanyOwnerMapper;
-import com.marcaai.adapter.mapper.EnterpriseMapper;
 import com.marcaai.core.domain.Address;
 import com.marcaai.core.domain.CompanyOwner;
 import com.marcaai.core.domain.Enterprise;
 import com.marcaai.core.domain.Role;
 import com.marcaai.core.domain.group.CnpjGrouping;
+import com.marcaai.core.domain.group.EnterpriseDomainGrouping;
+import com.marcaai.core.domain.group.EnterprisePaginationDomainGrouping;
 import com.marcaai.core.domain.group.UpdateEnterpriseDomainGrouping;
+import com.marcaai.core.exception.EnterpriseException;
+import com.marcaai.core.exception.enums.ExceptionEnterpriseType;
 import com.marcaai.core.port.in.EnterpriseUseCase;
 import com.marcaai.core.port.out.external.CheckCnpjRepository;
 import com.marcaai.core.port.out.internal.EnterpriseRepository;
+import com.marcaai.core.usecase.utils.ValidateId;
 
 public class EnterpriseService implements EnterpriseUseCase {
 
@@ -58,7 +58,7 @@ public class EnterpriseService implements EnterpriseUseCase {
 		enterprise.setPassword(passwordEncoder.encode(enterprise.getPassword()));
 		enterprise.setRoles(Set.of(role));
 		enterprise.setAddress(newAddress);
-		enterprise.setCompany_owner(newCompanyOwner);
+		enterprise.setCompanyOwner(newCompanyOwner);
 		
 		enterpriseRepository.create(enterprise);
 		
@@ -67,7 +67,7 @@ public class EnterpriseService implements EnterpriseUseCase {
 	@Override
 	public UpdateEnterpriseDomainGrouping update(Enterprise enterprise, UUID id, Address address) {
 		
-		validateId(id);
+		ValidateId.validateUUIDId(id);
 		enterprise.setId(id);
 		var enterpriseUpdate = enterpriseRepository.update(enterprise);
 		
@@ -77,25 +77,22 @@ public class EnterpriseService implements EnterpriseUseCase {
 	}
 
 	@Override
-	public EnterpriseResponseGrouping findById(UUID id) {
+	public EnterpriseDomainGrouping findById(UUID id) {
 		
-		validateId(id);
-		var enterprise = enterpriseRepository.findById(id);
+		ValidateId.validateUUIDId(id);
+		var enterpriseGroup = enterpriseRepository.findById(id);
 		
-		return new EnterpriseResponseGrouping(AddressMapper.addressDomainToAddressResponse(enterprise.address()), 
-				EnterpriseMapper.enterpriseDomainToEnterpriseResponse(enterprise.enterprise()),
-				CompanyOwnerMapper.companyOwnerDomainToCompanyOwnerResponse(enterprise.companyOwner()));
+		return enterpriseGroup;
 	}
 
 	@Override
-	public List<Enterprise> listPaginateEnterprise() {
-		// TODO Auto-generated method stub
-		return null;
+	public EnterprisePaginationDomainGrouping findAllPaginated(int size, int pageSize) {
+		return enterpriseRepository.findAllPaginated(size, pageSize);
 	}
 
 	@Override
 	public void delete(UUID id) {
-		validateId(id);
+		ValidateId.validateUUIDId(id);
 		enterpriseRepository.delete(id);
 		
 		
@@ -115,15 +112,15 @@ public class EnterpriseService implements EnterpriseUseCase {
 	
 	@Override
 	public void updatePassword(UUID id, String password) {
-		validateId(id);
 		
-	}
-	
-	public void validateId(UUID id) {
-		if(id == null) {
-			throw new IllegalArgumentException("Id não pode ser nulo");      
+		ValidateId.validateUUIDId(id);
+		String oldPassword = enterpriseRepository.findPasswordById(id);
+		
+		if(passwordEncoder.matches(password, oldPassword)) {
+			throw new EnterpriseException(ExceptionEnterpriseType.NEW_PASSWORD_SAME_AS_PREVIOUS_ONE);
 		}
+		
+		enterpriseRepository.updatePassowrd(passwordEncoder.encode(password), id);
 	}
-
 
 }

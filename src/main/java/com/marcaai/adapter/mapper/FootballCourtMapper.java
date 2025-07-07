@@ -13,7 +13,7 @@ import com.marcaai.adapter.out.database.entity.EnterpriseEntity;
 import com.marcaai.adapter.out.database.entity.FootballCourtEntity;
 import com.marcaai.core.domain.Enterprise;
 import com.marcaai.core.domain.FootballCourt;
-import com.marcaai.core.domain.group.FootballCourtPaginationGroup;
+import com.marcaai.core.domain.group.FootballCourtPaginationGrouping;
 
 public class FootballCourtMapper {
 
@@ -89,7 +89,7 @@ public class FootballCourtMapper {
 		
 	}
 	
-	public static FootballCourtPaginationGroup footballCourtRepositoryDatabaseResponseToFootballCourtPaginationGrouping(Page<FootballCourtRepositoryDatabaseResponse> courtList){
+	public static FootballCourtPaginationGrouping footballCourtRepositoryDatabaseResponseToFootballCourtPaginationGrouping(Page<FootballCourtRepositoryDatabaseResponse> courtList){
 		
 		Enterprise enterprise = new Enterprise();
 		enterprise.setId(courtList.getContent().getFirst().enterprise().getId());
@@ -106,7 +106,7 @@ public class FootballCourtMapper {
 				})
 				.toList();
 		
-		return new FootballCourtPaginationGroup(domainCourtList, courtList.getTotalElements(), courtList.getTotalPages());
+		return new FootballCourtPaginationGrouping(domainCourtList, courtList.getTotalElements(), courtList.getTotalPages());
 		
 	}
 	

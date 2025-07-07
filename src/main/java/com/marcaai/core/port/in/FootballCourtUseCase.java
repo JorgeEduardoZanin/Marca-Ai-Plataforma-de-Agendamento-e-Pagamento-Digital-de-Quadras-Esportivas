@@ -3,7 +3,7 @@ package com.marcaai.core.port.in;
 import java.util.UUID;
 
 import com.marcaai.core.domain.FootballCourt;
-import com.marcaai.core.domain.group.FootballCourtPaginationGroup;
+import com.marcaai.core.domain.group.FootballCourtPaginationGrouping;
 
 public interface FootballCourtUseCase {
 
@@ -11,7 +11,7 @@ public interface FootballCourtUseCase {
 	
 	FootballCourt findById(Long id, UUID enterpriseId);
 	
-	FootballCourtPaginationGroup findAllPaginatedByEnterprise(UUID enterpriseId, int page, int pageSize);
+	FootballCourtPaginationGrouping findAllPaginatedByEnterprise(UUID enterpriseId, int page, int pageSize);
 	
 	void delete(Long id, UUID enterpriseId);
 	

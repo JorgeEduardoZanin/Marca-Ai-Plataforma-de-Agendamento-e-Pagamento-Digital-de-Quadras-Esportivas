@@ -56,7 +56,7 @@ public class Cnpj {
 	
 	public boolean hasSameCorporateReason(Enterprise enterprise) {
 		
-		if(!corporate_reason.equals(enterprise.getCorporate_reason())) {
+		if(!corporate_reason.equals(enterprise.getCorporateReason())) {
 			return false;
 		}
 		

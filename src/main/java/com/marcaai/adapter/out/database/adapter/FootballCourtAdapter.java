@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.marcaai.adapter.mapper.FootballCourtMapper;
 import com.marcaai.adapter.out.database.repository.FootballCourtDatabaseRepository;
 import com.marcaai.core.domain.FootballCourt;
-import com.marcaai.core.domain.group.FootballCourtPaginationGroup;
+import com.marcaai.core.domain.group.FootballCourtPaginationGrouping;
 import com.marcaai.core.exception.FootballCourtException;
 import com.marcaai.core.exception.enums.ExceptionFootballCourtType;
 import com.marcaai.core.port.out.internal.FootballCourtRepository;
@@ -39,7 +39,7 @@ public class FootballCourtAdapter implements FootballCourtRepository{
 	}
 
 	@Override
-	public FootballCourtPaginationGroup findAllPaginatedByEnterprise(UUID enterpriseID, int page, int pageSize) {
+	public FootballCourtPaginationGrouping findAllPaginatedByEnterprise(UUID enterpriseID, int page, int pageSize) {
 		var courtList = footballCourtDatabaseRepository.findAllPaginatedByEnterprise(enterpriseID ,PageRequest.of(page, pageSize, Sort.Direction.ASC, "name"));
 		
 		return FootballCourtMapper.footballCourtRepositoryDatabaseResponseToFootballCourtPaginationGrouping(courtList);

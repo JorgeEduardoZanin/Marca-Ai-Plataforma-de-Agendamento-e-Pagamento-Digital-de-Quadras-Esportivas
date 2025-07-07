@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.marcaai.adapter.dto.grouping.request.CreateEnterpriseRequestGrouping;
 import com.marcaai.adapter.dto.grouping.request.UpdateEnterpriseRequestGrouping;
 import com.marcaai.adapter.dto.grouping.response.EnterpriseResponseGrouping;
+import com.marcaai.adapter.dto.grouping.response.enterprise.EnterprisePaginationGroupResponse;
 import com.marcaai.adapter.dto.grouping.response.enterprise.UpdateEnterpriseResponseGrouping;
 import com.marcaai.adapter.mapper.AddressMapper;
 import com.marcaai.adapter.mapper.CompanyOwnerMapper;
@@ -58,7 +60,21 @@ public class EnterpriseController {
 	@GetMapping
 	public ResponseEntity<EnterpriseResponseGrouping> findById(JwtAuthenticationToken token){
 		var enterpriseResponse = enterpriseUseCase.findById(UUID.fromString(token.getName()));
-		return ResponseEntity.ok(enterpriseResponse);		
+		
+		var responseGroup = new EnterpriseResponseGrouping(AddressMapper.addressDomainToAddressResponse(enterpriseResponse.address()),
+				EnterpriseMapper.enterpriseDomainToEnterpriseResponse(enterpriseResponse.enterprise()),
+				CompanyOwnerMapper.companyOwnerDomainToCompanyOwnerResponse(enterpriseResponse.companyOwner()));
+		
+		return ResponseEntity.ok(responseGroup);		
+	}
+	
+	@GetMapping
+	public ResponseEntity<EnterprisePaginationGroupResponse> findAllPaginated(@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize){
+		
+		var enterprise = enterpriseUseCase.findAllPaginated(pageSize, pageSize);
+		
+		return ResponseEntity.ok(new EnterprisePaginationGroupResponse(EnterpriseMapper.enterpriseDomainListToEnterpriseSummaryResponseList(enterprise.enterpriseList()), pageSize, page, enterprise.totalElements(), enterprise.totalPages()));
 	}
 	/*
 	-
@@ -78,6 +94,13 @@ public class EnterpriseController {
 				EnterpriseMapper.enterpriseDomainToEnterpriseResponse(request.enterprise()));
 		
 		return ResponseEntity.ok(response);
+	}
+	
+	@PutMapping
+	public ResponseEntity<Map<String, String>> updatePassword(JwtAuthenticationToken token, @RequestBody String password){
+		enterpriseUseCase.updatePassword(UUID.fromString(token.getName()), password);
+		
+		return ResponseEntity.ok(Map.of("message:", " Senha atualizada com sucesso."));
 	}
 	/*
 	-
