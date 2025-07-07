@@ -1,12 +1,19 @@
 package com.marcaai.adapter.mapper;
 
+import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
 
 import com.marcaai.adapter.dto.request.footballcourt.FootballCourtRequest;
 import com.marcaai.adapter.dto.response.footballcourt.FootballCourtResponse;
+import com.marcaai.adapter.dto.response.footballcourt.FootballCourtSummaryResponse;
+import com.marcaai.adapter.out.database.dto.response.FootballCourtRepositoryDatabaseResponse;
 import com.marcaai.adapter.out.database.entity.EnterpriseEntity;
 import com.marcaai.adapter.out.database.entity.FootballCourtEntity;
+import com.marcaai.core.domain.Enterprise;
 import com.marcaai.core.domain.FootballCourt;
+import com.marcaai.core.domain.group.FootballCourtPaginationGroup;
 
 public class FootballCourtMapper {
 
@@ -80,6 +87,42 @@ public class FootballCourtMapper {
 		
 		return footballCourtEntity;
 		
+	}
+	
+	public static FootballCourtPaginationGroup footballCourtRepositoryDatabaseResponseToFootballCourtPaginationGrouping(Page<FootballCourtRepositoryDatabaseResponse> courtList){
+		
+		Enterprise enterprise = new Enterprise();
+		enterprise.setId(courtList.getContent().getFirst().enterprise().getId());
+		
+		var domainCourtList = courtList.getContent().stream()
+				.map(databaseResponse -> {
+					FootballCourt footballCourt = new FootballCourt();
+					footballCourt.setId(databaseResponse.id());
+					footballCourt.setEnteprise(enterprise);
+					footballCourt.setValue(databaseResponse.value());
+					footballCourt.setName(databaseResponse.name());
+					
+					return footballCourt;
+				})
+				.toList();
+		
+		return new FootballCourtPaginationGroup(domainCourtList, courtList.getTotalElements(), courtList.getTotalPages());
+		
+	}
+	
+	public static List<FootballCourtSummaryResponse> footballCourtDomainListToFootballCourtSummaryResponse(List<FootballCourt> court){
+		
+		return court.stream()
+				.map(courtDomain -> {
+					return new FootballCourtSummaryResponse(
+							courtDomain.getName(),
+							courtDomain.getValue(),
+							courtDomain.getEnteprise().getId(),
+							courtDomain.getId());
+					
+				})
+				.toList();
+
 	}
 	
 }

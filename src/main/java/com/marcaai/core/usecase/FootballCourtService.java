@@ -1,10 +1,10 @@
 package com.marcaai.core.usecase;
 
-import java.util.List;
 import java.util.UUID;
 
 import com.marcaai.core.domain.Enterprise;
 import com.marcaai.core.domain.FootballCourt;
+import com.marcaai.core.domain.group.FootballCourtPaginationGroup;
 import com.marcaai.core.exception.FootballCourtException;
 import com.marcaai.core.exception.enums.ExceptionFootballCourtType;
 import com.marcaai.core.port.in.FootballCourtUseCase;
@@ -21,6 +21,7 @@ public class FootballCourtService implements FootballCourtUseCase{
 
 	@Override
 	public FootballCourt create(FootballCourt footballCourt, UUID enterpriseId) {
+		ValidateId.validateUUIDId(enterpriseId);
 		
 		var enterprise = new Enterprise();
 		enterprise.setId(enterpriseId);
@@ -32,15 +33,13 @@ public class FootballCourtService implements FootballCourtUseCase{
 	@Override
 	public FootballCourt findById(Long id, UUID enterpriseId) {
 		ValidateId.validateLongId(id);
-		validateEnterpriseOwnership(id, enterpriseId);
 		
 		return footballCourtRepository.findById(id);
 	}
 
 	@Override
-	public List<FootballCourt> listAll(UUID enterpriseId) {
-		// TODO Auto-generated method stub
-		return null;
+	public FootballCourtPaginationGroup findAllPaginatedByEnterprise(UUID enterpriseId, int page, int pageSize) {
+		return footballCourtRepository.findAllPaginatedByEnterprise(enterpriseId ,page, pageSize);
 	}
 
 	@Override

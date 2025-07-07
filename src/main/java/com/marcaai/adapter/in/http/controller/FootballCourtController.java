@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.marcaai.adapter.dto.grouping.response.footballcourt.FootballCourtPaginationGroupResponse;
 import com.marcaai.adapter.dto.request.footballcourt.FootballCourtRequest;
 import com.marcaai.adapter.dto.response.footballcourt.FootballCourtResponse;
 import com.marcaai.adapter.mapper.FootballCourtMapper;
@@ -53,6 +55,22 @@ public class FootballCourtController {
 	public ResponseEntity<FootballCourtResponse> findById(@PathVariable Long id, JwtAuthenticationToken token){
 		var footballCourtDomain = footballCourtUseCase.findById(id, UUID.fromString(token.getName()));
 		return ResponseEntity.ok(FootballCourtMapper.footballCourtDomainToFootBallCourtResponse(footballCourtDomain));
+	}
+	
+	@GetMapping
+	public ResponseEntity<FootballCourtPaginationGroupResponse> findAllPaginate(@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize, JwtAuthenticationToken token){
+		
+			var domainList = footballCourtUseCase.findAllPaginatedByEnterprise(UUID.fromString(token.getName()), page, pageSize);
+			var response = new FootballCourtPaginationGroupResponse(
+					FootballCourtMapper.footballCourtDomainListToFootballCourtSummaryResponse(domainList.courtList()), 
+					pageSize, 
+					page, 
+					domainList.totalElements(), 
+					domainList.totalPages());
+			
+			return ResponseEntity.ok(response);
+		
 	}
 	/*
 	-

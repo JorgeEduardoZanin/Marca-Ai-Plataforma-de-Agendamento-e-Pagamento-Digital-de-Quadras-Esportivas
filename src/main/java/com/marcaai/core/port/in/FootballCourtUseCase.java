@@ -1,9 +1,9 @@
 package com.marcaai.core.port.in;
 
-import java.util.List;
 import java.util.UUID;
 
 import com.marcaai.core.domain.FootballCourt;
+import com.marcaai.core.domain.group.FootballCourtPaginationGroup;
 
 public interface FootballCourtUseCase {
 
@@ -11,7 +11,7 @@ public interface FootballCourtUseCase {
 	
 	FootballCourt findById(Long id, UUID enterpriseId);
 	
-	List<FootballCourt> listAll(UUID enterpriseId);
+	FootballCourtPaginationGroup findAllPaginatedByEnterprise(UUID enterpriseId, int page, int pageSize);
 	
 	void delete(Long id, UUID enterpriseId);
 	

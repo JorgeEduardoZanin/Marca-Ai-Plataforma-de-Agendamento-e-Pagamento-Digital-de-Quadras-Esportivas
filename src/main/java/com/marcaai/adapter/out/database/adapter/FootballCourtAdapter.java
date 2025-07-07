@@ -1,14 +1,16 @@
 package com.marcaai.adapter.out.database.adapter;
 
-import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.marcaai.adapter.mapper.FootballCourtMapper;
 import com.marcaai.adapter.out.database.repository.FootballCourtDatabaseRepository;
 import com.marcaai.core.domain.FootballCourt;
+import com.marcaai.core.domain.group.FootballCourtPaginationGroup;
 import com.marcaai.core.exception.FootballCourtException;
 import com.marcaai.core.exception.enums.ExceptionFootballCourtType;
 import com.marcaai.core.port.out.internal.FootballCourtRepository;
@@ -37,9 +39,10 @@ public class FootballCourtAdapter implements FootballCourtRepository{
 	}
 
 	@Override
-	public List<FootballCourt> listAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public FootballCourtPaginationGroup findAllPaginatedByEnterprise(UUID enterpriseID, int page, int pageSize) {
+		var courtList = footballCourtDatabaseRepository.findAllPaginatedByEnterprise(enterpriseID ,PageRequest.of(page, pageSize, Sort.Direction.ASC, "name"));
+		
+		return FootballCourtMapper.footballCourtRepositoryDatabaseResponseToFootballCourtPaginationGrouping(courtList);
 	}
 
 	@Override

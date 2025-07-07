@@ -97,8 +97,5 @@ public class SchedullingController {
 		return ResponseEntity.ok(Map.of("message", "Todos os agendamentos do dia "+date.getDayOfMonth()+" de "
 				+date.getMonth().toString()+" de "+date.getYear()+" foram deletados com sucesso!"));
 	}
-
-	
-	
 	
 }
