@@ -31,6 +31,7 @@ public class CompanyOwnerAdapter implements CompanyOwnerRepository{
 	public UUID create(CompanyOwner companyOwner) {
 	
 		var findCompanyOwner = companyOwnerDatabaseRepository.findByCpf(companyOwner.getCpf());
+		
 		if(findCompanyOwner.isPresent()) {
 			return findCompanyOwner.get().getId();
 		}

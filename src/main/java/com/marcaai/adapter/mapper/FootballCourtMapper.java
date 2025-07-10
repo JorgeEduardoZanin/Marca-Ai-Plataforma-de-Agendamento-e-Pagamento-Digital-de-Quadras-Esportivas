@@ -8,7 +8,8 @@ import org.springframework.data.domain.Page;
 import com.marcaai.adapter.dto.request.footballcourt.FootballCourtRequest;
 import com.marcaai.adapter.dto.response.footballcourt.FootballCourtResponse;
 import com.marcaai.adapter.dto.response.footballcourt.FootballCourtSummaryResponse;
-import com.marcaai.adapter.out.database.dto.response.FootballCourtRepositoryDatabaseResponse;
+import com.marcaai.adapter.out.database.dto.response.footballcourt.FootballCourtDatabaseResponse;
+import com.marcaai.adapter.out.database.dto.response.footballcourt.SoccerFieldOrderDatabaseResponse;
 import com.marcaai.adapter.out.database.entity.EnterpriseEntity;
 import com.marcaai.adapter.out.database.entity.FootballCourtEntity;
 import com.marcaai.core.domain.Enterprise;
@@ -89,7 +90,7 @@ public class FootballCourtMapper {
 		
 	}
 	
-	public static FootballCourtPaginationGrouping footballCourtRepositoryDatabaseResponseToFootballCourtPaginationGrouping(Page<FootballCourtRepositoryDatabaseResponse> courtList){
+	public static FootballCourtPaginationGrouping footballCourtRepositoryDatabaseResponseToFootballCourtPaginationGrouping(Page<FootballCourtDatabaseResponse> courtList){
 		
 		Enterprise enterprise = new Enterprise();
 		enterprise.setId(courtList.getContent().getFirst().enterprise().getId());
@@ -123,6 +124,21 @@ public class FootballCourtMapper {
 				})
 				.toList();
 
+	}
+	
+	public static List<FootballCourt> listSoccerFieldDatabaseResponseToListFootballCourtDomain(List<SoccerFieldOrderDatabaseResponse> databaseResponse){
+		
+		var domainList = databaseResponse.stream()
+				.map(response -> {
+					var domain = new FootballCourt();
+					domain.setValue(response.value());
+					domain.setId(response.id());
+					domain.setAvailable(response.available());
+					return domain;
+				})
+				.toList();
+		
+		return domainList;
 	}
 	
 }

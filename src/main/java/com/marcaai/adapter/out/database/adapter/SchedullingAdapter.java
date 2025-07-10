@@ -94,4 +94,18 @@ public class SchedullingAdapter implements SchedullingRepository {
 		return schedullingDatabaseRepository.findFootballCourtIdByScheduleId(id);
 	}
 
+
+	@Override
+	public void updateAvailability(List<Schedulling> schedulings) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public List<Schedulling> findAllByIds(List<Long> schedulingsId) {
+		var schedulingsEntity = schedullingDatabaseRepository.findAllById(schedulingsId);
+		return SchedullingMapper.listSchedullingEntityToListSchedullingDomain(schedulingsEntity);
+	}
+
 }

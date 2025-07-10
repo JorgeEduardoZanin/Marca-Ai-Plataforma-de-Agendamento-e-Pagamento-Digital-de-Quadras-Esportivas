@@ -143,6 +143,14 @@ public class SchedullingService implements SchedulingUseCase {
 		
 	}
 	
+	public List<Schedulling> findAllByIds(List<Long> schedulingsId){
+		return schedullingRepository.findAllByIds(schedulingsId);
+	}
+	
+	public void updateAvailability(List<Schedulling> schedulings){
+		
+	}
+	
 	public void validateSchedulingOwnership(Long footballCourtId, Long id) {
 		
 		Long schedulingDatabaseId = schedullingRepository.findFootballCourtByScheduleId(id);

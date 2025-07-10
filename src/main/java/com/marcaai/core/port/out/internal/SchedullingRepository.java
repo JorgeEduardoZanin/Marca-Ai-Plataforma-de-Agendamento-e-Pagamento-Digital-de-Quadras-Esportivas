@@ -24,4 +24,8 @@ public interface SchedullingRepository {
 	void deleteAllByFootballCourtAndDate(Long footballCourtId, LocalDate date);
 	
 	Long findFootballCourtByScheduleId(Long id);
+	
+	void updateAvailability(List<Schedulling> schedulings);
+	
+	List<Schedulling> findAllByIds(List<Long> schedulingsId); 
 }

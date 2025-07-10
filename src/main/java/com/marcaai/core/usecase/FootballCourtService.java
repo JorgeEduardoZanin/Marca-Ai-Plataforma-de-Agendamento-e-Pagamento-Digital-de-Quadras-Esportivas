@@ -1,5 +1,7 @@
 package com.marcaai.core.usecase;
 
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import com.marcaai.core.domain.Enterprise;
@@ -58,6 +60,10 @@ public class FootballCourtService implements FootballCourtUseCase{
 		
 		footballCourtRepository.update(footballCourt, id);
 		return null;
+	}
+	
+	public List<FootballCourt> findAllByIds(Set<Long> footballCourtsids){
+		return footballCourtRepository.findAllByIds(footballCourtsids);
 	}
 	
 	public void validateEnterpriseOwnership (Long id, UUID enterpriseId) {

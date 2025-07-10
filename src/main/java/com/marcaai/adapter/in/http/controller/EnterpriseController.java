@@ -74,7 +74,8 @@ public class EnterpriseController {
 		
 		var enterprise = enterpriseUseCase.findAllPaginated(pageSize, pageSize);
 		
-		return ResponseEntity.ok(new EnterprisePaginationGroupResponse(EnterpriseMapper.enterpriseDomainListToEnterpriseSummaryResponseList(enterprise.enterpriseList()), pageSize, page, enterprise.totalElements(), enterprise.totalPages()));
+		return ResponseEntity.ok(new EnterprisePaginationGroupResponse(EnterpriseMapper.enterpriseDomainListToEnterpriseSummaryResponseList(
+				enterprise.enterpriseList()), pageSize, page, enterprise.totalElements(), enterprise.totalPages()));
 	}
 	/*
 	-

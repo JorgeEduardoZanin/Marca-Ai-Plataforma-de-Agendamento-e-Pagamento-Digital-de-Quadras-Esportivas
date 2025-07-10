@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.marcaai.adapter.out.database.dto.response.EnterpriseRepositoryDatabaseResponse;
+import com.marcaai.adapter.out.database.dto.response.enterprise.EnterpriseDatabaseResponse;
 import com.marcaai.adapter.out.database.entity.EnterpriseEntity;
 
 @Repository
@@ -23,7 +23,7 @@ public interface EnterpriseDatabaseRepository extends JpaRepository<EnterpriseEn
 	Optional<EnterpriseEntity> findByEmail(String email);
 	
 	@Query("SELECT new com.marcaai.adapter.out.database.dto.response.EnterpriseRepositoryDatabaseResponse(e.id, e.fantasyName) FROM EnterpriseEntity e WHERE e.fullyApproved = true")
-	Page<EnterpriseRepositoryDatabaseResponse> findAllPaginated(Pageable pageable);
+	Page<EnterpriseDatabaseResponse> findAllPaginated(Pageable pageable);
 	
 	@Query("SELECT e.password FROM EnterpriseEntity e WHERE e.id = :id")
 	String findPasswordById(UUID id);

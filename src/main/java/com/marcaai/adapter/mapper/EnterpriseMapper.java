@@ -9,7 +9,7 @@ import com.marcaai.adapter.dto.request.enterprise.EnterpriseRequest;
 import com.marcaai.adapter.dto.request.enterprise.UpdateEnterpriseRequest;
 import com.marcaai.adapter.dto.response.enterprise.EnterpriseResponse;
 import com.marcaai.adapter.dto.response.enterprise.EnterpriseSummaryResponse;
-import com.marcaai.adapter.out.database.dto.response.EnterpriseRepositoryDatabaseResponse;
+import com.marcaai.adapter.out.database.dto.response.enterprise.EnterpriseDatabaseResponse;
 import com.marcaai.adapter.out.database.entity.AddressEntity;
 import com.marcaai.adapter.out.database.entity.CompanyOwnerEntity;
 import com.marcaai.adapter.out.database.entity.EnterpriseEntity;
@@ -118,7 +118,7 @@ public class EnterpriseMapper {
 		
 	}
 	
-	public static List<Enterprise> enterpriseRepositoryDatabaseResponseListToEnterpriseDomainList(Page<EnterpriseRepositoryDatabaseResponse> enterpriseList){
+	public static List<Enterprise> enterpriseRepositoryDatabaseResponseListToEnterpriseDomainList(Page<EnterpriseDatabaseResponse> enterpriseList){
 		
 		var enterpriseDomainList = enterpriseList.getContent().stream()
 				.map(enterprise -> {

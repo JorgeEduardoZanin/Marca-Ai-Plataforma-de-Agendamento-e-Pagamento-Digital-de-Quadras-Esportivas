@@ -1,5 +1,7 @@
 package com.marcaai.adapter.out.database.adapter;
 
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.data.domain.PageRequest;
@@ -65,6 +67,12 @@ public class FootballCourtAdapter implements FootballCourtRepository{
 	public UUID findEnterpriseUUIDInFootballCourt(Long id) {
 		return footballCourtDatabaseRepository.findEntepriseIdByFootballCourtId(id)
 				.orElseThrow(() -> new FootballCourtException(ExceptionFootballCourtType.FOOTBALL_COURT_NO_ASSOCIATED_COMPANY));
+	}
+
+	@Override
+	public List<FootballCourt> findAllByIds(Set<Long> footballCourtsIds) {
+		var domainFootballCourts = footballCourtDatabaseRepository.findAllByIds(footballCourtsIds);
+		return FootballCourtMapper.listSoccerFieldDatabaseResponseToListFootballCourtDomain(domainFootballCourts);
 	}
 
 }

@@ -23,7 +23,7 @@ import com.marcaai.adapter.mapper.SchedullingMapper;
 import com.marcaai.core.port.in.SchedulingUseCase;
 
 @RestController
-@RequestMapping("/football/court/{footballCourtId}/schedulling")
+@RequestMapping("/footballcourt/{footballCourtId}/schedulling")
 public class SchedullingController {
 	
 	private final SchedulingUseCase schedulingUseCase;

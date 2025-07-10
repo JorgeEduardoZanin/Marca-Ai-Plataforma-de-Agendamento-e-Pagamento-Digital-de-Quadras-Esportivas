@@ -41,7 +41,7 @@ public class FootballCourtEntity {
 	
 	@ElementCollection
 	@CollectionTable(name = "tb_closed_days",  joinColumns = @JoinColumn(name = "football_court_id"))
-	@Column(name = "day_of_week", nullable = false, length = 20)
+	@Column(name = "day_of_week", length = 20)
 	@Enumerated(EnumType.STRING)
 	private Set<DayOfWeek> closedDay = new HashSet<>();
 	
