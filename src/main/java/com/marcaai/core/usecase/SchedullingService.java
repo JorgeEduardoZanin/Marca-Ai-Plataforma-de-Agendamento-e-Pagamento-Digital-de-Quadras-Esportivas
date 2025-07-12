@@ -191,6 +191,10 @@ public class SchedullingService implements SchedulingUseCase {
 		if(!overlappingSchedules.isEmpty()){
 			throw new SchedulingException(ExceptionSchedulingType.SCHEDULING_CONFLICT, overlappingSchedules);
 		}
+	} 
+	
+	public void updateReservationsAndOrders(Long orderId, List<Long> ids){
+		schedullingRepository.updateReservationsAndOrders(orderId, ids);
 	}
 
 }

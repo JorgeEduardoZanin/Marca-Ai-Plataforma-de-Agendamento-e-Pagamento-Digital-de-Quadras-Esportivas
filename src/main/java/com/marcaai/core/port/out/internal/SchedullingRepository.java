@@ -28,4 +28,6 @@ public interface SchedullingRepository {
 	void updateAvailability(List<Schedulling> schedulings);
 	
 	List<Schedulling> findAllByIds(List<Long> schedulingsId); 
+	
+	void updateReservationsAndOrders(Long orderId, List<Long> ids);
 }

@@ -53,7 +53,7 @@ public class Order {
 		this.schedulings = schedulings;
 	}
 
-	public Enterprise getEnterpriseEntity() {
+	public Enterprise getEnterprise() {
 		return enterprise;
 	}
 

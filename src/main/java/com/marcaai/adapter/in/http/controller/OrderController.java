@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.marcaai.adapter.dto.request.order.OrderRequest;
+import com.marcaai.adapter.dto.response.order.OrderResponse;
 import com.marcaai.adapter.mapper.OrderMapper;
 import com.marcaai.core.port.in.OrderUseCase;
 
@@ -25,9 +26,11 @@ public class OrderController {
 	}
 
 	@PostMapping
-	public ResponseEntity<T> create(@PathVariable UUID enterpriseId, @RequestBody OrderRequest order, JwtAuthenticationToken token){
+	public ResponseEntity<OrderResponse> create(@PathVariable UUID enterpriseId, @RequestBody OrderRequest order, JwtAuthenticationToken token){
 		
 		var orders = orderUseCase.create(order.schedulingsId(),OrderMapper.OrderRequestToOrderDomain(order), enterpriseId, UUID.fromString(token.getName())); 
+		
+		return ResponseEntity.ok(OrderMapper.orderDomainToOrderResponse(orders));
 		
 	}
 	

@@ -17,6 +17,8 @@ public class Schedulling {
 	
 	private Boolean reserved;
 	
+	private Order order;
+	
 	public Schedulling() {
 	}
 
@@ -72,6 +74,14 @@ public class Schedulling {
 
 	public void setEndTime(LocalDateTime endTime) {
 		this.endTime = endTime;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
 	@Override

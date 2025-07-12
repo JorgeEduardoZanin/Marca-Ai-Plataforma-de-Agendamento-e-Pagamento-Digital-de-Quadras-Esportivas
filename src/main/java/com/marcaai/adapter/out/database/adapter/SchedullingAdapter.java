@@ -104,8 +104,14 @@ public class SchedullingAdapter implements SchedullingRepository {
 
 	@Override
 	public List<Schedulling> findAllByIds(List<Long> schedulingsId) {
-		var schedulingsEntity = schedullingDatabaseRepository.findAllById(schedulingsId);
+		var schedulingsEntity = schedullingDatabaseRepository.findAllByIdInAndReservedFalse(schedulingsId);
 		return SchedullingMapper.listSchedullingEntityToListSchedullingDomain(schedulingsEntity);
+	}
+
+
+	@Override
+	public void updateReservationsAndOrders(Long orderId, List<Long> ids) {
+		schedullingDatabaseRepository.updateReservationsAndOrders(orderId, ids);
 	}
 
 }

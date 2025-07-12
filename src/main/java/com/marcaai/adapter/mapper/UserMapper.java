@@ -33,6 +33,7 @@ public class UserMapper {
 				null
 				);
 		
+		user.setId(userEntity.getId());
 		var newAddress = new Address();
 		newAddress.setId(userEntity.getAddressEntity().getId());
 		

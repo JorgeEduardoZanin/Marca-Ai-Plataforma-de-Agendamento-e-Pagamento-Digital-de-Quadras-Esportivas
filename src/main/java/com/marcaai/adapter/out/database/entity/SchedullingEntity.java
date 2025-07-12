@@ -112,6 +112,14 @@ public class SchedullingEntity {
 		this.endTime = endTime;
 	}
 
+	public OrderEntity getOrderEntity() {
+		return orderEntity;
+	}
+
+	public void setOrderEntity(OrderEntity orderEntity) {
+		this.orderEntity = orderEntity;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(creationTimestamp, duration, footballCourtEntity, id, reserved, startTime);

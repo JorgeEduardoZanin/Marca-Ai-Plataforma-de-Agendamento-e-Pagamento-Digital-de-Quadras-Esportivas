@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.marcaai.core.domain.enums.PaymentMethod;
 import com.marcaai.core.domain.enums.PaymentStatus;
 
 import jakarta.persistence.CascadeType;
@@ -44,8 +45,6 @@ public class OrderEntity {
 	@JoinColumn(nullable = false)
 	private UserEntity userEntity;
 	
-	
-	
 	@Column(nullable = false)
 	private BigDecimal value;
 	
@@ -53,8 +52,9 @@ public class OrderEntity {
 	@Column(nullable = false, columnDefinition = "VARCHAR(20) DEFAULT 'PENDING'")
 	private PaymentStatus status;
 	
-	@Column(nullable = false)	
-	private String paymentMethod;
+	@Enumerated(EnumType.STRING)
+	@Column(columnDefinition = "VARCHAR(20)")
+	private PaymentMethod paymentMethod;
 	
 	@CreationTimestamp
 	private LocalDateTime createdAt;
@@ -65,13 +65,11 @@ public class OrderEntity {
 	@Column(columnDefinition = "TEXT") 
 	private String description;
 
-	public OrderEntity(List<SchedullingEntity> schedulingEntity, EnterpriseEntity enterpriseEntity,
-			UserEntity userEntity, BigDecimal value, String paymentMethod) {
-		this.schedulingEntity = schedulingEntity;
+	public OrderEntity(EnterpriseEntity enterpriseEntity, UserEntity userEntity, BigDecimal value, PaymentStatus status) {
 		this.enterpriseEntity = enterpriseEntity;
 		this.userEntity = userEntity;
 		this.value = value;
-		this.paymentMethod = paymentMethod;
+		this.status = status;
 	}
 
 	public OrderEntity() {
@@ -125,11 +123,11 @@ public class OrderEntity {
 		this.status = status;
 	}
 
-	public String getPaymentMethod() {
+	public PaymentMethod getPaymentMethod() {
 		return paymentMethod;
 	}
 
-	public void setPaymentMethod(String paymentMethod) {
+	public void setPaymentMethod(PaymentMethod paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
 

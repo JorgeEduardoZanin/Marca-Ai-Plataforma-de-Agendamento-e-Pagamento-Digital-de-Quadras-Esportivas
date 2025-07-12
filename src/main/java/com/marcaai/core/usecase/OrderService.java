@@ -1,7 +1,6 @@
 package com.marcaai.core.usecase;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +13,7 @@ import com.marcaai.core.domain.FootballCourt;
 import com.marcaai.core.domain.Order;
 import com.marcaai.core.domain.Schedulling;
 import com.marcaai.core.port.in.OrderUseCase;
+import com.marcaai.core.port.out.internal.OrderRepository;
 import com.marcaai.core.usecase.utils.ValidateId;
 
 public class OrderService implements OrderUseCase{
@@ -21,11 +21,17 @@ public class OrderService implements OrderUseCase{
 	private final SchedullingService schedulingService;
 	private final EnterpriseService enterpriseService;
 	private final FootballCourtService footballCourtService;
+	private final UserCrudService userCrudService;
+	private final OrderRepository orderRepository;
 
-	public OrderService(SchedullingService schedulingService, EnterpriseService enterpriseService, FootballCourtService footballCourtService) {
+	public OrderService(SchedullingService schedulingService, EnterpriseService enterpriseService,
+			FootballCourtService footballCourtService, UserCrudService userCrudService,
+			OrderRepository orderRepository) {
 		this.schedulingService = schedulingService;
 		this.enterpriseService = enterpriseService;
 		this.footballCourtService = footballCourtService;
+		this.userCrudService = userCrudService;
+		this.orderRepository = orderRepository;
 	}
 
 	@Override
@@ -34,9 +40,17 @@ public class OrderService implements OrderUseCase{
 		ValidateId.validateUUIDId(userId);
 		ValidateId.validateUUIDId(enterpriseId);
 		
+		var enterprise = enterpriseService.findById(userId);
 		var schedulingsDomain = schedulingService.findAllByIds(schedulingsId);
+		var user = userCrudService.getUserById(userId);
+		
+		for (Schedulling scheduling : schedulingsDomain) {
+			scheduling.setOrder(order);
+		}
 		
 		order.setSchedulings(schedulingsDomain);
+		order.setEnterprise(enterprise.enterprise());
+		order.setUser(user.user());
 		
 		Set<Long> footballCourtsIds = new HashSet<>();
 		
@@ -60,8 +74,23 @@ public class OrderService implements OrderUseCase{
 		    .filter(Objects::nonNull)
 		    .reduce(BigDecimal.ZERO, BigDecimal::add);
 		
-				
-		return null;
+		order.setValue(totalValue);
+		
+		if(!totalValue.equals(order.getValue())) {
+			System.out.println("erro");
+		}
+		
+		order = orderRepository.createOrder(order);
+		
+		Set<Long> schedulingsIds = new HashSet<>();
+		
+		for (Schedulling schedulling: schedulingsDomain) {
+			schedulingsIds.add(schedulling.getId());
+		}
+		
+		schedulingService.updateReservationsAndOrders(order.getId(), schedulingsId);
+		
+		return order;
 	}
 
 	
