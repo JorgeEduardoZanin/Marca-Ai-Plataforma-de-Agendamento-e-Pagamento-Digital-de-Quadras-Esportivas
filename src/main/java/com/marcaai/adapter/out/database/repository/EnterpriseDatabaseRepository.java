@@ -22,7 +22,7 @@ public interface EnterpriseDatabaseRepository extends JpaRepository<EnterpriseEn
 	
 	Optional<EnterpriseEntity> findByEmail(String email);
 	
-	@Query("SELECT new com.marcaai.adapter.out.database.dto.response.EnterpriseRepositoryDatabaseResponse(e.id, e.fantasyName) FROM EnterpriseEntity e WHERE e.fullyApproved = true")
+	@Query("SELECT new com.marcaai.adapter.out.database.dto.response.enterprise.EnterpriseDatabaseResponse(e.id, e.fantasyName) FROM EnterpriseEntity e WHERE e.fullyApproved = true")
 	Page<EnterpriseDatabaseResponse> findAllPaginated(Pageable pageable);
 	
 	@Query("SELECT e.password FROM EnterpriseEntity e WHERE e.id = :id")

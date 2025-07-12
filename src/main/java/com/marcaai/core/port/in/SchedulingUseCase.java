@@ -1,6 +1,7 @@
 package com.marcaai.core.port.in;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -21,4 +22,8 @@ public interface SchedulingUseCase {
 	void deleteAllByFootballCourt(Long footballCourtId, UUID enterpriseId);
 	
 	void deleteAllByFootballCourtAndDate(Long footballCourtId, LocalDate date, UUID enterpriseId);
+	
+	List<Schedulling> findAllByIds(List<Long> schedulingsId);
+	
+	void updateReservationsAndOrders(Long orderId, List<Long> ids);
 }

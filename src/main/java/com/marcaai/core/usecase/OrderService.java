@@ -12,25 +12,29 @@ import java.util.stream.Collectors;
 import com.marcaai.core.domain.FootballCourt;
 import com.marcaai.core.domain.Order;
 import com.marcaai.core.domain.Schedulling;
+import com.marcaai.core.port.in.EnterpriseUseCase;
+import com.marcaai.core.port.in.FootballCourtUseCase;
 import com.marcaai.core.port.in.OrderUseCase;
+import com.marcaai.core.port.in.SchedulingUseCase;
+import com.marcaai.core.port.in.UserCrudUseCase;
 import com.marcaai.core.port.out.internal.OrderRepository;
 import com.marcaai.core.usecase.utils.ValidateId;
 
 public class OrderService implements OrderUseCase{
 
-	private final SchedullingService schedulingService;
-	private final EnterpriseService enterpriseService;
-	private final FootballCourtService footballCourtService;
-	private final UserCrudService userCrudService;
+	private final SchedulingUseCase schedulingUseCase;
+	private final EnterpriseUseCase enterpriseUseCase;
+	private final FootballCourtUseCase footballCourtUseCase;
+	private final UserCrudUseCase userCrudUseCase;
 	private final OrderRepository orderRepository;
 
-	public OrderService(SchedullingService schedulingService, EnterpriseService enterpriseService,
-			FootballCourtService footballCourtService, UserCrudService userCrudService,
+	public OrderService(SchedulingUseCase schedulingUseCase, EnterpriseUseCase enterpriseUseCase,
+			FootballCourtUseCase footballCourtUseCase, UserCrudUseCase userCrudUseCase,
 			OrderRepository orderRepository) {
-		this.schedulingService = schedulingService;
-		this.enterpriseService = enterpriseService;
-		this.footballCourtService = footballCourtService;
-		this.userCrudService = userCrudService;
+		this.schedulingUseCase = schedulingUseCase;
+		this.enterpriseUseCase = enterpriseUseCase;
+		this.footballCourtUseCase = footballCourtUseCase;
+		this.userCrudUseCase = userCrudUseCase;
 		this.orderRepository = orderRepository;
 	}
 
@@ -40,9 +44,9 @@ public class OrderService implements OrderUseCase{
 		ValidateId.validateUUIDId(userId);
 		ValidateId.validateUUIDId(enterpriseId);
 		
-		var enterprise = enterpriseService.findById(userId);
-		var schedulingsDomain = schedulingService.findAllByIds(schedulingsId);
-		var user = userCrudService.getUserById(userId);
+		var enterprise = enterpriseUseCase.findById(userId);
+		var schedulingsDomain = schedulingUseCase.findAllByIds(schedulingsId);
+		var user = userCrudUseCase.getUserById(userId);
 		
 		for (Schedulling scheduling : schedulingsDomain) {
 			scheduling.setOrder(order);
@@ -58,7 +62,7 @@ public class OrderService implements OrderUseCase{
 			footballCourtsIds.add(scheduling.getFootballCourt().getId());
 		}
 		
-		var footballCourts = footballCourtService.findAllByIds(footballCourtsIds);
+		var footballCourts = footballCourtUseCase.findAllByIds(footballCourtsIds);
 		
 		//joga o id como chave e o preco da quadra como valor
 		Map<Long, BigDecimal> priceMap = footballCourts.stream()
@@ -88,7 +92,7 @@ public class OrderService implements OrderUseCase{
 			schedulingsIds.add(schedulling.getId());
 		}
 		
-		schedulingService.updateReservationsAndOrders(order.getId(), schedulingsId);
+		schedulingUseCase.updateReservationsAndOrders(order.getId(), schedulingsId);
 		
 		return order;
 	}

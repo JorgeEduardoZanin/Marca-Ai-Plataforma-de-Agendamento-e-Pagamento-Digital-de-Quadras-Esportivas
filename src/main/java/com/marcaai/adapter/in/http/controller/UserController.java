@@ -72,7 +72,7 @@ public class UserController {
 	-
 	-
 	*/
-	@PutMapping()
+	@PutMapping
 	public ResponseEntity<UserAndAddressResponse> updateUser(@RequestBody UpdateUserCrudRequest updateUserCrudRequest, JwtAuthenticationToken token){
 		var userResponse = userCrudUseCase.updateUser(UUID.fromString(token.getName()), 
 					UserMapper.UpdateUserCrudRequestToUserDomain(updateUserCrudRequest), 

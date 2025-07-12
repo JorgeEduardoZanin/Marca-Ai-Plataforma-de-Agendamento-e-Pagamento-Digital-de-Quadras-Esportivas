@@ -68,7 +68,8 @@ public class EnterpriseController {
 		return ResponseEntity.ok(responseGroup);		
 	}
 	
-	@GetMapping
+	
+	@GetMapping("/find-all")
 	public ResponseEntity<EnterprisePaginationGroupResponse> findAllPaginated(@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize){
 		
@@ -97,7 +98,7 @@ public class EnterpriseController {
 		return ResponseEntity.ok(response);
 	}
 	
-	@PutMapping
+	@PutMapping("/password")
 	public ResponseEntity<Map<String, String>> updatePassword(JwtAuthenticationToken token, @RequestBody String password){
 		enterpriseUseCase.updatePassword(UUID.fromString(token.getName()), password);
 		

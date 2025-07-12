@@ -21,7 +21,7 @@ public interface FootballCourtDatabaseRepository extends JpaRepository<FootballC
 	@Query("SELECT f.enterpriseEntity.id FROM FootballCourtEntity f WHERE f.id = :footballCourtId")
 	Optional<UUID> findEntepriseIdByFootballCourtId(Long footballCourtId); 
 	
-	@Query("SELECT new com.marcaai.adapter.out.database.dto.response.FootballCourtRepositoryDatabaseResponse(f.id, f.name, f.value, f.enterpriseEntity) FROM FootballCourtEntity f WHERE f.enterpriseEntity.id = :enterpriseId")
+	@Query("SELECT new com.marcaai.adapter.out.database.dto.response.footballcourt.FootballCourtDatabaseResponse(f.id, f.name, f.enterpriseEntity, f.value) FROM FootballCourtEntity f WHERE f.enterpriseEntity.id = :enterpriseId")
 	Page<FootballCourtDatabaseResponse> findAllPaginatedByEnterprise(UUID enterpriseId, Pageable pageable);
 
 	@Query("SELECT new com.marcaai.adapter.out.database.dto.response.footballcourt.SoccerFieldOrderDatabaseResponse(f.id, f.value, f.available) FROM FootballCourtEntity f WHERE f.id IN (:ids)") 

@@ -70,7 +70,7 @@ public class FootballCourtMapper {
 				footballCourt.getAvailable(),
 				footballCourt.getDescription());
 		
-		footballEntity.setEntepriseEntity(enterprise);
+		footballEntity.setEnterpriseEntity(enterprise);
 		
 		return footballEntity;
 	}

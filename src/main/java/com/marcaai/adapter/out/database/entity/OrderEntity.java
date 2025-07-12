@@ -33,8 +33,7 @@ public class OrderEntity {
 	private Long id;
 	
 	
-	@OneToMany(mappedBy = "orderEntity",cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(nullable = false)
+	@OneToMany(mappedBy = "orderEntity")
 	private List<SchedullingEntity> schedulingEntity;
 	
 	@ManyToOne
@@ -49,7 +48,7 @@ public class OrderEntity {
 	private BigDecimal value;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false, columnDefinition = "VARCHAR(20) DEFAULT 'PENDING'")
+	@Column(nullable = false, columnDefinition = "VARCHAR(20)")
 	private PaymentStatus status;
 	
 	@Enumerated(EnumType.STRING)

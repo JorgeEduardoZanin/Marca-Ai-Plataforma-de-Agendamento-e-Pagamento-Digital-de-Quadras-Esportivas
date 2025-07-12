@@ -18,13 +18,13 @@ public interface SchedullingDatabaseRepository extends JpaRepository<Schedulling
 	
 	void deleteAllByFootballCourtEntity_Id(Long id);
 	
-	@Query("DELETE FROM SchedullingEntity s WHERE s.footballCourt.id = :footballCourtId AND s.startTime BETWEEN :start AND :end ")
+	@Query("DELETE FROM SchedullingEntity s WHERE s.footballCourtEntity.id = :footballCourtId AND s.startTime BETWEEN :start AND :end ")
 	void deleteAllByFootballCourtAndDate(
 			@Param("footballCourtId") Long footballCourtId, 
 			@Param("start") LocalDateTime start, 
 			@Param("end") LocalDateTime end);
 	
-	@Query("SELECT s FROM SchedullingEntity s WHERE s.footballCourt.id = :footballCourtId AND s.startTime BETWEEN :start AND :end ")
+	@Query("SELECT s FROM SchedullingEntity s WHERE s.footballCourtEntity.id = :footballCourtId AND s.startTime BETWEEN :start AND :end ")
 	Optional<List<SchedullingEntity>> findAllByFootballCourtAndDate(
 			@Param("footballCourtId") Long footballCourtId, 
 			@Param("start") LocalDateTime start, 

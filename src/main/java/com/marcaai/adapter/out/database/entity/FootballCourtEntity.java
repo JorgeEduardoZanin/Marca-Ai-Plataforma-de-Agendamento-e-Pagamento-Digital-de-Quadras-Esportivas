@@ -34,7 +34,7 @@ public class FootballCourtEntity {
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	private EnterpriseEntity entepriseEntity;
+	private EnterpriseEntity enterpriseEntity;
 	
 	@Column(nullable = false, length = 180)
 	private String name;
@@ -89,12 +89,12 @@ public class FootballCourtEntity {
 		this.id = id;
 	}
 
-	public EnterpriseEntity getEntepriseEntity() {
-		return entepriseEntity;
+	public EnterpriseEntity getEnterpriseEntity() {
+		return enterpriseEntity;
 	}
 
-	public void setEntepriseEntity(EnterpriseEntity entepriseEntity) {
-		this.entepriseEntity = entepriseEntity;
+	public void setEnterpriseEntity(EnterpriseEntity enterpriseEntity) {
+		this.enterpriseEntity = enterpriseEntity;
 	}
 
 	public String getName() {
@@ -171,7 +171,7 @@ public class FootballCourtEntity {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(available, closedDay, closingTimes, creationDate, entepriseEntity, id, name, openingHours,
+		return Objects.hash(available, closedDay, closingTimes, creationDate, enterpriseEntity, id, name, openingHours,
 				value);
 	}
 
@@ -186,14 +186,14 @@ public class FootballCourtEntity {
 		FootballCourtEntity other = (FootballCourtEntity) obj;
 		return Objects.equals(available, other.available) && closedDay == other.closedDay
 				&& Objects.equals(closingTimes, other.closingTimes) && Objects.equals(creationDate, other.creationDate)
-				&& Objects.equals(entepriseEntity, other.entepriseEntity) && Objects.equals(id, other.id)
+				&& Objects.equals(enterpriseEntity, other.enterpriseEntity) && Objects.equals(id, other.id)
 				&& Objects.equals(name, other.name) && Objects.equals(openingHours, other.openingHours)
 				&& Objects.equals(value, other.value);
 	}
 
 	@Override
 	public String toString() {
-		return "FootballCourt [id=" + id + ", entepriseEntity=" + entepriseEntity + ", name=" + name + ", closedDay="
+		return "FootballCourt [id=" + id + ", enterpriseEntity=" + enterpriseEntity + ", name=" + name + ", closedDay="
 				+ closedDay + ", openingHours=" + openingHours + ", closingTimes=" + closingTimes + ", value=" + value
 				+ ", available=" + available + ", creationDate=" + creationDate + "]";
 	}

@@ -143,13 +143,11 @@ public class SchedullingService implements SchedulingUseCase {
 		
 	}
 	
+	@Override
 	public List<Schedulling> findAllByIds(List<Long> schedulingsId){
 		return schedullingRepository.findAllByIds(schedulingsId);
 	}
 	
-	public void updateAvailability(List<Schedulling> schedulings){
-		
-	}
 	
 	public void validateSchedulingOwnership(Long footballCourtId, Long id) {
 		

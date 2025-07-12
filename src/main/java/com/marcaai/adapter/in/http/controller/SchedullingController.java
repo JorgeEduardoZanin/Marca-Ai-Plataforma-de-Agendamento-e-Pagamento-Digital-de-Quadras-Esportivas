@@ -23,7 +23,7 @@ import com.marcaai.adapter.mapper.SchedullingMapper;
 import com.marcaai.core.port.in.SchedulingUseCase;
 
 @RestController
-@RequestMapping("/footballcourt/{footballCourtId}/schedulling")
+@RequestMapping("/football-court/{footballCourtId}/scheduling")
 public class SchedullingController {
 	
 	private final SchedulingUseCase schedulingUseCase;
@@ -81,7 +81,7 @@ public class SchedullingController {
 		
 	}
 	
-	@DeleteMapping
+	@DeleteMapping("/delete-all-by-footballcourt")
 	public ResponseEntity<Map<String, String>> deleteAllByFootballCourt(@PathVariable Long footballCourtId, JwtAuthenticationToken token){
 	
 		schedulingUseCase.deleteAllByFootballCourt(footballCourtId, UUID.fromString(token.getName()));
@@ -89,7 +89,7 @@ public class SchedullingController {
 		return ResponseEntity.ok(Map.of("message", "Todos os agendamentos do campo de futebol selecionado foram deletados com sucesso !"));
 	}
 	
-	@DeleteMapping
+	@DeleteMapping("/delete-all-by-football-court-and-date")
 	public ResponseEntity<Map<String, String>> deleteAllByFootballCourtAndDate(@PathVariable Long footballCourtId, @RequestBody LocalDate date, JwtAuthenticationToken token){
 		
 		schedulingUseCase.deleteAllByFootballCourtAndDate(footballCourtId, date, UUID.fromString(token.getName()));

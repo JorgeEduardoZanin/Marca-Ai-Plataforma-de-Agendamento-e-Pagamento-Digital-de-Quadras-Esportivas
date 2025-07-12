@@ -15,6 +15,7 @@ import com.marcaai.core.domain.group.EnterprisePaginationDomainGrouping;
 import com.marcaai.core.domain.group.UpdateEnterpriseDomainGrouping;
 import com.marcaai.core.exception.EnterpriseException;
 import com.marcaai.core.exception.enums.ExceptionEnterpriseType;
+import com.marcaai.core.port.in.CompanyOwnerUseCase;
 import com.marcaai.core.port.in.EnterpriseUseCase;
 import com.marcaai.core.port.out.external.CheckCnpjRepository;
 import com.marcaai.core.port.out.internal.EnterpriseRepository;
@@ -22,17 +23,17 @@ import com.marcaai.core.usecase.utils.ValidateId;
 
 public class EnterpriseService implements EnterpriseUseCase {
 
-	private final CompanyOwnerService companyOwnerService;
+	private final CompanyOwnerUseCase companyOwnerUseCase;
 	private final AddressService addressService;
 	private final RoleService roleService;
 	private final EnterpriseRepository enterpriseRepository;
 	private final BCryptPasswordEncoder passwordEncoder;
 	private final CheckCnpjRepository checkCnpjRepository;
 
-	public EnterpriseService(CompanyOwnerService companyOwnerService, AddressService addressService,
+	public EnterpriseService(CompanyOwnerUseCase companyOwnerUseCase, AddressService addressService,
 			RoleService roleService, EnterpriseRepository enterpriseRepository, BCryptPasswordEncoder passwordEncoder,
 			CheckCnpjRepository checkCnpjRepository) {
-		this.companyOwnerService = companyOwnerService;
+		this.companyOwnerUseCase = companyOwnerUseCase;
 		this.addressService = addressService;
 		this.roleService = roleService;
 		this.enterpriseRepository = enterpriseRepository;
@@ -45,7 +46,7 @@ public class EnterpriseService implements EnterpriseUseCase {
 		
 		validateEnterprise(address, enterprise);
 		
-		var createCompanyOwner = companyOwnerService.create(companyOwner);
+		var createCompanyOwner = companyOwnerUseCase.create(companyOwner);
 		var createAddress = addressService.createAddress(address);
 		var role = roleService.findRoleByName(Role.Values.ENTERPRISE.name());
 		
