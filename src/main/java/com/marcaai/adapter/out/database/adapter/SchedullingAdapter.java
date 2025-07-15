@@ -49,6 +49,10 @@ public class SchedullingAdapter implements SchedullingRepository {
 		var schedullings = schedullingDatabaseRepository.findAllByFootballCourtAndDate(
 				footballCourtId, initialDate.atTime(LocalTime.MIN), finalDate.atTime(LocalTime.MAX))
 				.orElseThrow(() -> new SchedulingException(ExceptionSchedulingType.NO_SCHEDULINGS_FOR_COURT, null));
+		
+		if(schedullings.isEmpty()) {
+			return null;
+		}
 
 		return SchedullingMapper.listSchedullingEntityToListSchedullingDomain(schedullings);
 	}

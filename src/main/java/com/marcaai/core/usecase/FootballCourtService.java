@@ -4,30 +4,31 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import com.marcaai.core.domain.Enterprise;
 import com.marcaai.core.domain.FootballCourt;
 import com.marcaai.core.domain.group.FootballCourtPaginationGrouping;
 import com.marcaai.core.exception.FootballCourtException;
 import com.marcaai.core.exception.enums.ExceptionFootballCourtType;
+import com.marcaai.core.port.in.EnterpriseUseCase;
 import com.marcaai.core.port.in.FootballCourtUseCase;
 import com.marcaai.core.port.out.internal.FootballCourtRepository;
 import com.marcaai.core.usecase.utils.ValidateId;
 
 public class FootballCourtService implements FootballCourtUseCase{
 
-	private FootballCourtRepository footballCourtRepository;
+	private final FootballCourtRepository footballCourtRepository;
+	private final EnterpriseUseCase enterpriseUseCase;
 	
-	public FootballCourtService(FootballCourtRepository footballCourtRepository) {
+	public FootballCourtService(FootballCourtRepository footballCourtRepository, EnterpriseUseCase enterpriseUseCase) {
 		this.footballCourtRepository = footballCourtRepository;
+		this.enterpriseUseCase = enterpriseUseCase;
 	}
 
 	@Override
 	public FootballCourt create(FootballCourt footballCourt, UUID enterpriseId) {
 		ValidateId.validateUUIDId(enterpriseId);
 		
-		var enterprise = new Enterprise();
-		enterprise.setId(enterpriseId);
-		footballCourt.setEnteprise(enterprise);
+		var enterprise = enterpriseUseCase.findById(enterpriseId);
+		footballCourt.setEnteprise(enterprise.enterprise());
 		
 		return footballCourtRepository.create(footballCourt);
 	}

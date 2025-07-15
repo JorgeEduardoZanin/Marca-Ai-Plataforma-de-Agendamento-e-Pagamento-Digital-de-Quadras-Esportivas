@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ import com.marcaai.adapter.mapper.FootballCourtMapper;
 import com.marcaai.core.port.in.FootballCourtUseCase;
 
 @RestController
-@RequestMapping("/football/court")
+@RequestMapping("/football-court")
 public class FootballCourtController {
 
 	private final FootballCourtUseCase footballCourtUseCase;
@@ -38,6 +39,7 @@ public class FootballCourtController {
 	-
 	-
 	*/
+	@PostMapping
 	public ResponseEntity<FootballCourtResponse> create(@RequestBody FootballCourtRequest footballCourtRequest, JwtAuthenticationToken token){
 		var footballCourtDomain = footballCourtUseCase.create(FootballCourtMapper.footballCourtRequestToFootballCourtDomain(footballCourtRequest), UUID.fromString(token.getName()));
 		return ResponseEntity.status(HttpStatus.CREATED).body((FootballCourtMapper.footballCourtDomainToFootBallCourtResponse(footballCourtDomain)));

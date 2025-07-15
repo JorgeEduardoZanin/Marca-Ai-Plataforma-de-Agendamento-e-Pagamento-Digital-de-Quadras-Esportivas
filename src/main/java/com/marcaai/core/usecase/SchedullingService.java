@@ -45,7 +45,7 @@ public class SchedullingService implements SchedulingUseCase {
 		schedullings = schedullings.stream()
 		.map(s -> {
 			s.setFootballCourt(footballCourt);
-			s.setEndTime(s.getStartTime().plusMinutes(s.getDuration()));
+			s.setEndTime(s.getStartTime().plusHours(s.getDuration()));
 			return s;
 		})
 		.filter(s -> s.getStartTime().isBefore(s.getEndTime()))
@@ -57,13 +57,15 @@ public class SchedullingService implements SchedulingUseCase {
 	
 		var databaseSchedullingsList = schedullingRepository.findAllByFootballCourtAndDate(footballCourtId, schedullingsList.get(0).getStartTime().toLocalDate(),
 				schedullingsList.get(schedullingsList.size()-1).getStartTime().toLocalDate());
+			
+		if(databaseSchedullingsList != null && !databaseSchedullingsList.isEmpty()) {
 		
-		databaseSchedullingsList = databaseSchedullingsList.stream()
+			databaseSchedullingsList = databaseSchedullingsList.stream()
 				.filter(date -> date.getEndTime().isAfter(date.getStartTime()))
-				.toList();
-		
-		validateNoOverlapWithDatabaseSchedules(databaseSchedullingsList, schedullingsList, overlappingSchedules);
-		
+				.toList();			
+			
+			validateNoOverlapWithDatabaseSchedules(databaseSchedullingsList, schedullingsList, overlappingSchedules);
+		}
 		
 		for(Schedulling sched : schedullingsList) {
 			for (DayOfWeek closedDays : footballCourt.getClosedDay()) {

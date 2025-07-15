@@ -43,7 +43,7 @@ public class SchedullingEntity {
 	private LocalDateTime creationTimestamp;
 	
 	@ManyToOne
-	@JoinColumn(name = "order_id", nullable = false)
+	@JoinColumn(name = "order_id")
 	private OrderEntity orderEntity;
 
 	public SchedullingEntity() {

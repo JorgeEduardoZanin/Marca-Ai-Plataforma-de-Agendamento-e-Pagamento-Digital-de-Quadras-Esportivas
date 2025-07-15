@@ -9,7 +9,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import com.marcaai.core.domain.enums.PaymentMethod;
 import com.marcaai.core.domain.enums.PaymentStatus;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

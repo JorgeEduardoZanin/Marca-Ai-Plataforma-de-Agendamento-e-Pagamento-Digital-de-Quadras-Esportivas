@@ -27,8 +27,7 @@ public class SchedullingMapper {
 	public static List<SchedullingEntity> listSchedullingsDomainToListSchedullingsEntity(List<Schedulling> schedullings){
 		
 		FootballCourtEntity footballCourt = new FootballCourtEntity();
-		footballCourt.setId(schedullings.get(0).getId());
-		
+		footballCourt.setId(schedullings.get(0).getFootballCourt().getId());
 		return schedullings.stream()
 				.map(domain -> {
 					SchedullingEntity s = new SchedullingEntity(footballCourt, domain.getStartTime(), domain.getDuration(), false);
@@ -40,9 +39,10 @@ public class SchedullingMapper {
 	}
 	
 	public static List<Schedulling> listSchedullingEntityToListSchedullingDomain(List<SchedullingEntity> schedullings){
+		schedullings.get(0).getFootballCourtEntity();
 		
 		FootballCourt footballCourt = new FootballCourt();
-		footballCourt.setId(schedullings.get(0).getId());
+		footballCourt.setId(schedullings.get(0).getFootballCourtEntity().getId());
 		
 		return schedullings.stream()
 				.map(entity -> {

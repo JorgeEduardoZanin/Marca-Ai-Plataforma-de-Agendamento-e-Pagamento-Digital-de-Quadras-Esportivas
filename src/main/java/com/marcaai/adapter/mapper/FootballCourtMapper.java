@@ -61,7 +61,7 @@ public class FootballCourtMapper {
 	public static FootballCourtEntity footballCourtDomainToFootballCourtEntity(FootballCourt footballCourt) {
 		var enterprise = new EnterpriseEntity();
 		enterprise.setId(footballCourt.getEnteprise().getId());
-		
+
 		var footballEntity = new FootballCourtEntity(footballCourt.getName(),
 				footballCourt.getClosedDay(),
 				footballCourt.getOpeningHours(),
@@ -71,7 +71,7 @@ public class FootballCourtMapper {
 				footballCourt.getDescription());
 		
 		footballEntity.setEnterpriseEntity(enterprise);
-		
+		System.out.println("id fc entity do enterprise entity"+ footballEntity.getEnterpriseEntity().getId());
 		return footballEntity;
 	}
 	

@@ -82,6 +82,7 @@ public class EnterpriseMapper {
 		var address = new Address();
 		address.setId(enterprise.getAddressEntity().getId());
 		newEnterprise.setAddress(address);
+		newEnterprise.setId(enterprise.getId());
 		
 		newEnterprise.getMunicipalRegistration();
 		
