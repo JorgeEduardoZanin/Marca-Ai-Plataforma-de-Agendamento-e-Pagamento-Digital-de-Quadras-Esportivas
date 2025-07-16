@@ -3,6 +3,8 @@ package com.marcaai.core.usecase;
 import java.util.Set;
 import java.util.UUID;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.marcaai.core.domain.Address;
@@ -42,6 +44,7 @@ public class EnterpriseService implements EnterpriseUseCase {
 	}
 
 	@Override
+	@CacheEvict(cacheNames = "enterprises", allEntries = true)
 	public void create(CompanyOwner companyOwner, Enterprise enterprise, Address address) {
 		
 		validateEnterprise(address, enterprise);
@@ -66,6 +69,7 @@ public class EnterpriseService implements EnterpriseUseCase {
 	}
 
 	@Override
+    @CacheEvict(cacheNames = "enterprise", key = "#id")
 	public UpdateEnterpriseDomainGrouping update(Enterprise enterprise, UUID id, Address address) {
 		
 		ValidateId.validateUUIDId(id);
@@ -76,8 +80,23 @@ public class EnterpriseService implements EnterpriseUseCase {
 
 		return new UpdateEnterpriseDomainGrouping(enterprise, addressUpdate);
 	}
+	
+	@Override
+    @CacheEvict(cacheNames = "enterprise", key = "#id")
+	public void updatePassword(UUID id, String password) {
+		
+		ValidateId.validateUUIDId(id);
+		String oldPassword = enterpriseRepository.findPasswordById(id);
+		
+		if(passwordEncoder.matches(password, oldPassword)) {
+			throw new EnterpriseException(ExceptionEnterpriseType.NEW_PASSWORD_SAME_AS_PREVIOUS_ONE);
+		}
+		
+		enterpriseRepository.updatePassowrd(passwordEncoder.encode(password), id);
+	}
 
 	@Override
+	@Cacheable(cacheNames = "enterprise")
 	public EnterpriseDomainGrouping findById(UUID id) {
 		
 		ValidateId.validateUUIDId(id);
@@ -87,6 +106,7 @@ public class EnterpriseService implements EnterpriseUseCase {
 	}
 
 	@Override
+	@Cacheable(cacheNames = "enterprises")
 	public EnterprisePaginationDomainGrouping findAllPaginated(int size, int pageSize) {
 		return enterpriseRepository.findAllPaginated(size, pageSize);
 	}
@@ -111,17 +131,6 @@ public class EnterpriseService implements EnterpriseUseCase {
 		}
 	}
 	
-	@Override
-	public void updatePassword(UUID id, String password) {
-		
-		ValidateId.validateUUIDId(id);
-		String oldPassword = enterpriseRepository.findPasswordById(id);
-		
-		if(passwordEncoder.matches(password, oldPassword)) {
-			throw new EnterpriseException(ExceptionEnterpriseType.NEW_PASSWORD_SAME_AS_PREVIOUS_ONE);
-		}
-		
-		enterpriseRepository.updatePassowrd(passwordEncoder.encode(password), id);
-	}
+
 
 }

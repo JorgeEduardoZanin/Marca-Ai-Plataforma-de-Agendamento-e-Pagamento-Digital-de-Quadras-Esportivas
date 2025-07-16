@@ -1,10 +1,16 @@
 package com.marcaai.core.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class CompanyOwner {
+public class CompanyOwner implements Serializable {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 	
 		private UUID id;
 		

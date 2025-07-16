@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record SchedullingRequest(
 		Optional<Long> id,
-		@NotNull @Future LocalDateTime startTime,
+		@Future(message = "O horário de início deve ser no futuro") @NotNull @Future LocalDateTime startTime,
 		@NotNull @Min(1) Integer duration
 		) {
 

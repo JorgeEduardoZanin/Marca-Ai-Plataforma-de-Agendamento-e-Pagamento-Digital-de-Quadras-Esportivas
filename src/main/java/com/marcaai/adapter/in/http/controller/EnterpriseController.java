@@ -68,7 +68,6 @@ public class EnterpriseController {
 		return ResponseEntity.ok(responseGroup);		
 	}
 	
-	
 	@GetMapping("/find-all")
 	public ResponseEntity<EnterprisePaginationGroupResponse> findAllPaginated(@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize){

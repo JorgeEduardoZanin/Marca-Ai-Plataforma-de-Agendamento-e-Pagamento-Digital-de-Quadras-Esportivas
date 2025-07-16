@@ -15,6 +15,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.marcaai.adapter.in.http.exception.response.ResponseError;
 
+import jakarta.validation.ConstraintViolationException;
+
 @RestControllerAdvice
 public class GlobalExceptionsHandle extends ResponseEntityExceptionHandler{
 
@@ -39,6 +41,18 @@ public class GlobalExceptionsHandle extends ResponseEntityExceptionHandler{
 	public ResponseEntity<ResponseError> illegallArgumentException(IllegalArgumentException illegalArgumentException, WebRequest request){
 		var response = new ResponseError(Arrays.asList(
 				illegalArgumentException.getMessage()),
+				"ERROR_ILLEGAL_ARGUMENT",
+				HttpStatus.BAD_REQUEST.value(),
+				LocalDateTime.now(),
+				request.getDescription(false));
+	
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+	}
+	
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ResponseEntity<ResponseError> illegallArgumentException(ConstraintViolationException constraintViolationException, WebRequest request){
+		var response = new ResponseError(Arrays.asList(
+				constraintViolationException.getMessage()),
 				"ERROR_ILLEGAL_ARGUMENT",
 				HttpStatus.BAD_REQUEST.value(),
 				LocalDateTime.now(),

@@ -40,7 +40,7 @@ public class LoginService implements LoginUseCase {
 	        }
 
 	        var now = Instant.now();
-	        var expiresIn = 300L;
+	        var expiresIn = 10000L;
 
 	        var scopes = userLogin.getRoles()
 	                .stream()

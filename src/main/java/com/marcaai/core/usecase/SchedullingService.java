@@ -36,6 +36,7 @@ public class SchedullingService implements SchedulingUseCase {
 			throw new SchedulingException(ExceptionSchedulingType.REQUIRE_AT_LEAST_ONE_SCHEDULE , null);
 		}
 		
+		
 		List<String> overlappingSchedules = new ArrayList<>();
 		
 		ValidateId.validateLongId(footballCourtId);
@@ -150,6 +151,10 @@ public class SchedullingService implements SchedulingUseCase {
 		return schedullingRepository.findAllByIds(schedulingsId);
 	}
 	
+	public void updateReservationsAndOrders(Long orderId, List<Long> ids){
+		schedullingRepository.updateReservationsAndOrders(orderId, ids);
+	}
+	
 	
 	public void validateSchedulingOwnership(Long footballCourtId, Long id) {
 		
@@ -193,8 +198,5 @@ public class SchedullingService implements SchedulingUseCase {
 		}
 	} 
 	
-	public void updateReservationsAndOrders(Long orderId, List<Long> ids){
-		schedullingRepository.updateReservationsAndOrders(orderId, ids);
-	}
 
 }
