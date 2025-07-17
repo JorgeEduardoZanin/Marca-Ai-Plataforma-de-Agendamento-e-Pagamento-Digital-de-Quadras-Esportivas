@@ -1,0 +1,21 @@
+2025-07-17 19:32:41,078 [Worker-4: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is not available. Remote download required.
+2025-07-17 19:33:38,400 [Worker-5: Building] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.marcaai:MarcaAi:0.0.1-SNAPSHOT @ F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\pom.xml.
+2025-07-17 19:33:41,837 [Worker-5: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-07-17 19:33:41,896 [Worker-5: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-07-17 19:33:42,013 [Worker-5: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-07-17 19:33:46,221 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-07-17 19:33:46,223 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-07-17 19:33:46,230 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-07-17 19:36:07,963 [Worker-3: Updating Maven Project] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2025-07-17 19:36:07,968 [Worker-3: Updating Maven Project] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed for 1 poms: local refresh takes 0,00 sec, refresh facades takes 0,00 sec, update config takes 0,00 sec 
+2025-07-17 19:36:38,348 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2025-07-17 19:37:46,055 [Worker-5: Importing Maven projects] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.marcaai.emails:MarcaAi-Emails:0.0.1-SNAPSHOT @ F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi-Emails-Microsservice\pom.xml.
+2025-07-17 19:37:46,821 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /MarcaAi-Emails-Microsservice/src/main/java
+2025-07-17 19:37:46,825 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /MarcaAi-Emails-Microsservice/src/main/resources
+2025-07-17 19:37:46,826 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /MarcaAi-Emails-Microsservice/src/main/resources
+2025-07-17 19:37:46,827 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /MarcaAi-Emails-Microsservice/src/test/java
+2025-07-17 19:37:46,829 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /MarcaAi-Emails-Microsservice/src/test/resources
+2025-07-17 19:37:47,153 [Worker-5: Importing Maven projects] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 2 sec
+2025-07-17 19:37:48,227 [Worker-5: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-07-17 19:37:48,243 [Worker-5: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-07-17 19:37:48,248 [Worker-5: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi-Emails-Microsservice\src\test\resources
