@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.marcaai.adapter.out.integration.client.CheckCnpjClient;
-import com.marcaai.adapter.out.integration.dto.CnpjValidationResponse;
+import com.marcaai.adapter.out.integration.dto.response.CnpjValidationResponse;
 import com.marcaai.core.domain.group.CnpjGrouping;
 import com.marcaai.core.port.out.external.CheckCnpjRepository;
 

@@ -47,6 +47,7 @@ public class SecurityConfig {
                                 ).permitAll()
                         .requestMatchers(HttpMethod.POST, "/login/user").permitAll()
                         .requestMatchers(HttpMethod.POST, "/login/enterprise").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/mail").permitAll()
                         .anyRequest().authenticated())
                 .csrf(csrf -> csrf.disable())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
