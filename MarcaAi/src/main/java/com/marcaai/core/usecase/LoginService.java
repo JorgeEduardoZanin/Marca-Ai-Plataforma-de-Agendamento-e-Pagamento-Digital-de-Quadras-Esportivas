@@ -34,22 +34,26 @@ public class LoginService implements LoginUseCase {
 	public Login userLogin(Login login) {
 		
 		var userLogin = loginRepository.findByUserEmail(login.getEmail());
-		
-		 if (!userLogin.isLoginCorrect(passwordEncoder, login) || login.isPartialApproved() == false) {
+		System.out.println(userLogin.toString());
+		 if (!userLogin.login().isLoginCorrect(passwordEncoder, login)) {
 	            throw new LoginException(ExceptionLoginType.INVALID_PASSWORD_OR_EMAIL);
 	        }
+		 
+		 if(userLogin.userPermissions().getEmailVerified() == false) {
+			 throw new LoginException(ExceptionLoginType.EMAIL_NOT_VERIFIED);
+		 }
 
 	        var now = Instant.now();
 	        var expiresIn = 10000L;
 
-	        var scopes = userLogin.getRoles()
+	        var scopes = userLogin.login().getRoles()
 	                .stream()
 	                .map(Role::getName)
 	                .collect(Collectors.joining(" "));
 
 	        var claims = JwtClaimsSet.builder()
 	                .issuer("mybackend")
-	                .subject(userLogin.getId().toString())
+	                .subject(userLogin.login().getId().toString())
 	                .issuedAt(now)
 	                .expiresAt(now.plusSeconds(expiresIn))
 	                .claim("scope", scopes)
@@ -74,21 +78,29 @@ public class LoginService implements LoginUseCase {
 	public Login enterpriseLogin(Login login) {
 		var enterpriseLoign = loginRepository.findByEnterpriseEmail(login.getEmail());
 		
-		 if (!enterpriseLoign.isLoginCorrect(passwordEncoder, login)) {
+		 if (!enterpriseLoign.login().isLoginCorrect(passwordEncoder, login)) {
 	            throw new LoginException(ExceptionLoginType.INVALID_PASSWORD_OR_EMAIL);
 	        }
+		 
+		 if(enterpriseLoign.userPermissions().getEmailVerified() == false) {
+			 throw new LoginException(ExceptionLoginType.EMAIL_NOT_VERIFIED);
+		 }
+		 
+		 if(enterpriseLoign.login().isPartialApproved() == false) {
+			 throw new LoginException(ExceptionLoginType.COMPANY_HAS_NOT_YET_BEEN_APPROVED);
+		 }
 
 	        var now = Instant.now();
 	        var expiresIn = 300L;
 
-	        var scopes = enterpriseLoign.getRoles()
+	        var scopes = enterpriseLoign.login().getRoles()
 	                .stream()
 	                .map(Role::getName)
 	                .collect(Collectors.joining(" "));
 
 	        var claims = JwtClaimsSet.builder()
 	                .issuer("mybackend")
-	                .subject(enterpriseLoign.getId().toString())
+	                .subject(enterpriseLoign.login().toString())
 	                .issuedAt(now)
 	                .expiresAt(now.plusSeconds(expiresIn))
 	                .claim("scope", scopes)

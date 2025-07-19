@@ -1,15 +1,9 @@
 package com.marcaai.core.domain;
 
-import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
-public class Enterprise implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Enterprise{
 
 	private UUID id;
 	
@@ -38,6 +32,8 @@ public class Enterprise implements Serializable {
 	private Set<Role> roles;
 	
 	private CompanyOwner companyOwner;
+	
+	private UserPermissions userPermissions;
 
 	public Enterprise() {
 	}
@@ -163,6 +159,16 @@ public class Enterprise implements Serializable {
 
 	public void setCompanyOwner(CompanyOwner companyOwner) {
 		this.companyOwner = companyOwner;
+	}
+
+
+	public UserPermissions getUserPermissions() {
+		return userPermissions;
+	}
+
+
+	public void setUserPermissions(UserPermissions userPermissions) {
+		this.userPermissions = userPermissions;
 	}
 }
 	

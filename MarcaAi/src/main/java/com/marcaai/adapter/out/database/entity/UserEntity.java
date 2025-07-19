@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -54,6 +56,10 @@ public class UserEntity {
 	@OneToOne
 	@JoinColumn(name = "address_id", referencedColumnName = "id")
 	private AddressEntity addressEntity;
+	
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_permissions_id")
+	private UserPermissionsEntity userPermissionsEntity;
 	
 	public UserEntity() {
 	}
@@ -146,5 +152,13 @@ public class UserEntity {
 
 	public void setAddressEntity(AddressEntity addressEntity) {
 		this.addressEntity = addressEntity;
+	}
+
+	public UserPermissionsEntity getUserPermissionsEntity() {
+		return userPermissionsEntity;
+	}
+
+	public void setUserPermissionsEntity(UserPermissionsEntity userPermissionsEntity) {
+		this.userPermissionsEntity = userPermissionsEntity;
 	}
 }

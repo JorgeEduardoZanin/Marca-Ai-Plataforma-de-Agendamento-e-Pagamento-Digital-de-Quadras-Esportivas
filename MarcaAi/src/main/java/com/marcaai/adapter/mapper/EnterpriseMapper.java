@@ -13,6 +13,7 @@ import com.marcaai.adapter.out.database.dto.response.enterprise.EnterpriseDataba
 import com.marcaai.adapter.out.database.entity.AddressEntity;
 import com.marcaai.adapter.out.database.entity.CompanyOwnerEntity;
 import com.marcaai.adapter.out.database.entity.EnterpriseEntity;
+import com.marcaai.adapter.out.database.entity.UserPermissionsEntity;
 import com.marcaai.core.domain.Address;
 import com.marcaai.core.domain.Enterprise;
 
@@ -47,6 +48,12 @@ public class EnterpriseMapper {
 	
 	public static EnterpriseEntity enterpriseDomainToEnterpriseEntity(Enterprise enterprise) {
 		
+		UserPermissionsEntity userPermissionsEntity = new UserPermissionsEntity(
+				enterprise.getUserPermissions().getSendigCodeIn(),
+				false,
+				enterprise.getUserPermissions().getEmailVerificationCode());
+		
+		
 		var address = new AddressEntity();
 		var companyOwner = new CompanyOwnerEntity();
 	
@@ -66,6 +73,7 @@ public class EnterpriseMapper {
 		enterpriseEntity.setAddressEntity(address);
 		enterpriseEntity.setCompany_owner(companyOwner);
 		enterpriseEntity.setRoles(RoleMapper.RoleDomainToSetRoleEntityEnterprise(enterprise));
+		enterpriseEntity.setUserPermissionsEntity(userPermissionsEntity);
 		
 		return enterpriseEntity;
 	}

@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.marcaai.adapter.out.integration.dto.request.VerificationMail;
+import com.marcaai.core.port.out.external.EmailRepository;
 
 
 @Component
-public class EmailProducer {
+public class EmailProducer implements EmailRepository{
 
 	private final String directExchange;
 
@@ -30,7 +31,7 @@ public class EmailProducer {
 		this.rabbitTemplate = rabbitTemplate;
 	}
 
-
+	@Override
 	public void sendEmailVerification(String to, String code) {
 		var request = new VerificationMail(to, code);
 		rabbitTemplate.convertAndSend(directExchange, emailRoutingKey, request);

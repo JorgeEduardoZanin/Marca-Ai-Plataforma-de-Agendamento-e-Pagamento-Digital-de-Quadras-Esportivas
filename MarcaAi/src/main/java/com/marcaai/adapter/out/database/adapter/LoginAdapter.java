@@ -7,6 +7,7 @@ import com.marcaai.adapter.mapper.LoginMapper;
 import com.marcaai.adapter.out.database.repository.EnterpriseDatabaseRepository;
 import com.marcaai.adapter.out.database.repository.UserCrudDatabaseRepository;
 import com.marcaai.core.domain.Login;
+import com.marcaai.core.domain.group.LoginAndPermissionsGroup;
 import com.marcaai.core.exception.LoginException;
 import com.marcaai.core.exception.enums.ExceptionLoginType;
 import com.marcaai.core.port.out.internal.LoginRepository;
@@ -25,7 +26,7 @@ public class LoginAdapter implements LoginRepository {
 	}
 
 	@Override
-	public Login findByUserEmail(String email) {
+	public LoginAndPermissionsGroup findByUserEmail(String email) {
 		var userEntity = userCrudDatabaseRepository.findByEmail(email)
 				.orElseThrow(() -> new LoginException(ExceptionLoginType.INVALID_PASSWORD_OR_EMAIL));
 		
@@ -33,7 +34,7 @@ public class LoginAdapter implements LoginRepository {
 	}
 
 	@Override
-	public Login findByEnterpriseEmail(String email) {
+	public LoginAndPermissionsGroup findByEnterpriseEmail(String email) {
 		
 		var enterpriseEntity = enterpriseDatabaseRepository.findByEmail(email)
 				.orElseThrow(() -> new LoginException(ExceptionLoginType.INVALID_PASSWORD_OR_EMAIL));

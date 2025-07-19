@@ -8,7 +8,7 @@ import com.marcaai.core.domain.group.UserDomainGrouping;
 
 public interface UserCrudUseCase {
 
-	void createUser(User user, Address address);
+	String createUser(User user, Address address);
 	
 	UserDomainGrouping updateUser(UUID id, User user, Address address);
 	

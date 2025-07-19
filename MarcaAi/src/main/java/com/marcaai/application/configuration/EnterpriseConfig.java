@@ -9,6 +9,7 @@ import com.marcaai.core.port.in.EnterpriseUseCase;
 import com.marcaai.core.port.out.external.CheckCnpjRepository;
 import com.marcaai.core.port.out.internal.EnterpriseRepository;
 import com.marcaai.core.usecase.AddressService;
+import com.marcaai.core.usecase.EmailService;
 import com.marcaai.core.usecase.EnterpriseService;
 import com.marcaai.core.usecase.RoleService;
 
@@ -17,9 +18,10 @@ public class EnterpriseConfig {
 
 	@Bean
 	public EnterpriseUseCase enterpriseUseCase(CompanyOwnerUseCase companyOwnerUseCase, AddressService addressService,
-				RoleService roleService, EnterpriseRepository enterpriseRepository, BCryptPasswordEncoder passwordEncoder, CheckCnpjRepository checkCnpjRepository) {
+			RoleService roleService, EnterpriseRepository enterpriseRepository, BCryptPasswordEncoder passwordEncoder,
+			CheckCnpjRepository checkCnpjRepository, EmailService emailService) {
 		
-		return new EnterpriseService(companyOwnerUseCase, addressService, roleService, enterpriseRepository, passwordEncoder, checkCnpjRepository);
+		return new EnterpriseService(companyOwnerUseCase, addressService, roleService, enterpriseRepository, passwordEncoder, checkCnpjRepository, emailService);
 	}
 	
 }

@@ -4,7 +4,10 @@ import org.springframework.http.HttpStatus;
 
 public enum ExceptionLoginType {
 
-	INVALID_PASSWORD_OR_EMAIL("Senha ou email invalidos!", HttpStatus.UNAUTHORIZED);
+	INVALID_PASSWORD_OR_EMAIL("Senha ou email invalidos!", HttpStatus.UNAUTHORIZED),
+	EMAIL_NOT_VERIFIED("O e-mail do usuário ainda não foi verificado.", HttpStatus.UNAUTHORIZED),
+	COMPANY_HAS_NOT_YET_BEEN_APPROVED("A empresa ainda está aguardando aprovação.", HttpStatus.UNAUTHORIZED);
+
 
 	
 	private final String message;

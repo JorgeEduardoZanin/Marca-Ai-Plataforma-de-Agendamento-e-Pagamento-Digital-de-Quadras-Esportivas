@@ -43,8 +43,12 @@ public class UserController {
 	*/
 	@PostMapping
 	public ResponseEntity<Map<String, String>> createUser( @Valid @RequestBody CreateUserCrudRequest createUserCrudRequest){
-		userCrudUseCase.createUser(UserMapper.userRequestToUserDomain(createUserCrudRequest), AddressMapper.createUserCrudRequestToAdressDomain(createUserCrudRequest));
-		return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message:", " Usuário criado com sucesso."));
+		var response = userCrudUseCase.createUser(UserMapper.userRequestToUserDomain(createUserCrudRequest), AddressMapper.createUserCrudRequestToAdressDomain(createUserCrudRequest));
+		return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(
+				"message:",
+				" Usuário criado com sucesso! Um código de verificação foi enviado para o seu e-mail. O login será liberado após a confirmação da conta.",
+				"email: ",
+				response));
 		
 	}
 	/*

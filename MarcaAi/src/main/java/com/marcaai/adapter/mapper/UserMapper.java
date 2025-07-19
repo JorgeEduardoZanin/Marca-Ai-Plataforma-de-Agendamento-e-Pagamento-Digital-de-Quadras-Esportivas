@@ -7,6 +7,7 @@ import com.marcaai.adapter.dto.request.usercrud.UpdateUserCrudRequest;
 import com.marcaai.adapter.dto.response.usercrud.UserCrudResponse;
 import com.marcaai.adapter.out.database.entity.AddressEntity;
 import com.marcaai.adapter.out.database.entity.UserEntity;
+import com.marcaai.adapter.out.database.entity.UserPermissionsEntity;
 import com.marcaai.core.domain.Address;
 import com.marcaai.core.domain.User;
 
@@ -44,6 +45,11 @@ public class UserMapper {
 	
 	public static UserEntity userDomainToUserEntity(User userDomain) {
 		
+		UserPermissionsEntity userPermissionsEntity = new UserPermissionsEntity(
+				userDomain.getUserPermissions().getSendigCodeIn(),
+				false,
+				userDomain.getUserPermissions().getEmailVerificationCode());
+		
 		var newAdressEntity = new AddressEntity();
 		newAdressEntity.setId(userDomain.getAddress().getId());
 		
@@ -59,6 +65,7 @@ public class UserMapper {
 		userEntity.setAddressEntity(newAdressEntity);
 		userEntity.setId(userDomain.getId() != null ? userDomain.getId() : null);
 		userEntity.setRoles(userDomain.getRoles() != null ? RoleMapper.RoleDomainToSetRoleEntityUser(userDomain) : null);
+		userEntity.setUserPermissionsEntity(userPermissionsEntity);
 		
 		return userEntity;
 	}

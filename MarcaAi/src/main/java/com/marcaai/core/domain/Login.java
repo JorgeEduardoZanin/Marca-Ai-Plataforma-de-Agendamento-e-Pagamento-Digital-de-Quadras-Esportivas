@@ -82,4 +82,10 @@ public class Login {
 	public boolean isLoginCorrect(PasswordEncoder passwordEncoder, Login login) {
         return passwordEncoder.matches(login.getPassword(), this.password);
     }
+
+	@Override
+	public String toString() {
+		return "Login [id=" + id + ", email=" + email + ", password=" + password + ", roles=" + roles + ", token="
+				+ token + ", expireIn=" + expireIn + ", partialApproved=" + partialApproved + "]";
+	}
 }

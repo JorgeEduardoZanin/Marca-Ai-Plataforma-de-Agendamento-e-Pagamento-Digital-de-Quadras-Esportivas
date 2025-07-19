@@ -24,6 +24,8 @@ public class User {
 	
 	private LocalDateTime creation_date;
 	
+	private UserPermissions userPermissions;
+	
 	private Set<Role> roles;
 
 	private Address Address;
@@ -118,6 +120,14 @@ public class User {
 
 	public void setAddress(Address address) {
 		Address = address;
+	}
+
+	public UserPermissions getUserPermissions() {
+		return userPermissions;
+	}
+
+	public void setUserPermissions(UserPermissions userPermissions) {
+		this.userPermissions = userPermissions;
 	}
 
 	@Override

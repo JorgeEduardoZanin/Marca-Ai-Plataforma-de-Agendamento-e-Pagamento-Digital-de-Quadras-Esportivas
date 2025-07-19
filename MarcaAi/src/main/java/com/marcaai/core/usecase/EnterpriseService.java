@@ -1,5 +1,6 @@
 package com.marcaai.core.usecase;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -11,6 +12,7 @@ import com.marcaai.core.domain.Address;
 import com.marcaai.core.domain.CompanyOwner;
 import com.marcaai.core.domain.Enterprise;
 import com.marcaai.core.domain.Role;
+import com.marcaai.core.domain.UserPermissions;
 import com.marcaai.core.domain.group.CnpjGrouping;
 import com.marcaai.core.domain.group.EnterpriseDomainGrouping;
 import com.marcaai.core.domain.group.EnterprisePaginationDomainGrouping;
@@ -21,6 +23,7 @@ import com.marcaai.core.port.in.CompanyOwnerUseCase;
 import com.marcaai.core.port.in.EnterpriseUseCase;
 import com.marcaai.core.port.out.external.CheckCnpjRepository;
 import com.marcaai.core.port.out.internal.EnterpriseRepository;
+import com.marcaai.core.usecase.utils.RandomNumber;
 import com.marcaai.core.usecase.utils.ValidateId;
 
 public class EnterpriseService implements EnterpriseUseCase {
@@ -31,17 +34,20 @@ public class EnterpriseService implements EnterpriseUseCase {
 	private final EnterpriseRepository enterpriseRepository;
 	private final BCryptPasswordEncoder passwordEncoder;
 	private final CheckCnpjRepository checkCnpjRepository;
+	private final EmailService emailService;
 
 	public EnterpriseService(CompanyOwnerUseCase companyOwnerUseCase, AddressService addressService,
 			RoleService roleService, EnterpriseRepository enterpriseRepository, BCryptPasswordEncoder passwordEncoder,
-			CheckCnpjRepository checkCnpjRepository) {
+			CheckCnpjRepository checkCnpjRepository, EmailService emailService) {
 		this.companyOwnerUseCase = companyOwnerUseCase;
 		this.addressService = addressService;
 		this.roleService = roleService;
 		this.enterpriseRepository = enterpriseRepository;
 		this.passwordEncoder = passwordEncoder;
 		this.checkCnpjRepository = checkCnpjRepository;
+		this.emailService = emailService;
 	}
+
 
 	@Override
 	@CacheEvict(cacheNames = "enterprises", allEntries = true)
@@ -63,6 +69,11 @@ public class EnterpriseService implements EnterpriseUseCase {
 		enterprise.setRoles(Set.of(role));
 		enterprise.setAddress(newAddress);
 		enterprise.setCompanyOwner(newCompanyOwner);
+		
+		var randomNumberVerification = Integer.toString(RandomNumber.sixDigitRandomNumber());
+		emailService.sendEmailVerification(enterprise.getEmail(), randomNumberVerification);
+		UserPermissions userPermissions = new UserPermissions(LocalDateTime.now().plusSeconds(5), false, randomNumberVerification);
+		enterprise.setUserPermissions(userPermissions);
 		
 		enterpriseRepository.create(enterprise);
 		
