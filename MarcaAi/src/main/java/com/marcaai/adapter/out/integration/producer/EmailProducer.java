@@ -6,7 +6,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.marcaai.adapter.out.integration.dto.request.VerificationMail;
+import com.marcaai.adapter.out.integration.dto.request.VerificationEmail;
 import com.marcaai.core.port.out.external.EmailRepository;
 
 
@@ -33,7 +33,8 @@ public class EmailProducer implements EmailRepository{
 
 	@Override
 	public void sendEmailVerification(String to, String code) {
-		var request = new VerificationMail(to, code);
+		var request = new VerificationEmail(to, code);
+		
 		rabbitTemplate.convertAndSend(directExchange, emailRoutingKey, request);
 		logger.info("Exchange: "+directExchange+" RoutingKey: "+emailRoutingKey+ " Request: "+request);
 	}
