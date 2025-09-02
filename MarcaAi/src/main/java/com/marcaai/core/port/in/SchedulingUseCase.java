@@ -9,21 +9,21 @@ import com.marcaai.core.domain.Schedulling;
 
 public interface SchedulingUseCase {
 
-	Set<Schedulling> create(Set<Schedulling> schedullings, Long footballCourtId, UUID enterpriseId);
+	Set<Schedulling> create(Set<Schedulling> schedullings, long footballCourtId, UUID enterpriseId);
 	
-	Schedulling findById(Long id, Long footballCourtId, UUID enterpriseId);
+	Schedulling findById(long id, long footballCourtId, UUID enterpriseId);
 	
-	Set<Schedulling> findAllByFootballCourtAndDay(Long footballCourtId, LocalDate date, UUID enterpriseId);
+	Set<Schedulling> findAllByFootballCourtAndDay(long footballCourtId, LocalDate date, UUID enterpriseId);
 	
-	Schedulling update(Schedulling schedulling, Long id);
+	Schedulling update(Schedulling schedulling, long id);
 	
-	void deleteById(Long id, UUID enterpriseId, Long footballCourtId);
+	void deleteById(long id, UUID enterpriseId, long footballCourtId);
 	
-	void deleteAllByFootballCourt(Long footballCourtId, UUID enterpriseId);
+	void deleteAllByFootballCourt(long footballCourtId, UUID enterpriseId);
 	
-	void deleteAllByFootballCourtAndDate(Long footballCourtId, LocalDate date, UUID enterpriseId);
+	void deleteAllByFootballCourtAndDate(long footballCourtId, LocalDate date, UUID enterpriseId);
 	
 	List<Schedulling> findAllByIds(List<Long> schedulingsId);
 	
-	void updateReservationsAndOrders(Long orderId, List<Long> ids);
+	void updateReservationsAndOrders(long orderId, List<Long> ids);
 }

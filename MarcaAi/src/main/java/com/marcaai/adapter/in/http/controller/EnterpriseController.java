@@ -2,6 +2,8 @@ package com.marcaai.adapter.in.http.controller;
 
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -69,13 +71,30 @@ public class EnterpriseController {
 	}
 	
 	@GetMapping("/find-all")
-	public ResponseEntity<EnterprisePaginationGroupResponse> findAllPaginated(@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize){
-		
-		var enterprise = enterpriseUseCase.findAllPaginated(pageSize, pageSize);
-		
-		return ResponseEntity.ok(new EnterprisePaginationGroupResponse(EnterpriseMapper.enterpriseDomainListToEnterpriseSummaryResponseList(
-				enterprise.enterpriseList()), pageSize, page, enterprise.totalElements(), enterprise.totalPages()));
+	public ResponseEntity<EnterprisePaginationGroupResponse> findAllPaginated(
+	        @RequestParam(value = "page", defaultValue = "0") int page,
+	        @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+
+	    try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+	     
+	        var future = executor.submit(() -> enterpriseUseCase.findAllPaginated(pageSize, pageSize));
+
+	        var enterprise = future.get();
+
+	        return ResponseEntity.ok(
+	            new EnterprisePaginationGroupResponse(
+	                EnterpriseMapper.enterpriseDomainListToEnterpriseSummaryResponseList(enterprise.enterpriseList()),
+	                pageSize,
+	                page,
+	                enterprise.totalElements(),
+	                enterprise.totalPages()
+	            )
+	        );
+	    } catch (InterruptedException | ExecutionException e) {
+	     
+	        Thread.currentThread().interrupt();
+	        return ResponseEntity.status(500).build();
+	    }
 	}
 	/*
 	-

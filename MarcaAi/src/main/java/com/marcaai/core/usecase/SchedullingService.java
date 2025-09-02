@@ -30,7 +30,7 @@ public class SchedullingService implements SchedulingUseCase {
 	}
 
 	@Override
-	public Set<Schedulling> create(Set<Schedulling> schedullings, Long footballCourtId, UUID enterpriseId) {
+	public Set<Schedulling> create(Set<Schedulling> schedullings, long footballCourtId, UUID enterpriseId) {
 		
 		if(schedullings.isEmpty()) {
 			throw new SchedulingException(ExceptionSchedulingType.REQUIRE_AT_LEAST_ONE_SCHEDULE , null);
@@ -89,14 +89,14 @@ public class SchedullingService implements SchedulingUseCase {
 	}
 
 	@Override
-	public Schedulling findById(Long id, Long footballCourtId, UUID enterpriseId) {
+	public Schedulling findById(long id, long footballCourtId, UUID enterpriseId) {
 		validateSchedulingOwnership(footballCourtId, id);
 		footballCourtService.validateEnterpriseOwnership(footballCourtId, enterpriseId);
 		return schedullingRepository.findById(id);
 	}
 
 	@Override
-	public Set<Schedulling> findAllByFootballCourtAndDay(Long footballCourtId, LocalDate date, UUID enterpriseId) {
+	public Set<Schedulling> findAllByFootballCourtAndDay(long footballCourtId, LocalDate date, UUID enterpriseId) {
 
 		footballCourtService.validateEnterpriseOwnership(footballCourtId, enterpriseId);
 		
@@ -109,7 +109,7 @@ public class SchedullingService implements SchedulingUseCase {
 	}
 
 	@Override
-	public Schedulling update(Schedulling schedulling, Long id) {
+	public Schedulling update(Schedulling schedulling, long id) {
 		
 		
 		ValidateId.validateLongId(id);
@@ -120,7 +120,7 @@ public class SchedullingService implements SchedulingUseCase {
 	}
 
 	@Override
-	public void deleteById(Long id, UUID enterpriseId, Long footballCourtId) {
+	public void deleteById(long id, UUID enterpriseId, long footballCourtId) {
 		footballCourtService.validateEnterpriseOwnership(footballCourtId, enterpriseId);
 		ValidateId.validateLongId(id);
 		validateSchedulingOwnership(footballCourtId, id);
@@ -130,14 +130,14 @@ public class SchedullingService implements SchedulingUseCase {
 	}
 
 	@Override
-	public void deleteAllByFootballCourt(Long footballCourtId, UUID enterpriseId) {
+	public void deleteAllByFootballCourt(long footballCourtId, UUID enterpriseId) {
 		footballCourtService.validateEnterpriseOwnership(footballCourtId, enterpriseId);
 		ValidateId.validateLongId(footballCourtId);
 		schedullingRepository.deleteAllByFootballCourt(footballCourtId);
 	}
 
 	@Override
-	public void deleteAllByFootballCourtAndDate(Long footballCourtId, LocalDate date, UUID enterpriseId) {
+	public void deleteAllByFootballCourtAndDate(long footballCourtId, LocalDate date, UUID enterpriseId) {
 		footballCourtService.validateEnterpriseOwnership(footballCourtId, enterpriseId);
 		
 		ValidateId.validateLongId(footballCourtId);
@@ -151,7 +151,7 @@ public class SchedullingService implements SchedulingUseCase {
 		return schedullingRepository.findAllByIds(schedulingsId);
 	}
 	
-	public void updateReservationsAndOrders(Long orderId, List<Long> ids){
+	public void updateReservationsAndOrders(long orderId, List<Long> ids){
 		schedullingRepository.updateReservationsAndOrders(orderId, ids);
 	}
 	
@@ -196,7 +196,9 @@ public class SchedullingService implements SchedulingUseCase {
 		if(!overlappingSchedules.isEmpty()){
 			throw new SchedulingException(ExceptionSchedulingType.SCHEDULING_CONFLICT, overlappingSchedules);
 		}
-	} 
+	}
+
+	
 	
 
 }

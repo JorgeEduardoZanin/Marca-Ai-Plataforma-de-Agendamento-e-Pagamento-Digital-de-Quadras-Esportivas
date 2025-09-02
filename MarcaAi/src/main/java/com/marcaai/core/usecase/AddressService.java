@@ -12,7 +12,7 @@ public class AddressService {
 	}
 
 	public Long createAddress(Address address) {
-		
+		address.setCEP(address.getCEP().replaceAll("[^\\d]", ""));
 		return addressRepository.createAddress(address);
 	}
 	

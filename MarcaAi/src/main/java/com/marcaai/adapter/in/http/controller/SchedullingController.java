@@ -22,6 +22,8 @@ import com.marcaai.adapter.dto.response.schedulling.SchedullingResponse;
 import com.marcaai.adapter.mapper.SchedullingMapper;
 import com.marcaai.core.port.in.SchedulingUseCase;
 
+import jakarta.validation.constraints.NotNull;
+
 @RestController
 @RequestMapping("/football-court/{footballCourtId}/scheduling")
 public class SchedullingController {
@@ -40,7 +42,7 @@ public class SchedullingController {
 	-
 	*/
 	@PostMapping
-	public ResponseEntity<Set<SchedullingResponse>> create (@PathVariable Long footballCourtId, @RequestBody List<SchedullingRequest> schedullings, JwtAuthenticationToken token){
+	public ResponseEntity<Set<SchedullingResponse>> create (@PathVariable long footballCourtId, @RequestBody List<SchedullingRequest> schedullings, JwtAuthenticationToken token){
 		var schedullingsDomain = schedulingUseCase.create(SchedullingMapper.listSchedullingsRequestToSetListSchedullingsDomain(schedullings), footballCourtId, UUID.fromString(token.getName()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(SchedullingMapper.listSchedullingDomainToListSchedullingResponse(schedullingsDomain));
 	}
@@ -53,13 +55,13 @@ public class SchedullingController {
 	-
 	*/
 	@GetMapping("/{id}")
-	public ResponseEntity<SchedullingResponse> findById(@PathVariable Long id, @PathVariable Long footballCourtId, JwtAuthenticationToken token){
+	public ResponseEntity<SchedullingResponse> findById(@PathVariable long id, @PathVariable long footballCourtId, JwtAuthenticationToken token){
 		var domain = schedulingUseCase.findById(id, footballCourtId, UUID.fromString(token.getName()));
 		return ResponseEntity.ok(SchedullingMapper.schedulingDomainToSchedulingResponse(domain));
 	}
 	
 	@GetMapping
-	public ResponseEntity<Set<SchedullingResponse>> listAllByFootballCourtAndDay(@PathVariable Long footballCourtId, @RequestBody LocalDate date, JwtAuthenticationToken token){
+	public ResponseEntity<Set<SchedullingResponse>> listAllByFootballCourtAndDay(@PathVariable long footballCourtId, @RequestBody LocalDate date, JwtAuthenticationToken token){
 		var domainList = schedulingUseCase.findAllByFootballCourtAndDay(footballCourtId, date, UUID.fromString(token.getName()));
 		
 		return ResponseEntity.ok(SchedullingMapper.listSchedullingDomainToListSchedullingResponse(domainList));
@@ -74,7 +76,7 @@ public class SchedullingController {
 	-
 	*/
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Map<String, String>> deleteById(@PathVariable Long id, @PathVariable Long footballCourtId, JwtAuthenticationToken token){
+	public ResponseEntity<Map<String, String>> deleteById(@PathVariable long id, @PathVariable long footballCourtId, JwtAuthenticationToken token){
 		schedulingUseCase.deleteById(id, UUID.fromString(token.getName()), footballCourtId);
 		
 		return ResponseEntity.ok(Map.of("message", "Agendamento deletado com sucesso!"));
@@ -82,7 +84,7 @@ public class SchedullingController {
 	}
 	
 	@DeleteMapping("/delete-all-by-footballcourt")
-	public ResponseEntity<Map<String, String>> deleteAllByFootballCourt(@PathVariable Long footballCourtId, JwtAuthenticationToken token){
+	public ResponseEntity<Map<String, String>> deleteAllByFootballCourt(@PathVariable long footballCourtId, JwtAuthenticationToken token){
 	
 		schedulingUseCase.deleteAllByFootballCourt(footballCourtId, UUID.fromString(token.getName()));
 		
@@ -90,7 +92,7 @@ public class SchedullingController {
 	}
 	
 	@DeleteMapping("/delete-all-by-football-court-and-date")
-	public ResponseEntity<Map<String, String>> deleteAllByFootballCourtAndDate(@PathVariable Long footballCourtId, @RequestBody LocalDate date, JwtAuthenticationToken token){
+	public ResponseEntity<Map<String, String>> deleteAllByFootballCourtAndDate(@PathVariable long footballCourtId, @RequestBody LocalDate date, JwtAuthenticationToken token){
 		
 		schedulingUseCase.deleteAllByFootballCourtAndDate(footballCourtId, date, UUID.fromString(token.getName()));
 		

@@ -25,6 +25,7 @@ public class FootballCourtService implements FootballCourtUseCase{
 
 	@Override
 	public FootballCourt create(FootballCourt footballCourt, UUID enterpriseId) {
+		System.out.println(enterpriseId);
 		ValidateId.validateUUIDId(enterpriseId);
 		
 		var enterprise = enterpriseUseCase.findById(enterpriseId);

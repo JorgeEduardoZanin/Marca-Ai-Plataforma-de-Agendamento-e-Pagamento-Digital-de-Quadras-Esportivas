@@ -18,6 +18,8 @@
             <entry path="C:\Program Files\Java\jre-1.8\lib\endorsed"/>
         </endorsedDirs>
     </libraryInfo>
+    <libraryInfo home="C:\Program Files\Java\jdk-24" version="24.0.2"/>
+    <libraryInfo home="C:\Program Files\Java\graalvm-jdk-24.0.2+11.1" version="24.0.2"/>
     <libraryInfo home="C:\Users\jorge\OneDrive\Desktop\sts-4.29.1.RELEASE\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.6.v20250130-0529" version="21.0.6">
         <bootpath>
             <entry path="null"/>

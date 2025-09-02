@@ -1,9 +1,15 @@
 package com.marcaai.core.domain;
 
+import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
-public class Enterprise{
+public class Enterprise implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private UUID id;
 	

@@ -16,6 +16,7 @@ public class CompanyOwnerService implements CompanyOwnerUseCase{
 	
 	@Override
 	public UUID create(CompanyOwner companyOwner) {
+		companyOwner.setCpf(companyOwner.getCpf().replaceAll("[^\\d]", ""));
 		return companyOwnerRepository.create(companyOwner);
 	}
 

@@ -76,31 +76,31 @@ public class LoginService implements LoginUseCase {
 
 	@Override
 	public Login enterpriseLogin(Login login) {
-		var enterpriseLoign = loginRepository.findByEnterpriseEmail(login.getEmail());
+		var enterpriseLogin = loginRepository.findByEnterpriseEmail(login.getEmail());
 		
-		 if (!enterpriseLoign.login().isLoginCorrect(passwordEncoder, login)) {
+		 if (!enterpriseLogin.login().isLoginCorrect(passwordEncoder, login)) {
 	            throw new LoginException(ExceptionLoginType.INVALID_PASSWORD_OR_EMAIL);
 	        }
 		 
-		 if(enterpriseLoign.userPermissions().getEmailVerified() == false) {
+		 if(enterpriseLogin.userPermissions().getEmailVerified() == false) {
 			 throw new LoginException(ExceptionLoginType.EMAIL_NOT_VERIFIED);
 		 }
 		 
-		 if(enterpriseLoign.login().isPartialApproved() == false) {
+		 if(enterpriseLogin.login().isPartialApproved() == false) {
 			 throw new LoginException(ExceptionLoginType.COMPANY_HAS_NOT_YET_BEEN_APPROVED);
 		 }
 
 	        var now = Instant.now();
-	        var expiresIn = 300L;
+	        var expiresIn = 30000L;
 
-	        var scopes = enterpriseLoign.login().getRoles()
+	        var scopes = enterpriseLogin.login().getRoles()
 	                .stream()
 	                .map(Role::getName)
 	                .collect(Collectors.joining(" "));
-
+	      
 	        var claims = JwtClaimsSet.builder()
 	                .issuer("mybackend")
-	                .subject(enterpriseLoign.login().toString())
+	                .subject(enterpriseLogin.login().getId().toString())
 	                .issuedAt(now)
 	                .expiresAt(now.plusSeconds(expiresIn))
 	                .claim("scope", scopes)

@@ -68,7 +68,7 @@ public class EnterpriseAdapter implements EnterpriseRepository{
 	@Override
 	public EnterprisePaginationDomainGrouping findAllPaginated(int size, int pageSize) {
 		var enterpriseList = enterpriseDatabaseRepository.findAllPaginated(PageRequest.of(size, pageSize, Sort.Direction.ASC, "fantasyName"));
-		
+		System.out.println("🔍 [MISS] Indo ao banco de dados!");
 		return new EnterprisePaginationDomainGrouping(EnterpriseMapper.enterpriseRepositoryDatabaseResponseListToEnterpriseDomainList(enterpriseList),
 				enterpriseList.getTotalElements(),
 				enterpriseList.getTotalPages());
