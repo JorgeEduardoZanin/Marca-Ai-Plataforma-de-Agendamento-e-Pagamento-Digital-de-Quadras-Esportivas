@@ -2,6 +2,7 @@ package com.marcaai.core.usecase;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
@@ -68,14 +69,23 @@ public class SchedullingService implements SchedulingUseCase {
 			validateNoOverlapWithDatabaseSchedules(databaseSchedullingsList, schedullingsList, overlappingSchedules);
 		}
 		
+		StringBuilder stringBuilder = new StringBuilder();
 		for(Schedulling sched : schedullingsList) {
 			for (DayOfWeek closedDays : footballCourt.getClosedDay()) {
-				if(sched.getStartTime().getDayOfWeek() == closedDays) {
-					throw new SchedulingException(ExceptionSchedulingType.CANNOT_SCHEDULE_ON_CLOSED_DAY, null);
+				System.out.println(closedDays);
+				if(sched.getStartTime().atZone(ZoneId.of("America/Sao_Paulo")).getDayOfWeek() == closedDays) {
+					stringBuilder.append(sched.getStartTime()).append(" esta agendado para o dia da semana ").append(closedDays)
+					.append(" o qual esta fechado.");
+					overlappingSchedules.add(stringBuilder.toString());
+					stringBuilder.setLength(0);
 				}
 			}
 		}
-
+		
+		if(!overlappingSchedules.isEmpty()) {
+			throw new SchedulingException(ExceptionSchedulingType.CANNOT_SCHEDULE_ON_CLOSED_DAY, overlappingSchedules);
+		}
+		
 		if (schedullingsList.size() > 1) {	
 		validateNoOverlapWithinRequest(schedullingsList, overlappingSchedules);
 		}
@@ -168,12 +178,18 @@ public class SchedullingService implements SchedulingUseCase {
 	
 	public void validateNoOverlapWithDatabaseSchedules(List<Schedulling> databaseSchedullingsList, List<Schedulling> schedullingsList, List<String> overlappingSchedules) {
 		
+		StringBuilder stringBuilder = new StringBuilder();
+		
 		for (Schedulling databaseSchedulling : databaseSchedullingsList) {
 			for (Schedulling newSchedulling : schedullingsList) {
-				if(newSchedulling.getStartTime().isBefore(databaseSchedulling.getEndTime())
-						 && newSchedulling.getEndTime().isAfter(databaseSchedulling.getStartTime())) {
-					overlappingSchedules.add(newSchedulling.getStartTime()+" - "+newSchedulling.getEndTime()+" está em conflito com "
-						 +databaseSchedulling.getStartTime()+" - "+databaseSchedulling.getEndTime());                         
+				if(newSchedulling.getStartTime().isBefore(databaseSchedulling.getEndTime()) && newSchedulling.getEndTime().isAfter(databaseSchedulling.getStartTime())) {
+					
+					stringBuilder.append(newSchedulling.getStartTime()).append(" - ").append(newSchedulling.getEndTime())
+					.append(" está em conflito com ").append(databaseSchedulling.getStartTime()).append(" - ")
+					.append(databaseSchedulling.getEndTime());
+								
+					overlappingSchedules.add(stringBuilder.toString());   
+					stringBuilder.setLength(0);
 				}
 			}
 		}
@@ -186,13 +202,18 @@ public class SchedullingService implements SchedulingUseCase {
 	
 	public void validateNoOverlapWithinRequest(List<Schedulling> schedulingsList, List<String> overlappingSchedules) {
 		
+		StringBuilder stringBuilder = new StringBuilder();
+		List<StringBuilder> list = new ArrayList<>();
 		for(int i = 1;i<schedulingsList.size();i++){
 			if (schedulingsList.get(i - 1).getEndTime().isAfter(schedulingsList.get(i).getStartTime())) {
-				overlappingSchedules.add(schedulingsList.get(i-1).getStartTime()+" - "+ schedulingsList.get(i-1).getEndTime()+" está em conflito com "
-						+schedulingsList.get(i).getStartTime()+" - "+ schedulingsList.get(i).getEndTime());                 
+				stringBuilder.append(schedulingsList.get(i-1).getStartTime()).append(" - ").append(schedulingsList.get(i-1).getEndTime())
+				.append(" está em conflito com ").append(schedulingsList.get(i).getStartTime()).append(" - ")
+				.append(schedulingsList.get(i).getEndTime());
+								
+				overlappingSchedules.add(stringBuilder.toString());
 			}
 		}
-		
+		System.out.println(list);
 		if(!overlappingSchedules.isEmpty()){
 			throw new SchedulingException(ExceptionSchedulingType.SCHEDULING_CONFLICT, overlappingSchedules);
 		}
