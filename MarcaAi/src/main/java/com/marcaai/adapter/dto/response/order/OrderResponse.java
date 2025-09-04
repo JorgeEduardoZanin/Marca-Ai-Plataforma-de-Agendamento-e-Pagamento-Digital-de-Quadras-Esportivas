@@ -12,7 +12,6 @@ public record OrderResponse(
 		Long id,
 		EnterpriseResponse enterpriseResponse,
 		UserCrudResponse userResponse,
-		PaymentMethod paymentMethod,
 		PaymentStatus paymentStatus,
 		BigDecimal value,
 		Optional<String> description) {

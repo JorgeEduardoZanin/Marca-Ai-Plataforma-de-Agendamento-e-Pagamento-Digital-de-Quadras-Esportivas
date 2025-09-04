@@ -37,19 +37,18 @@ public class SchedullingService implements SchedulingUseCase {
 			throw new SchedulingException(ExceptionSchedulingType.REQUIRE_AT_LEAST_ONE_SCHEDULE , null);
 		}
 		
-		
 		List<String> overlappingSchedules = new ArrayList<>();
 		
 		ValidateId.validateLongId(footballCourtId);
 		
 		var footballCourt = footballCourtService.findById(footballCourtId, enterpriseId);
 		
-		schedullings = schedullings.stream()
-		.map(s -> {
+		schedullings.forEach(s -> {
 			s.setFootballCourt(footballCourt);
 			s.setEndTime(s.getStartTime().plusHours(s.getDuration()));
-			return s;
-		})
+		});
+		
+		schedullings = schedullings.stream()
 		.filter(s -> s.getStartTime().isBefore(s.getEndTime()))
 		.sorted(Comparator.comparing(Schedulling::getStartTime))
 		.collect(Collectors.toCollection(LinkedHashSet::new));
@@ -73,9 +72,11 @@ public class SchedullingService implements SchedulingUseCase {
 		for(Schedulling sched : schedullingsList) {
 			for (DayOfWeek closedDays : footballCourt.getClosedDay()) {
 				System.out.println(closedDays);
-				if(sched.getStartTime().atZone(ZoneId.of("America/Sao_Paulo")).getDayOfWeek() == closedDays) {
-					stringBuilder.append(sched.getStartTime()).append(" esta agendado para o dia da semana ").append(closedDays)
-					.append(" o qual esta fechado.");
+				if(sched.getStartTime().getDayOfWeek() == closedDays) {
+					
+					stringBuilder.append(sched.getStartTime()).append(" está agendado para o dia da semana ")
+					.append(closedDays).append(", o qual está fechado.");
+					
 					overlappingSchedules.add(stringBuilder.toString());
 					stringBuilder.setLength(0);
 				}
@@ -220,6 +221,18 @@ public class SchedullingService implements SchedulingUseCase {
 	}
 
 	
-	
+	public void teste (int n) {
+		List<Integer> fibo = new ArrayList<>();
+		fibo.add(0);
+		fibo.add(1);
+		
+		for(int i = 2; i<n;i++) {
+			var  value = fibo.get(i-2) + fibo.get(i-1);
+			fibo.add(value);
+			
+		}
+		System.out.println(fibo);
+		
+	}
 
 }

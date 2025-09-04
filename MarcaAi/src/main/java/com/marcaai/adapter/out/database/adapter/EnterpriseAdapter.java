@@ -50,7 +50,7 @@ public class EnterpriseAdapter implements EnterpriseRepository{
 
 	@Override
 	public EnterpriseDomainGrouping findById(UUID id) {
-		
+		System.out.println(id);
 		var findEnterprise = enterpriseDatabaseRepository.findById(id)
 				.orElseThrow(() -> new EnterpriseException(ExceptionEnterpriseType.ENTERPRISE_NOT_FOUND));
 		

@@ -7,6 +7,6 @@ import com.marcaai.core.domain.Order;
 
 public interface OrderUseCase {
 
-	Order create(List<Long> schedulingsId, Order order, UUID enterpriseId, UUID userId);
+	Order create(List<Long> schedulingsId, UUID enterpriseId, UUID userId);
 	
 }

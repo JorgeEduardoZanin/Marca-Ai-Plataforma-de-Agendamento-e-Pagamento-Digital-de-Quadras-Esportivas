@@ -50,7 +50,6 @@ public class EnterpriseService implements EnterpriseUseCase {
 
 
 	@Override
-	@CacheEvict(cacheNames = "enterprises", allEntries = true)
 	public void create(CompanyOwner companyOwner, Enterprise enterprise, Address address) {
 		
 		enterprise.setCnpj(enterprise.getCnpj().replaceAll("[^\\d]", ""));
@@ -82,7 +81,6 @@ public class EnterpriseService implements EnterpriseUseCase {
 	}
 
 	@Override
-    @CacheEvict(cacheNames = "enterprise", key = "#id")
 	public UpdateEnterpriseDomainGrouping update(Enterprise enterprise, UUID id, Address address) {
 		
 		ValidateId.validateUUIDId(id);
@@ -95,7 +93,6 @@ public class EnterpriseService implements EnterpriseUseCase {
 	}
 	
 	@Override
-    @CacheEvict(cacheNames = "enterprise", key = "#id")
 	public void updatePassword(UUID id, String password) {
 		
 		ValidateId.validateUUIDId(id);
@@ -109,19 +106,15 @@ public class EnterpriseService implements EnterpriseUseCase {
 	}
 
 	@Override
-	@Cacheable(cacheNames = "enterprise")
 	public EnterpriseDomainGrouping findById(UUID id) {
 		
 		ValidateId.validateUUIDId(id);
 		var enterpriseGroup = enterpriseRepository.findById(id);
-		System.out.println("🔍 [MISS] Indo ao banco de dados!");
 		return enterpriseGroup;
 	}
 
 	@Override
-	@Cacheable(cacheNames = "enterprises", sync = true)
 	public EnterprisePaginationDomainGrouping findAllPaginated(int page , int pageSize) {
-		System.out.println("🔍 [MISS] Indo ao banco de dados!");
 		return enterpriseRepository.findAllPaginated(page, pageSize);
 	}
 

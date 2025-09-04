@@ -21,17 +21,14 @@ public class Order {
 	
 	private PaymentStatus status;
 	
-	private PaymentMethod paymentMethod;
-	
 	private LocalDateTime createdAt;
 	
 	private LocalDateTime updateAt;
 	
 	private String description;
 
-	public Order(BigDecimal value, PaymentMethod paymentMethod) {
+	public Order(BigDecimal value) {
 		this.value = value;
-		this.paymentMethod = paymentMethod;
 	}
 
 	public Order() {
@@ -83,14 +80,6 @@ public class Order {
 
 	public void setStatus(PaymentStatus status) {
 		this.status = status;
-	}
-
-	public PaymentMethod getPaymentMethod() {
-		return paymentMethod;
-	}
-
-	public void setPaymentMethod(PaymentMethod paymentMethod) {
-		this.paymentMethod = paymentMethod;
 	}
 
 	public LocalDateTime getCreatedAt() {

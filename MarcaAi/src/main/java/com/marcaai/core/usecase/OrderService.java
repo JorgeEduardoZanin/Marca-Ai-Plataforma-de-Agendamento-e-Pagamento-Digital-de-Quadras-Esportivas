@@ -39,26 +39,28 @@ public class OrderService implements OrderUseCase{
 	}
 
 	@Override
-	public Order create(List<Long> schedulingsId, Order order, UUID enterpriseId, UUID userId) {
+	public Order create(List<Long> schedulingsId, UUID enterpriseId, UUID userId) {
 		
 		ValidateId.validateUUIDId(userId);
 		ValidateId.validateUUIDId(enterpriseId);
 		
-		var enterprise = enterpriseUseCase.findById(userId);
-		var schedulingsDomain = schedulingUseCase.findAllByIds(schedulingsId);
+		var enterprise = enterpriseUseCase.findById(enterpriseId);
+		var schedulingsListDomain = schedulingUseCase.findAllByIds(schedulingsId);
 		var user = userCrudUseCase.getUserById(userId);
 		
-		for (Schedulling scheduling : schedulingsDomain) {
+		Order order = new Order();
+		
+		for (Schedulling scheduling : schedulingsListDomain) {
 			scheduling.setOrder(order);
 		}
 		
-		order.setSchedulings(schedulingsDomain);
+		order.setSchedulings(schedulingsListDomain);
 		order.setEnterprise(enterprise.enterprise());
 		order.setUser(user.user());
 		
 		Set<Long> footballCourtsIds = new HashSet<>();
 		
-		for (Schedulling scheduling : schedulingsDomain) {
+		for (Schedulling scheduling : schedulingsListDomain) {
 			footballCourtsIds.add(scheduling.getFootballCourt().getId());
 		}
 		
@@ -72,8 +74,8 @@ public class OrderService implements OrderUseCase{
 		//filtra se o agendamento esta reservado
 		//usando map pega a chave do id correspondete ao agendamento
 		//pega o valor da chave e soma ao total
-		BigDecimal totalValue = schedulingsDomain.stream()
-			.filter(s -> !s.getReserved())
+		BigDecimal totalValue = schedulingsListDomain.stream()
+			.filter(s -> s.getReserved() == true)
 		    .map(s -> priceMap.get(s.getFootballCourt().getId()))
 		    .filter(Objects::nonNull)
 		    .reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -88,7 +90,7 @@ public class OrderService implements OrderUseCase{
 		
 		Set<Long> schedulingsIds = new HashSet<>();
 		
-		for (Schedulling schedulling: schedulingsDomain) {
+		for (Schedulling schedulling: schedulingsListDomain) {
 			schedulingsIds.add(schedulling.getId());
 		}
 		

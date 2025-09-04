@@ -19,7 +19,7 @@ import com.marcaai.core.port.in.OrderUseCase;
 import com.rabbitmq.client.AMQP.Basic.Return;
 
 @RestController
-@RequestMapping("/enterprise/potato")
+@RequestMapping("/enterprise/{enterpriseId}/orders")
 public class OrderController {
 
 	private final OrderUseCase orderUseCase;
@@ -30,19 +30,13 @@ public class OrderController {
 
 	@PostMapping
 	public ResponseEntity<OrderResponse> create(@PathVariable UUID enterpriseId, @RequestBody OrderRequest order, JwtAuthenticationToken token){
-		System.out.println(UUID.fromString(token.getName()));
-		var orders = orderUseCase.create(order.schedulingsId(),OrderMapper.OrderRequestToOrderDomain(order), enterpriseId, UUID.fromString(token.getName())); 
+		
+		var orders = orderUseCase.create(order.schedulingsId(), enterpriseId, UUID.fromString(token.getName())); 
 		
 		return ResponseEntity.ok(OrderMapper.orderDomainToOrderResponse(orders));
 		
 	}
 	
-	@GetMapping
-	public ResponseEntity<String> rete(JwtAuthenticationToken token){
-	System.out.println(UUID.fromString(token.getName()));
 	
-	return ResponseEntity.ok("teste");
-		
-	}
 	
 }

@@ -50,10 +50,6 @@ public class OrderEntity {
 	@Column(nullable = false, columnDefinition = "VARCHAR(20)")
 	private PaymentStatus status;
 	
-	@Enumerated(EnumType.STRING)
-	@Column(columnDefinition = "VARCHAR(20)")
-	private PaymentMethod paymentMethod;
-	
 	@CreationTimestamp
 	private LocalDateTime createdAt;
 	
@@ -119,14 +115,6 @@ public class OrderEntity {
 
 	public void setStatus(PaymentStatus status) {
 		this.status = status;
-	}
-
-	public PaymentMethod getPaymentMethod() {
-		return paymentMethod;
-	}
-
-	public void setPaymentMethod(PaymentMethod paymentMethod) {
-		this.paymentMethod = paymentMethod;
 	}
 
 	public LocalDateTime getCreatedAt() {
