@@ -6,12 +6,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
-import com.marcaai.adapter.mapper.AddressMapper;
-import com.marcaai.adapter.mapper.CompanyOwnerMapper;
 import com.marcaai.adapter.mapper.EnterpriseMapper;
 import com.marcaai.adapter.out.database.repository.EnterpriseDatabaseRepository;
 import com.marcaai.core.domain.Enterprise;
-import com.marcaai.core.domain.group.EnterpriseDomainGrouping;
 import com.marcaai.core.domain.group.EnterprisePaginationDomainGrouping;
 import com.marcaai.core.exception.EnterpriseException;
 import com.marcaai.core.exception.enums.ExceptionEnterpriseType;
@@ -49,15 +46,13 @@ public class EnterpriseAdapter implements EnterpriseRepository{
 	}
 
 	@Override
-	public EnterpriseDomainGrouping findById(UUID id) {
+	public Enterprise findById(UUID id) {
 		System.out.println(id);
 		var findEnterprise = enterpriseDatabaseRepository.findById(id)
 				.orElseThrow(() -> new EnterpriseException(ExceptionEnterpriseType.ENTERPRISE_NOT_FOUND));
 		
-		return new EnterpriseDomainGrouping(EnterpriseMapper.enterpriseEntityToEnterpriseDomain(findEnterprise),
-				AddressMapper.addressEntityToAdressDomain(findEnterprise.getAddressEntity()),
-				CompanyOwnerMapper.companyOwnerEntityToCompanyOwnerDomain(findEnterprise.getCompany_owner()));
-		
+		return EnterpriseMapper.enterpriseEntityToEnterpriseDomain(findEnterprise);
+	
 	}
 
 	@Override
@@ -68,7 +63,7 @@ public class EnterpriseAdapter implements EnterpriseRepository{
 	@Override
 	public EnterprisePaginationDomainGrouping findAllPaginated(int size, int pageSize) {
 		var enterpriseList = enterpriseDatabaseRepository.findAllPaginated(PageRequest.of(size, pageSize, Sort.Direction.ASC, "fantasyName"));
-		System.out.println("🔍 [MISS] Indo ao banco de dados!");
+		
 		return new EnterprisePaginationDomainGrouping(EnterpriseMapper.enterpriseRepositoryDatabaseResponseListToEnterpriseDomainList(enterpriseList),
 				enterpriseList.getTotalElements(),
 				enterpriseList.getTotalPages());

@@ -9,7 +9,8 @@ public enum ExceptionSchedulingType {
 	  CANNOT_SCHEDULE_ON_CLOSED_DAY("Não é possível agendar em dia em que o campo está fechado", HttpStatus.CONFLICT),
 	  SCHEDULING_CONFLICT("Já existe um agendamento neste horário", HttpStatus.CONFLICT),
 	  REQUIRE_AT_LEAST_ONE_SCHEDULE("É necessário enviar ao menos um horário", HttpStatus.BAD_REQUEST),
-	  UNAUTHORIZED_SCHEDULING_ACCESS("Você só pode acessar seus próprios agendamentos", HttpStatus.FORBIDDEN);
+	  UNAUTHORIZED_SCHEDULING_ACCESS("Você só pode acessar seus próprios agendamentos", HttpStatus.FORBIDDEN),
+	  SELECTED_TIMES_ALREADY_SCHEDULED("Os horários selecionados já foram agendados.", HttpStatus.CONFLICT);
 	
 	private final String message;
 	private final HttpStatus httpStatus;

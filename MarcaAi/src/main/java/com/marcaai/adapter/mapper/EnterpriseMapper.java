@@ -16,6 +16,7 @@ import com.marcaai.adapter.out.database.entity.EnterpriseEntity;
 import com.marcaai.adapter.out.database.entity.UserPermissionsEntity;
 import com.marcaai.core.domain.Address;
 import com.marcaai.core.domain.Enterprise;
+import com.marcaai.core.domain.group.EnterpriseDomainGrouping;
 
 public class EnterpriseMapper {
 	
@@ -88,7 +89,15 @@ public class EnterpriseMapper {
 				enterprise.getStateRegistration());
 		
 		var address = new Address();
-		address.setId(enterprise.getAddressEntity().getId());
+	
+		Optional.ofNullable(enterprise.getAddressEntity())
+		.map(AddressMapper::addressEntityToAdressDomain)
+		.ifPresent(newEnterprise::setAddress);
+		
+		Optional.ofNullable(enterprise.getCompany_owner())
+		.map(CompanyOwnerMapper::companyOwnerEntityToCompanyOwnerDomain)
+		.ifPresent(newEnterprise::setCompanyOwner);
+		
 		newEnterprise.setAddress(address);
 		newEnterprise.setId(enterprise.getId());
 		

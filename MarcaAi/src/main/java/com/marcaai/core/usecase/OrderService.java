@@ -1,6 +1,7 @@
 package com.marcaai.core.usecase;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,8 @@ import java.util.stream.Collectors;
 import com.marcaai.core.domain.FootballCourt;
 import com.marcaai.core.domain.Order;
 import com.marcaai.core.domain.Schedulling;
+import com.marcaai.core.exception.SchedulingException;
+import com.marcaai.core.exception.enums.ExceptionSchedulingType;
 import com.marcaai.core.port.in.EnterpriseUseCase;
 import com.marcaai.core.port.in.FootballCourtUseCase;
 import com.marcaai.core.port.in.OrderUseCase;
@@ -43,12 +46,25 @@ public class OrderService implements OrderUseCase{
 		
 		ValidateId.validateUUIDId(userId);
 		ValidateId.validateUUIDId(enterpriseId);
-		
+		System.out.println("eita peao");
 		var enterprise = enterpriseUseCase.findById(enterpriseId);
 		var schedulingsListDomain = schedulingUseCase.findAllByIds(schedulingsId);
 		var user = userCrudUseCase.getUserById(userId);
-		
+		System.out.println("testando1");
 		Order order = new Order();
+		List<String> reserverHours =  new ArrayList<>();
+		var stringBuilder = new StringBuilder();
+						
+		for (Schedulling schedulling : schedulingsListDomain) {
+			if (schedulling.getReserved()) {
+			    stringBuilder.append("O horário das ").append(schedulling.getStartTime())
+			        .append(" às ").append(schedulling.getEndTime()).append(" já está reservado.");
+			}
+		}
+		
+		if(!reserverHours.isEmpty()) {
+			throw new SchedulingException(ExceptionSchedulingType.SCHEDULING_CONFLICT, reserverHours);
+		}
 		
 		for (Schedulling scheduling : schedulingsListDomain) {
 			scheduling.setOrder(order);
@@ -63,9 +79,9 @@ public class OrderService implements OrderUseCase{
 		for (Schedulling scheduling : schedulingsListDomain) {
 			footballCourtsIds.add(scheduling.getFootballCourt().getId());
 		}
-		
+		System.out.println("testando2");
 		var footballCourts = footballCourtUseCase.findAllByIds(footballCourtsIds);
-		
+		System.out.println("testando3");
 		//joga o id como chave e o preco da quadra como valor
 		Map<Long, BigDecimal> priceMap = footballCourts.stream()
 		    .collect(Collectors.toMap(FootballCourt::getId, FootballCourt::getValue));
@@ -80,22 +96,25 @@ public class OrderService implements OrderUseCase{
 		    .filter(Objects::nonNull)
 		    .reduce(BigDecimal.ZERO, BigDecimal::add);
 		
+		System.out.println(totalValue);
 		order.setValue(totalValue);
 		
 		if(!totalValue.equals(order.getValue())) {
 			System.out.println("erro");
 		}
-		
+		System.out.println("testando4");
 		order = orderRepository.createOrder(order);
-		
+		order.setEnterprise(enterprise.enterprise());
+		order.setUser(user.user());
+		System.out.println("testando5");
 		Set<Long> schedulingsIds = new HashSet<>();
 		
 		for (Schedulling schedulling: schedulingsListDomain) {
 			schedulingsIds.add(schedulling.getId());
 		}
-		
+		System.out.println("testando6");
 		schedulingUseCase.updateReservationsAndOrders(order.getId(), schedulingsId);
-		
+		System.out.println("testando7");
 		return order;
 	}
 

@@ -24,7 +24,7 @@ public class SchedulingExceptionHandle {
 				LocalDateTime.now(),
 				request.getDescription(false));
 	
-		if(!schedulingException.getOverlappingSchedules().isEmpty()) {
+		if(!schedulingException.getOverlappingSchedules().isEmpty() || schedulingException.getOverlappingSchedules() != null) {
 			response.setMessages(schedulingException.getOverlappingSchedules());
 		}
 		

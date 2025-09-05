@@ -947,3 +947,91 @@
 2025-09-04 17:56:13,955 [Worker-39: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
 2025-09-04 17:56:13,986 [Worker-39: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
 2025-09-04 17:56:13,991 [Worker-39: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:00:36,680 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2025-09-04 18:04:10,287 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:04:10,304 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:04:10,312 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:04:46,333 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:04:46,337 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:04:46,374 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:05:12,122 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:05:12,126 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:05:12,130 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:05:30,355 [Worker-10: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:05:30,359 [Worker-10: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:05:30,363 [Worker-10: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:05:41,072 [Worker-7: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:05:41,077 [Worker-7: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:05:41,081 [Worker-7: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:05:50,241 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:05:50,247 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:05:50,252 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:05:51,490 [Worker-10: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:05:51,495 [Worker-10: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:05:51,499 [Worker-10: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:05:57,387 [Worker-11: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:05:57,392 [Worker-11: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:05:57,399 [Worker-11: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:06:05,786 [Worker-2: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:06:05,790 [Worker-2: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:06:05,794 [Worker-2: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:06:14,024 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:06:14,028 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:06:14,032 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:06:24,623 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:06:24,627 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:06:24,631 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:06:28,896 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:06:28,902 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:06:28,907 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:06:32,986 [Worker-7: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:06:32,990 [Worker-7: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:06:32,993 [Worker-7: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:06:41,033 [Worker-2: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:06:41,037 [Worker-2: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:06:41,042 [Worker-2: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:06:46,643 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:06:46,648 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:06:46,652 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:14:16,614 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:14:16,620 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:14:16,623 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:14:58,165 [Worker-7: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:14:58,170 [Worker-7: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:14:58,174 [Worker-7: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:15:32,138 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:15:32,142 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:15:32,146 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:15:34,624 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:15:34,628 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:15:34,631 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:18:24,541 [Worker-7: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:18:24,547 [Worker-7: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:18:24,551 [Worker-7: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:23:11,778 [Worker-14: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:23:11,821 [Worker-14: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:23:11,829 [Worker-14: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:32:56,769 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:32:56,775 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:32:56,779 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:58:45,566 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:58:45,570 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:58:45,583 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:59:08,099 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:59:08,103 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:59:08,107 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 18:59:32,340 [Worker-7: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 18:59:32,344 [Worker-7: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 18:59:32,348 [Worker-7: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 19:00:15,666 [Worker-7: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 19:00:15,670 [Worker-7: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 19:00:15,674 [Worker-7: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 19:01:31,756 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 19:01:31,763 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 19:01:31,766 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 19:03:53,726 [Worker-10: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 19:03:53,730 [Worker-10: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 19:03:53,734 [Worker-10: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources
+2025-09-04 19:04:18,943 [Worker-16: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-09-04 19:04:18,948 [Worker-16: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-09-04 19:04:18,952 [Worker-16: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory F:\temp-spring\Marca-Aí Plataforma de Agendamento e Pagamento Digital de Quadras Esportivas\MarcaAi\MarcaAi\src\test\resources

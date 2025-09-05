@@ -109,8 +109,8 @@ public class EnterpriseService implements EnterpriseUseCase {
 	public EnterpriseDomainGrouping findById(UUID id) {
 		
 		ValidateId.validateUUIDId(id);
-		var enterpriseGroup = enterpriseRepository.findById(id);
-		return enterpriseGroup;
+		var enterprise = enterpriseRepository.findById(id);
+		return new EnterpriseDomainGrouping(enterprise,enterprise.getAddress(), enterprise.getCompanyOwner());
 	}
 
 	@Override

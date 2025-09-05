@@ -8,6 +8,8 @@ public record EnterpriseResponse(
 		String phoneNumber,
 		String stateRegistration,
 		String municipalRegistration
+		
 		) {
+
 
 }

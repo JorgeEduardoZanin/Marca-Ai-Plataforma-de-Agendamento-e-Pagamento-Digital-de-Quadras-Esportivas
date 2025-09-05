@@ -32,8 +32,7 @@ public class OrderMapper {
 			
 		var orderDomain = new Order();
 		orderDomain.setId(orderEntity.getId());
-		orderDomain.setEnterprise(EnterpriseMapper.enterpriseEntityToEnterpriseDomain(orderEntity.getEnterpriseEntity()));
-		orderDomain.setUser(UserMapper.UserEntityToUserDomain(orderEntity.getUserEntity()));
+	
 		orderDomain.setStatus(orderEntity.getStatus());
 		orderDomain.setValue(orderEntity.getValue().setScale(2, RoundingMode.HALF_UP));
 		Optional.ofNullable(orderEntity.getDescription()).ifPresent(orderDomain::setDescription);

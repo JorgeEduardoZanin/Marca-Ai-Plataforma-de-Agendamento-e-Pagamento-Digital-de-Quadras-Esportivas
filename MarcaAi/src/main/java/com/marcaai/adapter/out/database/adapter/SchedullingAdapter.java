@@ -109,6 +109,11 @@ public class SchedullingAdapter implements SchedullingRepository {
 	@Override
 	public List<Schedulling> findAllByIds(List<Long> schedulingsId) {
 		var schedulingsEntity = schedullingDatabaseRepository.findAllByIdInAndReservedFalse(schedulingsId);
+		System.out.println(schedulingsEntity);
+		if(schedulingsEntity.isEmpty()) {
+			throw new SchedulingException(ExceptionSchedulingType.SELECTED_TIMES_ALREADY_SCHEDULED, null);
+		}
+		
 		return SchedullingMapper.listSchedullingEntityToListSchedullingDomain(schedulingsEntity);
 	}
 

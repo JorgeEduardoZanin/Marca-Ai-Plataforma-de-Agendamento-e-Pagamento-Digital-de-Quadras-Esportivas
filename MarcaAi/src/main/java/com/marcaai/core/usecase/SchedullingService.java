@@ -169,9 +169,9 @@ public class SchedullingService implements SchedulingUseCase {
 	
 	public void validateSchedulingOwnership(Long footballCourtId, Long id) {
 		
-		Long schedulingDatabaseId = schedullingRepository.findFootballCourtByScheduleId(id);
+		Long footballCourtByScheduleId = schedullingRepository.findFootballCourtByScheduleId(id);
 		
-		if(!schedulingDatabaseId.equals(footballCourtId)) {
+		if(!footballCourtByScheduleId.equals(footballCourtId)) {
 			throw new SchedulingException(ExceptionSchedulingType.UNAUTHORIZED_SCHEDULING_ACCESS, null);
 		}
 		
@@ -220,19 +220,6 @@ public class SchedullingService implements SchedulingUseCase {
 		}
 	}
 
-	
-	public void teste (int n) {
-		List<Integer> fibo = new ArrayList<>();
-		fibo.add(0);
-		fibo.add(1);
-		
-		for(int i = 2; i<n;i++) {
-			var  value = fibo.get(i-2) + fibo.get(i-1);
-			fibo.add(value);
-			
-		}
-		System.out.println(fibo);
-		
-	}
+
 
 }
