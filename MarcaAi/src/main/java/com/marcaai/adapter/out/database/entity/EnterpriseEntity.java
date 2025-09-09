@@ -206,4 +206,14 @@ public class EnterpriseEntity {
 		this.userPermissionsEntity = userPermissionsEntity;
 	}
 
+	@Override
+	public String toString() {
+		return "EnterpriseEntity [id=" + id + ", corporateReason=" + corporateReason + ", fantasyName=" + fantasyName
+				+ ", cnpj=" + cnpj + ", email=" + email + ", password=" + password + ", phoneNumber=" + phoneNumber
+				+ ", stateRegistration=" + stateRegistration + ", municipalRegistration=" + municipalRegistration
+				+ ", fullyApproved=" + fullyApproved + ", partialApproved=" + partialApproved + ", roles=" + roles
+				+ ", company_owner=" + company_owner + ", addressEntity=" + addressEntity + ", userPermissionsEntity="
+				+ userPermissionsEntity + "]";
+	}
+
 }

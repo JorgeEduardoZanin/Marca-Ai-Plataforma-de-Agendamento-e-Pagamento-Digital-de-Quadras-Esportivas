@@ -106,6 +106,13 @@ public class Order {
 		this.description = description;
 	}
 
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", schedulings=" + schedulings + ", enterprise=" + enterprise + ", user=" + user
+				+ ", value=" + value + ", status=" + status + ", createdAt=" + createdAt + ", updateAt=" + updateAt
+				+ ", description=" + description + "]";
+	}
+
 
 	
 }

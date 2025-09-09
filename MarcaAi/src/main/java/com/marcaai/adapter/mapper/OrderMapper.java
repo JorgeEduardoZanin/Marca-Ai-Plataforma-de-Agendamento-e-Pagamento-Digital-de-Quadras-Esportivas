@@ -1,14 +1,21 @@
 package com.marcaai.adapter.mapper;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 
 import com.marcaai.adapter.dto.request.order.OrderRequest;
-import com.marcaai.adapter.dto.response.order.OrderResponse;
+import com.marcaai.adapter.dto.response.order.CreateOrderResponse;
+import com.marcaai.adapter.dto.response.schedulling.SchedullingResponse;
 import com.marcaai.adapter.out.database.entity.EnterpriseEntity;
 import com.marcaai.adapter.out.database.entity.OrderEntity;
 import com.marcaai.adapter.out.database.entity.UserEntity;
 import com.marcaai.core.domain.Order;
+import com.marcaai.core.domain.Schedulling;
 import com.marcaai.core.domain.enums.PaymentStatus;
 
 public class OrderMapper {
@@ -32,6 +39,7 @@ public class OrderMapper {
 			
 		var orderDomain = new Order();
 		orderDomain.setId(orderEntity.getId());
+		orderDomain.setCreatedAt(orderEntity.getCreatedAt());
 	
 		orderDomain.setStatus(orderEntity.getStatus());
 		orderDomain.setValue(orderEntity.getValue().setScale(2, RoundingMode.HALF_UP));
@@ -40,16 +48,24 @@ public class OrderMapper {
 		return orderDomain;
 	}
 	
-	public static OrderResponse orderDomainToOrderResponse(Order order) {
-		return new OrderResponse(
+	public static CreateOrderResponse orderDomainToOrderResponse(Order order) {
+		
+		Set<Schedulling> schedulingResponse = new HashSet<>(order.getSchedulings());
+		return new CreateOrderResponse(
+				order.getEnterprise().getFantasyName(),
+				order.getEnterprise().getPhoneNumber(),
+				order.getEnterprise().getId(),
+				order.getEnterprise().getAddress().getAdress(),
+				order.getEnterprise().getAddress().getAdress_number(),
+				order.getEnterprise().getAddress().getCity(),
+				order.getUser().getName(),
 				order.getId(),
-				EnterpriseMapper.enterpriseDomainToEnterpriseResponse(order.getEnterprise()),
-				UserMapper.UserCrudToUserCrudResponse(order.getUser()),
-
+				order.getCreatedAt(),
 				order.getStatus(),
 				order.getValue(),
-				null);
+				Optional.ofNullable(order.getDescription()),
+				SchedullingMapper.listSchedullingDomainToListSchedullingResponse(schedulingResponse));
 		
 	}
-	
+
 }	

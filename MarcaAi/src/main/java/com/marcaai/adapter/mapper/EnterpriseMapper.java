@@ -87,8 +87,6 @@ public class EnterpriseMapper {
 				null,
 				enterprise.getPhoneNumber(),
 				enterprise.getStateRegistration());
-		
-		var address = new Address();
 	
 		Optional.ofNullable(enterprise.getAddressEntity())
 		.map(AddressMapper::addressEntityToAdressDomain)
@@ -97,8 +95,7 @@ public class EnterpriseMapper {
 		Optional.ofNullable(enterprise.getCompany_owner())
 		.map(CompanyOwnerMapper::companyOwnerEntityToCompanyOwnerDomain)
 		.ifPresent(newEnterprise::setCompanyOwner);
-		
-		newEnterprise.setAddress(address);
+	
 		newEnterprise.setId(enterprise.getId());
 		
 		newEnterprise.getMunicipalRegistration();

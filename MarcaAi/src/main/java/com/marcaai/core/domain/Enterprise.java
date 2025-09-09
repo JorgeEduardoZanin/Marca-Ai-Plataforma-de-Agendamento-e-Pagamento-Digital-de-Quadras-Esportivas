@@ -176,5 +176,15 @@ public class Enterprise implements Serializable{
 	public void setUserPermissions(UserPermissions userPermissions) {
 		this.userPermissions = userPermissions;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Enterprise [id=" + id + ", corporateReason=" + corporateReason + ", fantasyName=" + fantasyName
+				+ ", cnpj=" + cnpj + ", email=" + email + ", password=" + password + ", phoneNumber=" + phoneNumber
+				+ ", stateRegistration=" + stateRegistration + ", municipalRegistration=" + municipalRegistration
+				+ ", fullyApproved=" + fullyApproved + ", partialApproved=" + partialApproved + ", address=" + address
+				+ ", roles=" + roles + ", companyOwner=" + companyOwner + ", userPermissions=" + userPermissions + "]";
+	}
 }
 	

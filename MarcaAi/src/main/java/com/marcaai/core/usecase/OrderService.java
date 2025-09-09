@@ -42,19 +42,19 @@ public class OrderService implements OrderUseCase{
 	}
 
 	@Override
-	public Order create(List<Long> schedulingsId, UUID enterpriseId, UUID userId) {
+	public Order create(List<Long> schedulingsId, UUID enterpriseId, UUID userId, String description) {
 		
 		ValidateId.validateUUIDId(userId);
 		ValidateId.validateUUIDId(enterpriseId);
-		System.out.println("eita peao");
+		
 		var enterprise = enterpriseUseCase.findById(enterpriseId);
 		var schedulingsListDomain = schedulingUseCase.findAllByIds(schedulingsId);
 		var user = userCrudUseCase.getUserById(userId);
-		System.out.println("testando1");
+		System.out.println(enterprise.address());
 		Order order = new Order();
 		List<String> reserverHours =  new ArrayList<>();
 		var stringBuilder = new StringBuilder();
-						
+				System.out.println(schedulingsListDomain);		
 		for (Schedulling schedulling : schedulingsListDomain) {
 			if (schedulling.getReserved()) {
 			    stringBuilder.append("O horário das ").append(schedulling.getStartTime())
@@ -73,15 +73,16 @@ public class OrderService implements OrderUseCase{
 		order.setSchedulings(schedulingsListDomain);
 		order.setEnterprise(enterprise.enterprise());
 		order.setUser(user.user());
+		order.setDescription(description);
 		
 		Set<Long> footballCourtsIds = new HashSet<>();
 		
 		for (Schedulling scheduling : schedulingsListDomain) {
 			footballCourtsIds.add(scheduling.getFootballCourt().getId());
 		}
-		System.out.println("testando2");
+	
 		var footballCourts = footballCourtUseCase.findAllByIds(footballCourtsIds);
-		System.out.println("testando3");
+
 		//joga o id como chave e o preco da quadra como valor
 		Map<Long, BigDecimal> priceMap = footballCourts.stream()
 		    .collect(Collectors.toMap(FootballCourt::getId, FootballCourt::getValue));
@@ -91,30 +92,35 @@ public class OrderService implements OrderUseCase{
 		//usando map pega a chave do id correspondete ao agendamento
 		//pega o valor da chave e soma ao total
 		BigDecimal totalValue = schedulingsListDomain.stream()
-			.filter(s -> s.getReserved() == true)
+			.filter(s -> s.getReserved() == false)
 		    .map(s -> priceMap.get(s.getFootballCourt().getId()))
 		    .filter(Objects::nonNull)
 		    .reduce(BigDecimal.ZERO, BigDecimal::add);
 		
-		System.out.println(totalValue);
+		
 		order.setValue(totalValue);
 		
 		if(!totalValue.equals(order.getValue())) {
 			System.out.println("erro");
 		}
-		System.out.println("testando4");
+
+		
 		order = orderRepository.createOrder(order);
 		order.setEnterprise(enterprise.enterprise());
 		order.setUser(user.user());
-		System.out.println("testando5");
+		
+
 		Set<Long> schedulingsIds = new HashSet<>();
 		
 		for (Schedulling schedulling: schedulingsListDomain) {
 			schedulingsIds.add(schedulling.getId());
 		}
-		System.out.println("testando6");
+		
+		
 		schedulingUseCase.updateReservationsAndOrders(order.getId(), schedulingsId);
-		System.out.println("testando7");
+		order.setSchedulings(schedulingsListDomain);
+		order.getEnterprise().setAddress(enterprise.address());
+	
 		return order;
 	}
 

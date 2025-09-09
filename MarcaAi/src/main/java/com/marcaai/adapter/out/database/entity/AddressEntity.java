@@ -135,6 +135,13 @@ public class AddressEntity {
 				&& Objects.equals(complement, other.complement) && Objects.equals(neighborhood, other.neighborhood)
 				&& Objects.equals(state, other.state);
 	}
+
+	@Override
+	public String toString() {
+		return "AddressEntity [id=" + id + ", state=" + state + ", adress=" + adress + ", adress_number="
+				+ adress_number + ", city=" + city + ", CEP=" + CEP + ", neighborhood=" + neighborhood + ", complement="
+				+ complement + "]";
+	}
 	
 	
 	
